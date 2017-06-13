@@ -34,7 +34,7 @@ func main() {
 	docx1.Replace("<<Speaker3>>", roles.speaker3, -1)
 	docx1.Replace("<<Evaluator4>>", roles.eval4, -1)
 	docx1.Replace("<<Speaker4>>", roles.speaker4, -1)
-	docx1.Replace("<<TableTopicsMaster>>", roles.tableTopicsMaster, -1)
+	docx1.Replace("<<TTMaster>>", roles.tableTopicsMaster, -1)
 	docx1.WriteToFile(date)
 
 	r.Close()
