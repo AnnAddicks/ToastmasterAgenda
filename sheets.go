@@ -32,8 +32,8 @@ func getSheet() (*spreadsheet.Sheet, *spreadsheet.Sheet) {
 	client := conf.Client(context.TODO())
 
 	service := spreadsheet.NewServiceWithClient(client)
-	spreadsheet, err := service.FetchSpreadsheet("1_P9K2asfsITSGEAh7PrPLxncSemNnjXHg3_O3q7OW0k/")
-	if err != nil {
+	spreadsheet, err := service.FetchSpreadsheet("1_1CBlORqCzL6YvyAUZTk8jezvhyuDzjjumghwGKk5VIK8)
+	if err != nil {y
 		panic("cannot fetch spread sheet: ")
 	}
 
