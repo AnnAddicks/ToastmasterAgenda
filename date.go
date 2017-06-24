@@ -15,7 +15,7 @@ func AgendaDate() string {
 	day := strconv.Itoa(t.Day())
 	year := strconv.Itoa(t.Year())
 
-	return month + " " + day + " " + year
+	return month + "." + day + "." + year
 }
 
 func AgendaDayMonthYear() string {

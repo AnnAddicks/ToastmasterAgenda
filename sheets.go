@@ -1,9 +1,8 @@
 package main
 
 import (
-
-   "fmt"
 	"io/ioutil"
+	"strings"
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2/google"
@@ -11,11 +10,13 @@ import (
 )
 
 type Board struct {
-	president, vpe, vppr, secretary, treasurer, saa string
+	president, vpe, vpm, vppr, secretary, treasurer, saa string
 }
 type AgendaRoles struct {
-	toastmaster, ge, timer, ahCounter, grammarian, eval1, speaker1, eval2, speaker2, eval3, speaker3, eval4, speaker4, tableTopicsMaster string
-	boardMembers Board
+	toastmaster, ge, timer, ahCounter, grammarian, eval1, speaker1, speaker1FirstName string
+	eval2, speaker2, speaker2FirstName, eval3, speaker3, speaker3FirstName, eval4     string
+	speaker4, speaker4FirstName, tableTopicsMaster                                    string
+	boardMembers                                                                      Board
 }
 
 func getSheet() (*spreadsheet.Sheet, *spreadsheet.Sheet) {
@@ -54,10 +55,11 @@ func getBoard(sheet *spreadsheet.Sheet) Board {
 	board := Board{}
 	board.president = sheet.Columns[1][0].Value
 	board.vpe = sheet.Columns[1][1].Value
-	board.vppr = sheet.Columns[1][2].Value
-	board.secretary = sheet.Columns[1][3].Value
-	board.treasurer = sheet.Columns[1][4].Value
-	board.saa = sheet.Columns[1][5].Value	
+	board.vpm = sheet.Columns[1][2].Value
+	board.vppr = sheet.Columns[1][3].Value
+	board.secretary = sheet.Columns[1][4].Value
+	board.treasurer = sheet.Columns[1][5].Value
+	board.saa = sheet.Columns[1][6].Value
 
 	return board
 }
@@ -78,15 +80,19 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.grammarian = sheet.Columns[i][5].Value
 
 			agendaRoles.speaker1 = sheet.Columns[i][7].Value
+			agendaRoles.speaker1FirstName = strings.Split(agendaRoles.speaker1, " ")[0]
 			agendaRoles.eval1 = sheet.Columns[i][8].Value
 
 			agendaRoles.speaker2 = sheet.Columns[i][9].Value
+			agendaRoles.speaker2FirstName = strings.Split(agendaRoles.speaker2, " ")[0]
 			agendaRoles.eval2 = sheet.Columns[i][10].Value
 
 			agendaRoles.speaker3 = sheet.Columns[i][11].Value
+			agendaRoles.speaker3FirstName = strings.Split(agendaRoles.speaker3, " ")[0]
 			agendaRoles.eval3 = sheet.Columns[i][12].Value
 
 			agendaRoles.speaker4 = sheet.Columns[i][13].Value
+			agendaRoles.speaker4FirstName = strings.Split(agendaRoles.speaker1, " ")[0]
 			agendaRoles.eval4 = sheet.Columns[i][14].Value
 
 			agendaRoles.tableTopicsMaster = sheet.Columns[i][18].Value
@@ -94,4 +100,20 @@ func GetRoles(agendaDate string) AgendaRoles {
 		}
 	}
 	return agendaRoles
+}
+
+func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) {
+	week := 0
+
+	for i := range sheet.Columns {
+
+		if week > 0 {
+
+		}
+
+		if sheet.Columns[i][0].Value == agendaDate {
+			week = 1
+		}
+
+	}
 }
