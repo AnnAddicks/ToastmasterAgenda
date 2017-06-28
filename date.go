@@ -15,7 +15,7 @@ func getNextTuesday() time.Time {
 }
 
 func AgendaDate() string {
-	t:= getNextTuesday()
+	t := getNextTuesday()
 
 	month := t.Month().String()
 	day := strconv.Itoa(t.Day())
@@ -24,9 +24,7 @@ func AgendaDate() string {
 	return month + "." + day + "." + year
 }
 
-func AgendaMonthDayYear() string {
-	t := getNextTuesday()
-
+func AgendaMonthDayYear(t time.Time) string {
 	day := strconv.Itoa(t.Day())
 	month := strconv.Itoa(int(t.Month()))
 	year := strconv.Itoa(t.Year())

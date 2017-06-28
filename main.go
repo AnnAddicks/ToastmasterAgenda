@@ -3,15 +3,16 @@ package main
 import (
 	"fmt"
 	"github.com/nguyenthenguyen/docx"
+	"time"
 )
 
-func createDoc(){
+func createDoc(t time.Time) {
 	r, err := docx.ReadDocxFile("./Agenda.docx")
 	if err != nil {
 		panic(err)
 	}
 
-	roleDate := AgendaMonthDayYear()
+	roleDate := AgendaMonthDayYear(t)
 	roles := GetRoles(roleDate)
 
 	docx1 := r.Editable()
@@ -20,7 +21,7 @@ func createDoc(){
 	docx1.Replace("Date", date, -1)
 	docx1.Replace("president", roles.boardMembers.president, -1)
 	docx1.Replace("vpe", roles.boardMembers.vpe, -1)
-    docx1.Replace("vpm", roles.boardMembers.vpm, -1)
+	docx1.Replace("vpm", roles.boardMembers.vpm, -1)
 	docx1.Replace("vppr", roles.boardMembers.vppr, -1)
 	docx1.Replace("secretary", roles.boardMembers.secretary, -1)
 	docx1.Replace("treasurer", roles.boardMembers.treasurer, -1)
@@ -50,7 +51,9 @@ func createDoc(){
 
 func main() {
 	t := getNextTuesday()
-	fmt.Println("Press <Enter> to generate an agenda for %v", )
 
-	createDoc()
+	fmt.Println("Press <Enter> to generate an agenda for", AgendaMonthDayYear(t))
+	fmt.Println("or enter a new date with the format 'MM/DD/YYYY'")
+
+	createDoc(t)
 }
