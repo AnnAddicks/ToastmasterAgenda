@@ -5,15 +5,13 @@ import (
 	"github.com/nguyenthenguyen/docx"
 )
 
-func main() {
-	fmt.Println("Hello World")
-
+func createDoc(){
 	r, err := docx.ReadDocxFile("./Agenda.docx")
 	if err != nil {
 		panic(err)
 	}
 
-	roleDate := AgendaDayMonthYear()
+	roleDate := AgendaMonthDayYear()
 	roles := GetRoles(roleDate)
 
 	docx1 := r.Editable()
@@ -48,4 +46,11 @@ func main() {
 
 	docx1.WriteToFile(date)
 	r.Close()
+}
+
+func main() {
+	t := getNextTuesday()
+	fmt.Println("Press <Enter> to generate an agenda for %v", )
+
+	createDoc()
 }
