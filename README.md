@@ -15,17 +15,17 @@
 |5|Ah Counter|---|---|
 |6|Grammarian|Date|Date|
 |7||||
-|8|Speaker 1|Nathaniel Addicks CC #3 |--N/A--|
-|9|Evaluator 1|Chris Hawkins|--N/A--|
-|10|Speaker 2|Betty Mensah  CC #6|--N/A--|
-|11|Evaluator 2|Carolyn Beadnall	|--N/A--|
-|12|Speaker 3|Ann Addicks|--N/A--|
+|8|Speaker 1|Nathaniel LastName CC #3 |--N/A--|
+|9|Evaluator 1|Chris LastName|--N/A--|
+|10|Speaker 2|Betty LastName  CC #6|--N/A--|
+|11|Evaluator 2|Carolyn LastName	|--N/A--|
+|12|Speaker 3|Ann LastName|--N/A--|
 |13|Evaluator 3|FirstName LastName|--N/A--|
 |14|Speaker 4|--N/A--||
 |15|Evaluator 4|--N/A--||
 |16||||
 |17|Back Up Speaker(s)|||
 |18|||
-|19|Table Topics Master|Nick DiAngelo|Chris Hawkins|
+|19|Table Topics Master|Nick LastName|Chris LastName|
 |20|||
 |21|Notes||Transition Meeting?|
