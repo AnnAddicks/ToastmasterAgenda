@@ -16,7 +16,7 @@ func createDoc(t time.Time) {
 	roles := GetRoles(roleDate)
 
 	docx1 := r.Editable()
-	date := "./" + AgendaDate() + ".docx"
+	date := "./" + AgendaDate(t) + ".docx"
 
 	docx1.Replace("Date", date, -1)
 	docx1.Replace("president", roles.boardMembers.president, -1)
