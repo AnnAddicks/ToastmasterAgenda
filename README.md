@@ -2,8 +2,8 @@
 
 **Form layout:**
 
-1. Column A contains the name of the expected field (i.e row 2 is "Toast Master of the Day"). 
-2. Columns B and C start out with the Date and the corresponding field according to the row listed in column A. Example row 3      column B requires the First and Last Name of the "Toast Master of the Day").
+1. Column A contains the names of the required fields (i.e row 2 is "Toast Master of the Day", row 3 "General Evaluator"). 
+2. Columns B and C start out with the Date as the header and the corresponding field corresponding to the rows listed in column A. Example row 2 column B requires the First and Last Name of the "Toast Master of the Day".
 
 
 |0| A | B | C |
@@ -28,4 +28,4 @@
 |18|||
 |19|Table Topics Master|Nick DiAngelo|Chris Hawkins|
 |20|||
-|21|Notes|Transition Meeting?||
+|21|Notes||Transition Meeting?|
