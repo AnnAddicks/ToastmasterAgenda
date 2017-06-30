@@ -1,10 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"regexp"
 	"strings"
+	"strconv"
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2/google"
@@ -67,15 +67,11 @@ func getBoard(sheet *spreadsheet.Sheet) Board {
 }
 
 func parseManualAndNumber(speaker string) (string, int) {
-	           				// `(?P<Year>\d{4})-(?P<Month>\d{2})-(?P<Day>\d{2})`
-	re := regexp.MustCompile(`\n(?P<manual>[a-zA-Z]+) (?P<number>#\d{1,2})`)
+	re := regexp.MustCompile(`\n(?P<manual>[a-zA-Z]+) #(?P<number>\d{1,2})`)
+	result := re.FindStringSubmatch(speaker)
 
-	result_slice := re.FindStringSubmatch(speaker)
-	fmt.Printf("%v", result_slice)
-
-	
-	manual := "CC"
-	speechNum := 1
+	manual := result[1]
+	speechNum, _ := strconv.ParseInt(result[2], 10, 0)
 
 	return manual, speechNum
 }
