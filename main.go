@@ -58,10 +58,8 @@ func createDoc(t time.Time) {
 }
 
 func main() {
-	//d := time.Now()
-	//t := getNextTuesday(d)
-	d := "2017-07-10"
-	t, _ := time.Parse("2006-01-02", d)
+	d := time.Now()
+	t := getNextTuesday(d)
 
 	fmt.Println("Press <Enter> to generate an agenda for", AgendaMonthDayYear(t))
 	fmt.Println("or type a new date with the format 'MM/DD/YYYY' and press <Enter>.")

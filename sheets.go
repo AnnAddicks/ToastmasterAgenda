@@ -15,7 +15,7 @@ type Board struct {
 type AgendaRoles struct {
 	toastmaster, ge, timer, ahCounter, grammarian, eval1, speaker1, speaker1FirstName, speaker1Manual, speaker1Speech      string
 	eval2, speaker2, speaker2FirstName, speaker2Manual, speaker2Speech, eval3, speaker3, speaker3FirstName, speaker3Manual string
-	speaker3Speech, eval4, speaker4, speaker4FirstName, speaker4Manual, speaker4Speech, tableTopicsMaster         string
+	speaker3Speech, eval4, speaker4, speaker4FirstName, speaker4Manual, speaker4Speech, tableTopicsMaster                  string
 	boardMembers                                                                                                           Board
 }
 
@@ -64,6 +64,14 @@ func getBoard(sheet *spreadsheet.Sheet) Board {
 	return board
 }
 
+func parseManualAndNumber(speaker string) (string, int) {
+	//TODO add in REAL logic!
+	manual := "CC"
+	speechNum := 1
+
+	return manual, speechNum
+}
+
 func GetRoles(agendaDate string) AgendaRoles {
 	sheet, roles := getSheet()
 	boardMembers := getBoard(roles)
@@ -82,10 +90,11 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.speaker1 = sheet.Columns[i][7].Value
 			agendaRoles.speaker1FirstName = strings.Split(agendaRoles.speaker1, " ")[0]
 			agendaRoles.eval1 = sheet.Columns[i][8].Value
-			
 
-			//agendaRoles.speaker1Manual = 
-			//agendaRoles.speaker1Speech = 
+			manual, number := parseManualAndNumber(agendaRoles.speaker1)
+			speech := GetSpeech(manual, number)
+			agendaRoles.speaker1Manual = speech.manualName
+			agendaRoles.speaker1Speech = speech.name //add the times too!
 
 			agendaRoles.speaker2 = sheet.Columns[i][9].Value
 			agendaRoles.speaker2FirstName = strings.Split(agendaRoles.speaker2, " ")[0]

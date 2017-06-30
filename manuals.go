@@ -5,13 +5,13 @@ import ()
 type Speech struct {
 	manualCode string
 	manualName string
-	speechName string
+	name string
 	number     int
 	min        int
 	max        int
 }
 
-func getSpeech(manualName string, number int) {
+func GetSpeech(manualName string, number int) Speech{
 	speech := Speech{}
 	speech.number = number
 	speech.manualCode = manualName
