@@ -3,6 +3,7 @@ package main
 import ()
 
 type Speech struct {
+	manualCode string
 	manualName string
 	speechName string
 	number     int
@@ -13,10 +14,10 @@ type Speech struct {
 func manuals(manualName string, number int) {
 	speech := Speech{}
 	speech.number = number
+	speech.manualCode = manualName
 
 	switch manualName {
-
-	case "CC":
+	case "cc":
 		speech.manualName = "Competent Communicator"
 
 		switch number {
@@ -71,6 +72,36 @@ func manuals(manualName string, number int) {
 			speech.max = 10
 
 		}
+
+	case "inform":
+		speech.manualName = "Speaking to Inform"
+		switch number {
+		case 1:
+			speech.name = "The Speech to Inform"
+			speech.min = 5
+			speech.max = 7
+
+		case 2:
+			speech.name = "Resources for Informing"
+			speech.min = 5
+			speech.max = 7
+
+		case 3:
+			speech.name = "The Demonstration Tak"
+			speech.min = 5
+			speech.max = 7
+
+		case 4:
+			speech.name = "A Fact Finding Report"
+			speech.min = 5
+			speech.max = 7
+
+		case 5:
+			speech.name = "The Abstract Concept"
+			speech.min = 6
+			speech.max = 8
+		}
+
 	}
 
 	return speech
