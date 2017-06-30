@@ -32,6 +32,15 @@ func TestAgendaDate(t *testing.T) {
 	}
 }
 
+func TestDateWithSlashes(t *testing.T) {
+	d := testDate()
+	c := DateWithSlashes(d)
+
+	if c != "1/2/2017" {
+		t.Error("Expected '1/2/2017', got ", c)
+	}
+}
+
 func TestAgendaMonthDayYear(t *testing.T) {
 	d := testDate()
 	c := AgendaMonthDayYear(d)
