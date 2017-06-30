@@ -7,7 +7,7 @@ import (
 
 //Create a static date that is a Monday
 func testDate() time.Time {
-	d := "2017-01-02" 
+	d := "2017-01-02"
 	t, _ := time.Parse("2006-01-02", d)
 
 	return t
