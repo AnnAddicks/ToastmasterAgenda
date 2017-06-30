@@ -34,15 +34,23 @@ func createDoc(t time.Time) {
 	docx1.Replace("evaluator1", roles.eval1, -1)
 	docx1.Replace("speaker1", roles.speaker1, -1)
 	docx1.Replace("firstName1", roles.speaker1FirstName, -1)
+	docx1.Replace("Speaker1Manual", roles.speaker1Manual, -1)
+	docx1.Replace("speaker1Speech", roles.speaker1Speech, -1)
 	docx1.Replace("evaluator2", roles.eval2, -1)
 	docx1.Replace("speaker2", roles.speaker2, -1)
 	docx1.Replace("firstName2", roles.speaker2FirstName, -1)
+	docx1.Replace("speaker2Manual", roles.speaker2Manual, -1)
+	docx1.Replace("speaker2Speech", roles.speaker2Speech, -1)
 	docx1.Replace("evaluator3", roles.eval3, -1)
 	docx1.Replace("speaker3", roles.speaker3, -1)
 	docx1.Replace("firstName3", roles.speaker3FirstName, -1)
+	docx1.Replace("speaker3Manual", roles.speaker3Manual, -1)
+	docx1.Replace("speaker3Speech", roles.speaker3Speech, -1)
 	docx1.Replace("evaluator4", roles.eval4, -1)
 	docx1.Replace("speaker4", roles.speaker4, -1)
 	docx1.Replace("firstName4", roles.speaker4FirstName, -1)
+	docx1.Replace("speaker4Manual", roles.speaker4Manual, -1)
+	docx1.Replace("speaker4Speech", roles.speaker4Speech, -1)
 	docx1.Replace("tTMaster", roles.tableTopicsMaster, -1)
 
 	docx1.WriteToFile(date)
@@ -50,8 +58,10 @@ func createDoc(t time.Time) {
 }
 
 func main() {
-	d := time.Now()
-	t := getNextTuesday(d)
+	//d := time.Now()
+	//t := getNextTuesday(d)
+	d := "2017-07-10"
+	t, _ := time.Parse("2006-01-02", d)
 
 	fmt.Println("Press <Enter> to generate an agenda for", AgendaMonthDayYear(t))
 	fmt.Println("or type a new date with the format 'MM/DD/YYYY' and press <Enter>.")

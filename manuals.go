@@ -11,7 +11,7 @@ type Speech struct {
 	max        int
 }
 
-func manuals(manualName string, number int) {
+func getSpeech(manualName string, number int) {
 	speech := Speech{}
 	speech.number = number
 	speech.manualCode = manualName
