@@ -1,7 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
+	"regexp"
 	"strings"
 
 	"golang.org/x/net/context"
@@ -65,7 +67,12 @@ func getBoard(sheet *spreadsheet.Sheet) Board {
 }
 
 func parseManualAndNumber(speaker string) (string, int) {
-	//TODO add in REAL logic!
+	fmt.Println("parseManualAndNumber")
+	re := regexp.MustCompile(`(\n[a-zA-Z]+) (#\d{1,2})`)
+
+	result_slice := re.FindAllStringSubmatch(speaker, -1)
+	fmt.Printf("%v", result_slice)
+
 	manual := "CC"
 	speechNum := 1
 
@@ -80,6 +87,8 @@ func GetRoles(agendaDate string) AgendaRoles {
 	agendaRoles.boardMembers = boardMembers
 
 	for i := range sheet.Columns {
+		fmt.Println(sheet.Columns[i][0].Value)
+		fmt.Println("agenda date: " + agendaDate)
 		if sheet.Columns[i][0].Value == agendaDate {
 			agendaRoles.toastmaster = sheet.Columns[i][1].Value
 			agendaRoles.ge = sheet.Columns[i][2].Value

@@ -21,6 +21,14 @@ func AgendaDate(t time.Time) string {
 	return month + "." + day + "." + year
 }
 
+func DateWithSlashes(t time.Time) string {
+	month := strconv.Itoa(int(t.Month()))
+	day := strconv.Itoa(t.Day())
+	year := strconv.Itoa(t.Year())
+
+	return month + "/" + day + "/" + year
+}
+
 func AgendaMonthDayYear(t time.Time) string {
 	day := strconv.Itoa(t.Day())
 	month := t.Month().String()

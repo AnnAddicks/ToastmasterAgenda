@@ -12,13 +12,14 @@ func createDoc(t time.Time) {
 		panic(err)
 	}
 
-	roleDate := AgendaMonthDayYear(t)
-	roles := GetRoles(roleDate)
+	prettyPrintDate := AgendaMonthDayYear(t)
+	dateWithPeriods := AgendaDate(t)
+	roles := GetRoles(DateWithSlashes(t))
 
 	docx1 := r.Editable()
-	date := "./" + AgendaDate(t) + ".docx"
+	fileName := "./" + dateWithPeriods + ".docx"
 
-	docx1.Replace("Date", date, -1)
+	docx1.Replace("Date", prettyPrintDate, -1)
 	docx1.Replace("president", roles.boardMembers.president, -1)
 	docx1.Replace("vpe", roles.boardMembers.vpe, -1)
 	docx1.Replace("vpm", roles.boardMembers.vpm, -1)
@@ -53,7 +54,7 @@ func createDoc(t time.Time) {
 	docx1.Replace("speaker4Speech", roles.speaker4Speech, -1)
 	docx1.Replace("tTMaster", roles.tableTopicsMaster, -1)
 
-	docx1.WriteToFile(date)
+	docx1.WriteToFile(fileName)
 	r.Close()
 }
 
