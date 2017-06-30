@@ -5,8 +5,7 @@ import (
 	"time"
 )
 
-func getNextTuesday() time.Time {
-	t := time.Now()
+func getNextTuesday(t time.Time) time.Time {
 	for int(t.Weekday()) != 2 { //todo figure out how to use the constant instead of special number 2! t.Weekday.Tuesday {
 		t = t.AddDate(0, 0, 1)
 	}

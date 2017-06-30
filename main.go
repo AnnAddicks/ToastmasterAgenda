@@ -50,7 +50,8 @@ func createDoc(t time.Time) {
 }
 
 func main() {
-	t := getNextTuesday()
+	d := time.Now()
+	t := getNextTuesday(d)
 
 	fmt.Println("Press <Enter> to generate an agenda for", AgendaMonthDayYear(t))
 	fmt.Println("or type a new date with the format 'MM/DD/YYYY' and press <Enter>.")
@@ -59,7 +60,7 @@ func main() {
 	 *  Get Input
 	 *  func TrimSpace(s string) string	clean up input
 	 *  Verify correct string or enter
-	 *  
+	 *
 	 */
 
 	createDoc(t)
