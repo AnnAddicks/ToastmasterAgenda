@@ -68,7 +68,7 @@ func getBoard(sheet *spreadsheet.Sheet) Board {
 
 func parseManualAndNumber(speaker string) (string, int) {
 	           				// `(?P<Year>\d{4})-(?P<Month>\d{2})-(?P<Day>\d{2})`
-	re := regexp.MustCompile(`\n(?P<manual>[a-zA-Z]+)\s(?P<number>#\d{1,2})`)
+	re := regexp.MustCompile(`\n(?P<manual>[a-zA-Z]+) (?P<number>#\d{1,2})`)
 
 	result_slice := re.FindStringSubmatch(speaker)
 	fmt.Printf("%v", result_slice)
