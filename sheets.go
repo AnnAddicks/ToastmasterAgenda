@@ -1,11 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"regexp"
-	"strings"
 	"strconv"
-	"fmt"
+	"strings"
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2/google"
@@ -73,7 +73,7 @@ func parseManualAndNumber(speaker string) (string, int) {
 
 	manual := result[1]
 	speechNum, _ := strconv.Atoi(result[2])
-	
+
 	return manual, speechNum
 }
 
@@ -99,13 +99,15 @@ func GetRoles(agendaDate string) AgendaRoles {
 			manual, number := parseManualAndNumber(agendaRoles.speaker1)
 			speech := GetSpeech(manual, number)
 			fmt.Println("manual: " + speech.manualName)
+			fmt.Println("number: " + strconv.Itoa(speech.number))
+			fmt.Println("speech name: " + speech.name)
 			agendaRoles.speaker1Manual = speech.manualName
-			agendaRoles.speaker1Speech = speech.name //add the times too!
+			agendaRoles.speaker1Speech = speech.name
 
 			agendaRoles.speaker2 = sheet.Columns[i][9].Value
 			agendaRoles.speaker2FirstName = strings.Split(agendaRoles.speaker2, " ")[0]
 			agendaRoles.eval2 = sheet.Columns[i][10].Value
-			
+
 			//manual, number = parseManualAndNumber(agendaRoles.speaker2)
 			//speech = GetSpeech(manual, number)
 			agendaRoles.speaker2Manual = speech.manualName
