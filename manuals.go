@@ -108,6 +108,6 @@ func GetSpeech(manualName string, number int) Speech {
 
 	}
 
-	speech.name = speech.name +  " " + "(" + strconv.Itoa(speech.min) + "-" + strconv.Itoa(speech.max) + " mins)"
+	speech.name = speech.name + " " + "(" + strconv.Itoa(speech.min) + "-" + strconv.Itoa(speech.max) + " mins)"
 	return speech
 }

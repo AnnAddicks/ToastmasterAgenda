@@ -1,11 +1,11 @@
 package main
 
 import (
+	"fmt"
 	"io/ioutil"
 	"regexp"
 	"strconv"
 	"strings"
-	"fmt"
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2/google"
