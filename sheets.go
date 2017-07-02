@@ -5,6 +5,7 @@ import (
 	"regexp"
 	"strings"
 	"strconv"
+	"fmt"
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2/google"
@@ -71,8 +72,8 @@ func parseManualAndNumber(speaker string) (string, int) {
 	result := re.FindStringSubmatch(speaker)
 
 	manual := result[1]
-	speechNum, _ := strconv.ParseInt(result[2], 10, 0)
-
+	speechNum, _ := strconv.Atoi(result[2])
+	
 	return manual, speechNum
 }
 
@@ -97,12 +98,18 @@ func GetRoles(agendaDate string) AgendaRoles {
 
 			manual, number := parseManualAndNumber(agendaRoles.speaker1)
 			speech := GetSpeech(manual, number)
+			fmt.Println("manual: " + speech.manualName)
 			agendaRoles.speaker1Manual = speech.manualName
 			agendaRoles.speaker1Speech = speech.name //add the times too!
 
 			agendaRoles.speaker2 = sheet.Columns[i][9].Value
 			agendaRoles.speaker2FirstName = strings.Split(agendaRoles.speaker2, " ")[0]
 			agendaRoles.eval2 = sheet.Columns[i][10].Value
+			
+			//manual, number = parseManualAndNumber(agendaRoles.speaker2)
+			//speech = GetSpeech(manual, number)
+			agendaRoles.speaker2Manual = speech.manualName
+			agendaRoles.speaker2Speech = speech.name //add the times too!
 
 			agendaRoles.speaker3 = sheet.Columns[i][11].Value
 			agendaRoles.speaker3FirstName = strings.Split(agendaRoles.speaker3, " ")[0]

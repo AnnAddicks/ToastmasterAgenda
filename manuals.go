@@ -1,6 +1,8 @@
 package main
 
-import ()
+import (
+"strings"
+)
 
 type Speech struct {
 	manualCode string
@@ -16,6 +18,7 @@ func GetSpeech(manualName string, number int) Speech {
 	speech.number = number
 	speech.manualCode = manualName
 
+	manualName = strings.ToLower(manualName)
 	switch manualName {
 	case "cc":
 		speech.manualName = "Competent Communicator"

@@ -35,7 +35,7 @@ func createDoc(t time.Time) {
 	docx1.Replace("evaluator1", roles.eval1, -1)
 	docx1.Replace("speaker1", roles.speaker1, -1)
 	docx1.Replace("firstName1", roles.speaker1FirstName, -1)
-	docx1.Replace("Speaker1Manual", roles.speaker1Manual, -1)
+	docx1.Replace("speaker1Manual", roles.speaker1Manual, -1)
 	docx1.Replace("speaker1Speech", roles.speaker1Speech, -1)
 	docx1.Replace("evaluator2", roles.eval2, -1)
 	docx1.Replace("speaker2", roles.speaker2, -1)
