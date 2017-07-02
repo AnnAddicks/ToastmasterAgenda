@@ -1,11 +1,11 @@
 package main
 
 import (
-	"fmt"
 	"io/ioutil"
 	"regexp"
 	"strconv"
 	"strings"
+	"fmt"
 
 	"golang.org/x/net/context"
 	"golang.org/x/oauth2/google"
@@ -67,14 +67,15 @@ func getBoard(sheet *spreadsheet.Sheet) Board {
 	return board
 }
 
-func parseManualAndNumber(speaker string) (string, int) {
-	re := regexp.MustCompile(`\n(?P<manual>[a-zA-Z]+) #(?P<number>\d{1,2})`)
+func parseManualAndNumber(speaker string) (string, string, int) {
+	re := regexp.MustCompile(`([a-zA-Z]+ [a-zA-Z]+)\n(?P<manual>[a-zA-Z]+) #(?P<number>\d{1,2})`)
 	result := re.FindStringSubmatch(speaker)
 
-	manual := result[1]
-	speechNum, _ := strconv.Atoi(result[2])
+	name := result[1]
+	manual := result[2]
+	speechNum, _ := strconv.Atoi(result[3])
 
-	return manual, speechNum
+	return name, manual, speechNum
 }
 
 func GetRoles(agendaDate string) AgendaRoles {
@@ -92,15 +93,12 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.ahCounter = sheet.Columns[i][4].Value
 			agendaRoles.grammarian = sheet.Columns[i][5].Value
 
-			agendaRoles.speaker1 = sheet.Columns[i][7].Value
+			name, manual, number := parseManualAndNumber(sheet.Columns[i][7].Value)
+			fmt.Println("name: ", name)
+			speech := GetSpeech(manual, number)
+			agendaRoles.speaker1 = name
 			agendaRoles.speaker1FirstName = strings.Split(agendaRoles.speaker1, " ")[0]
 			agendaRoles.eval1 = sheet.Columns[i][8].Value
-
-			manual, number := parseManualAndNumber(agendaRoles.speaker1)
-			speech := GetSpeech(manual, number)
-			fmt.Println("manual: " + speech.manualName)
-			fmt.Println("number: " + strconv.Itoa(speech.number))
-			fmt.Println("speech name: " + speech.name)
 			agendaRoles.speaker1Manual = speech.manualName
 			agendaRoles.speaker1Speech = speech.name
 
