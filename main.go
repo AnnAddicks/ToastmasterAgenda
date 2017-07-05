@@ -55,12 +55,11 @@ func createDoc(t time.Time) {
 	docx1.Replace("speaker4Speech", roles.speaker4Speech, -1)
 	docx1.Replace("tTMaster", roles.tableTopicsMaster, -1)
 
-	
 	for i := range roles.futureWeeks {
 		nextWeek := roles.futureWeeks[i]
 
 		for j := 0; j < 16; j++ {
-			docx1.Replace("w" + strconv.Itoa(i) + "_" + strconv.Itoa(j), nextWeek[j], -1)
+			docx1.Replace("w"+strconv.Itoa(i)+"_"+strconv.Itoa(j), nextWeek[j], 1)
 		}
 	}
 
