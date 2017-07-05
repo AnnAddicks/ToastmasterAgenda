@@ -73,8 +73,8 @@ func parseManualAndNumber(speaker string) (string, string, int) {
 	name := speaker
 	manual := ""
 	speechNum := 0
-	
-	if(len(result) > 0)  {
+
+	if len(result) > 0 {
 		name = result[1]
 		manual = result[2]
 		speechNum, _ = strconv.Atoi(result[3])
@@ -97,7 +97,7 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.ahCounter = sheet.Columns[i][4].Value
 			agendaRoles.grammarian = sheet.Columns[i][5].Value
 
-		 	//MAJOR CPD, pullout a method, possibly with a nested
+			//MAJOR CPD, pullout a method, possibly with a nested
 			name, manual, number := parseManualAndNumber(sheet.Columns[i][7].Value)
 			speech := GetSpeech(manual, number)
 			agendaRoles.speaker1 = name
@@ -105,7 +105,6 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.eval1 = sheet.Columns[i][8].Value
 			agendaRoles.speaker1Manual = speech.manualName
 			agendaRoles.speaker1Speech = speech.name
-
 
 			name, manual, number = parseManualAndNumber(sheet.Columns[i][9].Value)
 			speech = GetSpeech(manual, number)
@@ -166,7 +165,7 @@ func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) {
 			nextWeek[12] = Columns[i][0] //date
 			nextWeek[13] = Columns[i][0] //date
 			nextWeek[14] = Columns[i][0] //date
-		*/
+			*/
 
 		}
 
