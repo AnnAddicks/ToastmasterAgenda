@@ -1,7 +1,6 @@
 package main
 
 import (
-	//"fmt"
 	"io/ioutil"
 	"regexp"
 	"strconv"
@@ -20,6 +19,7 @@ type AgendaRoles struct {
 	eval2, speaker2, speaker2FirstName, speaker2Manual, speaker2Speech, eval3, speaker3, speaker3FirstName, speaker3Manual string
 	speaker3Speech, eval4, speaker4, speaker4FirstName, speaker4Manual, speaker4Speech, tableTopicsMaster                  string
 	boardMembers                                                                                                           Board
+	futureWeeks                                                                                                            [4][16]string
 }
 
 func getSheet() (*spreadsheet.Sheet, *spreadsheet.Sheet) {
@@ -131,43 +131,52 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.speaker4Speech = speech.name
 
 			agendaRoles.tableTopicsMaster = sheet.Columns[i][18].Value
+
+			agendaRoles.futureWeeks = GetFutureWeeks(agendaDate, sheet)
 			break
 		}
 	}
 	return agendaRoles
 }
 
-func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) {
+func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [4][16]string {
 	week := 0
-	//nextSchedule := [][] string{}
+	nextSchedule := [4][16]string{}
 
 	for i := range sheet.Columns {
 
-		if week > 0 {
+		if week == 0 {
 			if sheet.Columns[i][0].Value == agendaDate {
 				week = 1
 			}
 
+		} else if week == 5 {
+			break
 		} else {
-			/*nextWeek := [] string{}
-			nextWeek[0] = Columns[i][0] //date
-			nextWeek[1] = Columns[i][1] //toastmaster
-			nextWeek[2] = Columns[i][2] //ge
-			nextWeek[3] = Columns[i][0] //timer
-			nextWeek[4] = Columns[i][0] //date
-			nextWeek[5] = Columns[i][0] //date
-			nextWeek[6] = Columns[i][0] //date
-			nextWeek[7] = Columns[i][0] //date
-			nextWeek[8] = Columns[i][0] //date
-			nextWeek[9] = Columns[i][0] //date
-			nextWeek[10] = Columns[i][0] //date
-			nextWeek[11] = Columns[i][0] //date
-			nextWeek[12] = Columns[i][0] //date
-			nextWeek[13] = Columns[i][0] //date
-			nextWeek[14] = Columns[i][0] //date
-			*/
+			nextWeek := [16]string{}
+			nextWeek[0] = sheet.Columns[i][0].Value
+			nextWeek[1] = sheet.Columns[i][1].Value
+			nextWeek[2] = sheet.Columns[i][2].Value
+			nextWeek[3] = sheet.Columns[i][3].Value
+			nextWeek[4] = sheet.Columns[i][4].Value
+			nextWeek[5] = sheet.Columns[i][5].Value
+			nextWeek[6] = sheet.Columns[i][7].Value
+			nextWeek[7] = sheet.Columns[i][8].Value
+			nextWeek[8] = sheet.Columns[i][9].Value
+			nextWeek[9] = sheet.Columns[i][10].Value
+			nextWeek[10] = sheet.Columns[i][11].Value
+			nextWeek[11] = sheet.Columns[i][12].Value
+			nextWeek[12] = sheet.Columns[i][13].Value
+			nextWeek[13] = sheet.Columns[i][14].Value
+			nextWeek[14] = sheet.Columns[i][16].Value
+			nextWeek[15] = sheet.Columns[i][18].Value
+
+			nextSchedule[week-1] = nextWeek
+			week++
 
 		}
 
 	}
+
+	return nextSchedule
 }
