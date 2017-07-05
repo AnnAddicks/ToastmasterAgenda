@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	//"fmt"
 	"io/ioutil"
 	"regexp"
 	"strconv"
@@ -70,11 +70,15 @@ func getBoard(sheet *spreadsheet.Sheet) Board {
 func parseManualAndNumber(speaker string) (string, string, int) {
 	re := regexp.MustCompile(`([a-zA-Z]+ [a-zA-Z]+)\n(?P<manual>[a-zA-Z]+) #(?P<number>\d{1,2})`)
 	result := re.FindStringSubmatch(speaker)
-
-	name := result[1]
-	manual := result[2]
-	speechNum, _ := strconv.Atoi(result[3])
-
+	name := speaker
+	manual := ""
+	speechNum := 0
+	
+	if(len(result) > 0)  {
+		name = result[1]
+		manual = result[2]
+		speechNum, _ = strconv.Atoi(result[3])
+	}
 	return name, manual, speechNum
 }
 
@@ -93,8 +97,8 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.ahCounter = sheet.Columns[i][4].Value
 			agendaRoles.grammarian = sheet.Columns[i][5].Value
 
+		 	//MAJOR CPD, pullout a method, possibly with a nested
 			name, manual, number := parseManualAndNumber(sheet.Columns[i][7].Value)
-			fmt.Println("name: ", name)
 			speech := GetSpeech(manual, number)
 			agendaRoles.speaker1 = name
 			agendaRoles.speaker1FirstName = strings.Split(agendaRoles.speaker1, " ")[0]
@@ -102,22 +106,30 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.speaker1Manual = speech.manualName
 			agendaRoles.speaker1Speech = speech.name
 
-			agendaRoles.speaker2 = sheet.Columns[i][9].Value
+
+			name, manual, number = parseManualAndNumber(sheet.Columns[i][9].Value)
+			speech = GetSpeech(manual, number)
+			agendaRoles.speaker2 = name
 			agendaRoles.speaker2FirstName = strings.Split(agendaRoles.speaker2, " ")[0]
 			agendaRoles.eval2 = sheet.Columns[i][10].Value
-
-			//manual, number = parseManualAndNumber(agendaRoles.speaker2)
-			//speech = GetSpeech(manual, number)
 			agendaRoles.speaker2Manual = speech.manualName
-			agendaRoles.speaker2Speech = speech.name //add the times too!
+			agendaRoles.speaker2Speech = speech.name
 
-			agendaRoles.speaker3 = sheet.Columns[i][11].Value
+			name, manual, number = parseManualAndNumber(sheet.Columns[i][11].Value)
+			speech = GetSpeech(manual, number)
+			agendaRoles.speaker3 = name
 			agendaRoles.speaker3FirstName = strings.Split(agendaRoles.speaker3, " ")[0]
 			agendaRoles.eval3 = sheet.Columns[i][12].Value
+			agendaRoles.speaker3Manual = speech.manualName
+			agendaRoles.speaker3Speech = speech.name
 
-			agendaRoles.speaker4 = sheet.Columns[i][13].Value
-			agendaRoles.speaker4FirstName = strings.Split(agendaRoles.speaker1, " ")[0]
+			name, manual, number = parseManualAndNumber(sheet.Columns[i][13].Value)
+			speech = GetSpeech(manual, number)
+			agendaRoles.speaker4 = name
+			agendaRoles.speaker4FirstName = strings.Split(agendaRoles.speaker4, " ")[0]
 			agendaRoles.eval4 = sheet.Columns[i][14].Value
+			agendaRoles.speaker4Manual = speech.manualName
+			agendaRoles.speaker4Speech = speech.name
 
 			agendaRoles.tableTopicsMaster = sheet.Columns[i][18].Value
 			break
@@ -128,15 +140,34 @@ func GetRoles(agendaDate string) AgendaRoles {
 
 func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) {
 	week := 0
+	//nextSchedule := [][] string{}
 
 	for i := range sheet.Columns {
 
 		if week > 0 {
+			if sheet.Columns[i][0].Value == agendaDate {
+				week = 1
+			}
 
-		}
+		} else {
+			/*nextWeek := [] string{}
+			nextWeek[0] = Columns[i][0] //date
+			nextWeek[1] = Columns[i][1] //toastmaster
+			nextWeek[2] = Columns[i][2] //ge
+			nextWeek[3] = Columns[i][0] //timer
+			nextWeek[4] = Columns[i][0] //date
+			nextWeek[5] = Columns[i][0] //date
+			nextWeek[6] = Columns[i][0] //date
+			nextWeek[7] = Columns[i][0] //date
+			nextWeek[8] = Columns[i][0] //date
+			nextWeek[9] = Columns[i][0] //date
+			nextWeek[10] = Columns[i][0] //date
+			nextWeek[11] = Columns[i][0] //date
+			nextWeek[12] = Columns[i][0] //date
+			nextWeek[13] = Columns[i][0] //date
+			nextWeek[14] = Columns[i][0] //date
+		*/
 
-		if sheet.Columns[i][0].Value == agendaDate {
-			week = 1
 		}
 
 	}
