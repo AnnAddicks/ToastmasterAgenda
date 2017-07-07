@@ -1,3 +1,5 @@
+~$*.docx
+.idea/
 ~$Agenda.docx
 .DS_Store
 #OAuth 

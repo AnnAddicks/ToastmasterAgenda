@@ -20,6 +20,7 @@ type AgendaRoles struct {
 	speaker3Speech, eval4, speaker4, speaker4FirstName, speaker4Manual, speaker4Speech, tableTopicsMaster                  string
 	boardMembers                                                                                                           Board
 	futureWeeks                                                                                                            [4][16]string
+	speech1, speech2, speech3, speech4                                                                                     Speech
 }
 
 func getSheet() (*spreadsheet.Sheet, *spreadsheet.Sheet) {
@@ -105,6 +106,7 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.eval1 = sheet.Columns[i][8].Value
 			agendaRoles.speaker1Manual = speech.manualName
 			agendaRoles.speaker1Speech = speech.name
+			agendaRoles.speech1 = speech
 
 			name, manual, number = parseManualAndNumber(sheet.Columns[i][9].Value)
 			speech = GetSpeech(manual, number)
@@ -113,6 +115,7 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.eval2 = sheet.Columns[i][10].Value
 			agendaRoles.speaker2Manual = speech.manualName
 			agendaRoles.speaker2Speech = speech.name
+			agendaRoles.speech2 = speech
 
 			name, manual, number = parseManualAndNumber(sheet.Columns[i][11].Value)
 			speech = GetSpeech(manual, number)
@@ -121,6 +124,7 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.eval3 = sheet.Columns[i][12].Value
 			agendaRoles.speaker3Manual = speech.manualName
 			agendaRoles.speaker3Speech = speech.name
+			agendaRoles.speech3 = speech
 
 			name, manual, number = parseManualAndNumber(sheet.Columns[i][13].Value)
 			speech = GetSpeech(manual, number)
@@ -129,6 +133,7 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.eval4 = sheet.Columns[i][14].Value
 			agendaRoles.speaker4Manual = speech.manualName
 			agendaRoles.speaker4Speech = speech.name
+			agendaRoles.speech4 = speech
 
 			agendaRoles.tableTopicsMaster = sheet.Columns[i][18].Value
 

@@ -106,6 +106,63 @@ func GetSpeech(manualName string, number int) Speech {
 			speech.max = 8
 		}
 
+	case "interpretive":
+		speech.manualName = "Interpretive Reading"
+		switch number {
+		case 1:
+			speech.name = "Read a Story"
+			speech.min = 8
+			speech.max = 10
+
+		case 2:
+			speech.name = "Interpretive Poetry"
+			speech.min = 6
+			speech.max = 8
+
+		case 3:
+			speech.name = "The Monodrama"
+			speech.min = 5
+			speech.max = 7
+
+		case 4:
+			speech.name = "The Play"
+			speech.min = 12
+			speech.max = 15
+
+		case 5:
+			speech.name = "The Oratorical Speech"
+			speech.min = 8
+			speech.max = 10
+		}
+
+	case "technical":
+		speech.manualName = "Technical Presentations"
+		switch number {
+		case 1:
+			speech.name = "Technical Briefing"
+			speech.min = 8
+			speech.max = 10
+
+		case 2:
+			speech.name = "The Proposal (Add Q&A TIME!!!!)"
+			speech.min = 8
+			speech.max = 10
+
+		case 3:
+			speech.name = "The Nontechnical Audience"
+			speech.min = 10
+			speech.max = 12
+
+		case 4:
+			speech.name = "Presenting a Technical Paper"
+			speech.min = 10
+			speech.max = 12
+
+		case 5:
+			speech.name = "The Team Technical Presentation"
+			speech.min = 20
+			speech.max = 30
+		}
 	}
 
 	speech.name = "#" + strconv.Itoa(speech.number) + " " + speech.name +

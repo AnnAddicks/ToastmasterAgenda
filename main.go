@@ -55,6 +55,42 @@ func createDoc(t time.Time) {
 	docx1.Replace("speaker4Speech", roles.speaker4Speech, -1)
 	docx1.Replace("tTMaster", roles.tableTopicsMaster, -1)
 
+	//Make function like do := func(name, layout, want string) {  https://golang.org/src/time/example_test.go
+	//Replace the speech time
+	curTime := time.Date(2017, time.January, 1, 7, 13, 0, 0, time.UTC)
+	nextTime := time.Minute * time.Duration(roles.speech1.max + 1)
+	curTime = curTime.Add(nextTime)
+	hour, min, _ := curTime.Clock()
+	docx1.Replace("e2t2", strconv.Itoa(hour) + ":" + strconv.Itoa(min), 1)
+	nextTime = time.Minute * time.Duration(1)
+	curTime = curTime.Add(nextTime)
+	hour, min, _ = curTime.Clock()
+	docx1.Replace("s2t2", strconv.Itoa(hour) + ":" + strconv.Itoa(min), 1)
+
+	nextTime = time.Minute * time.Duration(roles.speech2.max + 1)
+	curTime = curTime.Add(nextTime)
+	hour, min, _ = curTime.Clock()
+	docx1.Replace("e3t3", strconv.Itoa(hour) + ":" + strconv.Itoa(min), 1)
+	nextTime = time.Minute * time.Duration(1)
+	curTime = curTime.Add(nextTime)
+	hour, min, _ = curTime.Clock()
+	docx1.Replace("s3t3", strconv.Itoa(hour) + ":" + strconv.Itoa(min), 1)
+
+	nextTime = time.Minute * time.Duration(roles.speech3.max + 1)
+	curTime = curTime.Add(nextTime)
+	hour, min, _ = curTime.Clock()
+	docx1.Replace("e4t4", strconv.Itoa(hour) + ":" + strconv.Itoa(min), 1)
+	nextTime = time.Minute * time.Duration(1)
+	curTime = curTime.Add(nextTime)
+	hour, min, _ = curTime.Clock()
+	docx1.Replace("s4t4", strconv.Itoa(hour) + ":" + strconv.Itoa(min), 1)
+
+	nextTime = time.Minute * time.Duration(roles.speech2.max + 1)
+	curTime = curTime.Add(nextTime)
+	hour, min, _ = curTime.Clock()
+	docx1.Replace("ttmt", strconv.Itoa(hour) + ":" + strconv.Itoa(min), 1)
+
+	//Replace the next 4 weeks
 	for i := range roles.futureWeeks {
 		nextWeek := roles.futureWeeks[i]
 
