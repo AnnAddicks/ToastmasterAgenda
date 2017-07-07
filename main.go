@@ -107,8 +107,9 @@ func main() {
 	d := time.Now()
 	t := getNextTuesday(d)
 
-	fmt.Println("Press <Enter> to generate an agenda for", AgendaMonthDayYear(t))
-	fmt.Println("or type a new date with the format 'MM/DD/YYYY' and press <Enter>.")
+	fmt.Println("Generating Agenda for", AgendaMonthDayYear(t))
+	//fmt.Println("Press <Enter> to generate an agenda for", AgendaMonthDayYear(t))
+	//fmt.Println("or type a new date with the format 'MM/DD/YYYY' and press <Enter>.")
 
 	/*
 	 *  Get Input
