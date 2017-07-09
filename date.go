@@ -38,12 +38,12 @@ func AgendaMonthDayYear(t time.Time) string {
 	return month + " " + day + ", " + year
 }
 
-func prettyPrintTime(curTime time.Time, minToAdd int) string {
+func prettyPrintTime(curTime time.Time, minToAdd int) (time.Time, string) {
 
 	nextTime := time.Minute * time.Duration(minToAdd)
 	curTime = curTime.Add(nextTime)
 	hour, min, _ := curTime.Clock()
 
-	return strconv.Itoa(hour) + ":" + strconv.Itoa(min)
+	return curTime, strconv.Itoa(hour) + ":" + strconv.Itoa(min)
 }
 
