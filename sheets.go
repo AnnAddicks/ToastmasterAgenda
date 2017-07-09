@@ -15,7 +15,7 @@ type Board struct {
 	president, vpe, vpm, vppr, secretary, treasurer, saa string
 }
 type AgendaRoles struct {
-	toastmaster, ge, timer, ahCounter, grammarian, eval1, speaker1, speaker1FirstName, speaker1Speech      string
+	toastmaster, ge, timer, ahCounter, grammarian, eval1, speaker1, speaker1FirstName      string
 	eval2, speaker2, speaker2FirstName, speaker2Manual, speaker2Speech, eval3, speaker3, speaker3FirstName, speaker3Manual string
 	speaker3Speech, eval4, speaker4, speaker4FirstName, speaker4Manual, speaker4Speech, tableTopicsMaster                  string
 	boardMembers                                                                                                           Board
@@ -104,7 +104,6 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.speaker1 = name
 			agendaRoles.speaker1FirstName = strings.Split(agendaRoles.speaker1, " ")[0]
 			agendaRoles.eval1 = sheet.Columns[i][8].Value
-			agendaRoles.speaker1Speech = speech.name
 			agendaRoles.speech1 = speech
 
 			name, manual, number = parseManualAndNumber(sheet.Columns[i][9].Value)
