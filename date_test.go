@@ -3,7 +3,6 @@ package main
 import (
 	"testing"
 	"time"
-
 )
 
 //Create a static date that is a Monday
@@ -50,7 +49,6 @@ func TestAgendaMonthDayYear(t *testing.T) {
 		t.Error("Expected 'January 2, 2017', got ", c)
 	}
 
-
 }
 
 func TestPrettyPrintTime(t *testing.T) {
@@ -58,7 +56,7 @@ func TestPrettyPrintTime(t *testing.T) {
 	m := 1
 
 	_, test := prettyPrintTime(n, m)
-	if (test != "7:12") {
+	if test != "7:12" {
 		t.Error("Expected an empty string, got: ", test)
 	}
 
@@ -69,7 +67,7 @@ func TestPrettyPrintTimeIncrementHour(t *testing.T) {
 	m := 60
 
 	_, test := prettyPrintTime(n, m)
-	if (test != "8:11") {
+	if test != "8:11" {
 		t.Error("Expected an empty string, got: ", test)
 	}
 

@@ -3,7 +3,6 @@ package main
 import (
 	"strconv"
 	"time"
-
 )
 
 func getNextTuesday(t time.Time) time.Time {
@@ -46,4 +45,3 @@ func prettyPrintTime(curTime time.Time, minToAdd int) (time.Time, string) {
 
 	return curTime, strconv.Itoa(hour) + ":" + strconv.Itoa(min)
 }
-

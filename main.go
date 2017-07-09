@@ -7,7 +7,6 @@ import (
 	"time"
 )
 
-
 func createDoc(t time.Time) {
 	r, err := docx.ReadDocxFile("./Agenda.docx")
 	if err != nil {
@@ -56,28 +55,27 @@ func createDoc(t time.Time) {
 	docx1.Replace("speaker4Speech", roles.speaker4Speech, -1)
 	docx1.Replace("tTMaster", roles.tableTopicsMaster, -1)
 
-
 	curTime := time.Date(2017, time.January, 1, 7, 13, 0, 0, time.UTC)
-	nextTime, printString := prettyPrintTime(curTime,roles.speech1.max + 1 )
+	nextTime, printString := prettyPrintTime(curTime, roles.speech1.max+1)
 	docx1.Replace("e2t2", printString, 1)
 
-	nextTime, printString = prettyPrintTime(nextTime, + 1 )
+	nextTime, printString = prettyPrintTime(nextTime, +1)
 	docx1.Replace("s2t2", printString, 1)
 
-	nextTime, printString = prettyPrintTime(nextTime,roles.speech2.max + 1 )
+	nextTime, printString = prettyPrintTime(nextTime, roles.speech2.max+1)
 	docx1.Replace("e3t3", printString, 1)
 
-	nextTime, printString = prettyPrintTime(nextTime,1 )
+	nextTime, printString = prettyPrintTime(nextTime, 1)
 	docx1.Replace("s3t3", printString, 1)
 
-	nextTime, printString = prettyPrintTime(nextTime,roles.speech3.max + 1 )
+	nextTime, printString = prettyPrintTime(nextTime, roles.speech3.max+1)
 	docx1.Replace("e4t4", printString, 1)
 
-	nextTime, printString = prettyPrintTime(nextTime, 1 )
+	nextTime, printString = prettyPrintTime(nextTime, 1)
 	docx1.Replace("s4t4", printString, 1)
-	
-	_, printString = prettyPrintTime(nextTime,roles.speech4.max + 1 )
-	docx1.Replace("ttmt",  printString, 1)
+
+	_, printString = prettyPrintTime(nextTime, roles.speech4.max+1)
+	docx1.Replace("ttmt", printString, 1)
 
 	//Replace the next 4 weeks
 	for i := range roles.futureWeeks {
