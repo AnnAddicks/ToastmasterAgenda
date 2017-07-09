@@ -35,6 +35,6 @@ i) In order to change the Google Docs sheets, make sure your sheet is '**publicl
 
 ii) The spreadsheet identifier which can be found on the shareable link, needs to be added to the file '**Sheets.go**'. For example, if the shareable link is as follows, then the identifier is the highlighted part :-
 
-https://docs.google.com/spreadsheets/d/**1_P9K2asfsITSGEAh7PrPLxncSemNnjXHg3_O3q7OW0k**/edit?usp=sharing
+https://docs.google.com/spreadsheets/d/1_P9K2asfsITSGEAh7PrPLxncSemNnjXHg3_O3q7OW0k/edit?usp=sharing
 
 Thus, the identifier is '**1_P9K2asfsITSGEAh7PrPLxncSemNnjXHg3_O3q7OW0k**' (without the quotes).
