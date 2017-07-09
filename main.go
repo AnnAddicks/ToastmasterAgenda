@@ -36,7 +36,7 @@ func createDoc(t time.Time) {
 	docx1.Replace("evaluator1", roles.eval1, -1)
 	docx1.Replace("speaker1FirstLastName", roles.speaker1, -1)
 	docx1.Replace("firstName1", roles.speaker1FirstName, -1)
-	docx1.Replace("speaker1Manual", roles.speaker1Manual, -1)
+	docx1.Replace("speaker1Manual", roles.speech1.manualName, -1)
 	docx1.Replace("speaker1Speech", roles.speaker1Speech, -1)
 	docx1.Replace("evaluator2", roles.eval2, -1)
 	docx1.Replace("speaker2FirstLastName", roles.speaker2, -1)
@@ -55,6 +55,7 @@ func createDoc(t time.Time) {
 	docx1.Replace("speaker4Speech", roles.speaker4Speech, -1)
 	docx1.Replace("tTMaster", roles.tableTopicsMaster, -1)
 
+	//Replace speech & evaluator times
 	curTime := time.Date(2017, time.January, 1, 7, 13, 0, 0, time.UTC)
 	nextTime, printString := prettyPrintTime(curTime, roles.speech1.max+1)
 	docx1.Replace("e2t2", printString, 1)
