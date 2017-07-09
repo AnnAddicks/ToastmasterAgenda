@@ -3,6 +3,7 @@ package main
 import (
 	"strconv"
 	"time"
+
 )
 
 func getNextTuesday(t time.Time) time.Time {
@@ -36,3 +37,13 @@ func AgendaMonthDayYear(t time.Time) string {
 
 	return month + " " + day + ", " + year
 }
+
+func prettyPrintTime(curTime time.Time, minToAdd int) string {
+
+	nextTime := time.Minute * time.Duration(minToAdd)
+	curTime = curTime.Add(nextTime)
+	hour, min, _ := curTime.Clock()
+
+	return strconv.Itoa(hour) + ":" + strconv.Itoa(min)
+}
+

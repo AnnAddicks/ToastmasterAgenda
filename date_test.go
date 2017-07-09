@@ -3,12 +3,13 @@ package main
 import (
 	"testing"
 	"time"
+
 )
 
 //Create a static date that is a Monday
 func testDate() time.Time {
-	d := "2017-01-02"
-	t, _ := time.Parse("2006-01-02", d)
+	d := "2017-01-02 7:11"
+	t, _ := time.Parse("2006-01-02 15:04", d)
 
 	return t
 }
@@ -47,6 +48,29 @@ func TestAgendaMonthDayYear(t *testing.T) {
 
 	if c != "January 2, 2017" {
 		t.Error("Expected 'January 2, 2017', got ", c)
+	}
+
+
+}
+
+func TestPrettyPrintTime(t *testing.T) {
+	n := testDate()
+	m := 1
+
+	test := prettyPrintTime(n, m)
+	if (test != "7:12") {
+		t.Error("Expected an empty string, got: ", test)
+	}
+
+}
+
+func TestPrettyPrintTimeIncrementHour(t *testing.T) {
+	n := testDate()
+	m := 60
+
+	test := prettyPrintTime(n, m)
+	if (test != "8:11") {
+		t.Error("Expected an empty string, got: ", test)
 	}
 
 }
