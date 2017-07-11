@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/nguyenthenguyen/docx"
+	"github.com/annaddicks/docx"
 	"strconv"
 	"time"
 )
@@ -20,7 +20,7 @@ func createDoc(t time.Time) {
 	docx1 := r.Editable()
 	fileName := "./" + dateWithPeriods + ".docx"
 
-	docx1.Replace("Date", prettyPrintDate, -1)
+	docx1.ReplaceHeader("Date", prettyPrintDate)
 	docx1.Replace("president", roles.boardMembers.president, -1)
 	docx1.Replace("vpe", roles.boardMembers.vpe, -1)
 	docx1.Replace("vpm", roles.boardMembers.vpm, -1)

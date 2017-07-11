@@ -13,7 +13,7 @@ func testDate() time.Time {
 	return t
 }
 
-func TestgetNextTuesday(t *testing.T) {
+func TestGetNextTuesday(t *testing.T) {
 	d := testDate()
 	c := getNextTuesday(d)
 
