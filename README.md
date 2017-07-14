@@ -2,10 +2,6 @@
 
 **Form layout:**
 
-1. Column A contains the names of the required fields (i.e row 2 is "Toast Master of the Day", row 3 "General Evaluator"). 
-2. Columns B and C start out with the Date as the header and the corresponding field corresponding to the rows listed in column A. Example row 2 column B requires the First and Last Name of the "Toast Master of the Day".
-
-
 |0| A | B | C |
 |-|:---:|:---:|:---:|
 |1||Date|Date|
@@ -29,6 +25,11 @@
 |19|Table Topics Master|Nick LastName|Chris LastName|
 |20|||
 |21|Notes||Transition Meeting?|
+
+
+1. Column A contains the names of the required fields (i.e row 2 is "Toast Master of the Day", row 3 "General Evaluator"). 
+2. Columns B and C start out with the Date as the header and the corresponding field corresponding to the rows listed in column A. Example row 2 column B requires the First and Last Name of the "Toast Master of the Day".
+
 
 **NOTE** :-
 i) In order to change the Google Docs sheets, make sure your sheet is '**publicly**' readable with a link.
