@@ -83,7 +83,7 @@ func createDoc(t time.Time) {
 	for i := range roles.futureWeeks {
 		nextWeek := roles.futureWeeks[i]
 
-		for j := 0; j < 16; j++ {
+		for j := 0; j < 17; j++ {
 			docx1.Replace("w"+strconv.Itoa(i)+"_"+strconv.Itoa(j), nextWeek[j], 1)
 		}
 	}

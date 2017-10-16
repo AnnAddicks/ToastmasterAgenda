@@ -19,7 +19,7 @@ type AgendaRoles struct {
 	eval2, speaker2, speaker2FirstName, eval3, speaker3, speaker3FirstName            string
 	eval4, speaker4, speaker4FirstName, tableTopicsMaster, jokeMaster                 string
 	boardMembers                                                                      Board
-	futureWeeks                                                                       [4][16]string
+	futureWeeks                                                                       [4][17]string
 	speech1, speech2, speech3, speech4                                                Speech
 }
 
@@ -137,9 +137,9 @@ func GetRoles(agendaDate string) AgendaRoles {
 	return agendaRoles
 }
 
-func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [4][16]string {
+func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [4][17]string {
 	week := 0
-	nextSchedule := [4][16]string{}
+	nextSchedule := [4][17]string{}
 
 	for i := range sheet.Columns {
 
@@ -151,7 +151,7 @@ func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [4][16]string {
 		} else if week == 5 {
 			break
 		} else {
-			nextWeek := [16]string{}
+			nextWeek := [17]string{}
 			nextWeek[0] = sheet.Columns[i][0].Value
 			nextWeek[1] = sheet.Columns[i][1].Value
 			nextWeek[2] = sheet.Columns[i][2].Value
@@ -168,7 +168,7 @@ func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [4][16]string {
 			nextWeek[13] = sheet.Columns[i][14].Value
 			nextWeek[14] = sheet.Columns[i][16].Value
 			nextWeek[15] = sheet.Columns[i][18].Value
-
+			nextWeek[16] = sheet.Columns[i][19].Value
 			nextSchedule[week-1] = nextWeek
 			week++
 
