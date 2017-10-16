@@ -1,5 +1,11 @@
 # ToastmasterAgenda
 
+**How to Build:**
+
+*Note: This project requires Go version 1.7.4 or higher.*
+
+This package uses oauth2 client for authentication. You need to get service account key from [Google Developer Console](https://console.developers.google.com/project). Place the ``client_secret.json`` to the root of your project.
+
 **Form layout:**
 
 |0| A | B | C |
