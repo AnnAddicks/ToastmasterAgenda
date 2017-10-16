@@ -17,9 +17,9 @@ type Board struct {
 type AgendaRoles struct {
 	toastmaster, ge, timer, ahCounter, grammarian, eval1, speaker1, speaker1FirstName string
 	eval2, speaker2, speaker2FirstName, eval3, speaker3, speaker3FirstName            string
-	eval4, speaker4, speaker4FirstName, tableTopicsMaster                             string
+	eval4, speaker4, speaker4FirstName, tableTopicsMaster, jokeMaster                 string
 	boardMembers                                                                      Board
-	futureWeeks                                                                       [4][16]string
+	futureWeeks                                                                       [4][17]string
 	speech1, speech2, speech3, speech4                                                Speech
 }
 
@@ -93,41 +93,42 @@ func GetRoles(agendaDate string) AgendaRoles {
 	for i := range sheet.Columns {
 		if sheet.Columns[i][0].Value == agendaDate {
 			agendaRoles.toastmaster = sheet.Columns[i][1].Value
-			agendaRoles.ge = sheet.Columns[i][2].Value
-			agendaRoles.timer = sheet.Columns[i][3].Value
-			agendaRoles.ahCounter = sheet.Columns[i][4].Value
-			agendaRoles.grammarian = sheet.Columns[i][5].Value
+			agendaRoles.jokeMaster = sheet.Columns[i][2].Value
+			agendaRoles.ge = sheet.Columns[i][3].Value
+			agendaRoles.timer = sheet.Columns[i][4].Value
+			agendaRoles.ahCounter = sheet.Columns[i][5].Value
+			agendaRoles.grammarian = sheet.Columns[i][6].Value
 
 			//MAJOR CPD, pullout a method, possibly with a nested
-			name, manual, number := parseManualAndNumber(sheet.Columns[i][7].Value)
+			name, manual, number := parseManualAndNumber(sheet.Columns[i][8].Value)
 			speech := GetSpeech(manual, number)
 			agendaRoles.speaker1 = name
 			agendaRoles.speaker1FirstName = strings.Split(agendaRoles.speaker1, " ")[0]
-			agendaRoles.eval1 = sheet.Columns[i][8].Value
+			agendaRoles.eval1 = sheet.Columns[i][9].Value
 			agendaRoles.speech1 = speech
 
-			name, manual, number = parseManualAndNumber(sheet.Columns[i][9].Value)
+			name, manual, number = parseManualAndNumber(sheet.Columns[i][10].Value)
 			speech = GetSpeech(manual, number)
 			agendaRoles.speaker2 = name
 			agendaRoles.speaker2FirstName = strings.Split(agendaRoles.speaker2, " ")[0]
-			agendaRoles.eval2 = sheet.Columns[i][10].Value
+			agendaRoles.eval2 = sheet.Columns[i][11].Value
 			agendaRoles.speech2 = speech
 
-			name, manual, number = parseManualAndNumber(sheet.Columns[i][11].Value)
+			name, manual, number = parseManualAndNumber(sheet.Columns[i][12].Value)
 			speech = GetSpeech(manual, number)
 			agendaRoles.speaker3 = name
 			agendaRoles.speaker3FirstName = strings.Split(agendaRoles.speaker3, " ")[0]
-			agendaRoles.eval3 = sheet.Columns[i][12].Value
+			agendaRoles.eval3 = sheet.Columns[i][13].Value
 			agendaRoles.speech3 = speech
 
-			name, manual, number = parseManualAndNumber(sheet.Columns[i][13].Value)
+			name, manual, number = parseManualAndNumber(sheet.Columns[i][14].Value)
 			speech = GetSpeech(manual, number)
 			agendaRoles.speaker4 = name
 			agendaRoles.speaker4FirstName = strings.Split(agendaRoles.speaker4, " ")[0]
-			agendaRoles.eval4 = sheet.Columns[i][14].Value
+			agendaRoles.eval4 = sheet.Columns[i][15].Value
 			agendaRoles.speech4 = speech
 
-			agendaRoles.tableTopicsMaster = sheet.Columns[i][18].Value
+			agendaRoles.tableTopicsMaster = sheet.Columns[i][19].Value
 
 			agendaRoles.futureWeeks = GetFutureWeeks(agendaDate, sheet)
 			break
@@ -136,9 +137,9 @@ func GetRoles(agendaDate string) AgendaRoles {
 	return agendaRoles
 }
 
-func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [4][16]string {
+func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [4][17]string {
 	week := 0
-	nextSchedule := [4][16]string{}
+	nextSchedule := [4][17]string{}
 
 	for i := range sheet.Columns {
 
@@ -150,7 +151,7 @@ func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [4][16]string {
 		} else if week == 5 {
 			break
 		} else {
-			nextWeek := [16]string{}
+			nextWeek := [17]string{}
 			nextWeek[0] = sheet.Columns[i][0].Value
 			nextWeek[1] = sheet.Columns[i][1].Value
 			nextWeek[2] = sheet.Columns[i][2].Value
@@ -167,7 +168,7 @@ func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [4][16]string {
 			nextWeek[13] = sheet.Columns[i][14].Value
 			nextWeek[14] = sheet.Columns[i][16].Value
 			nextWeek[15] = sheet.Columns[i][18].Value
-
+			nextWeek[16] = sheet.Columns[i][19].Value
 			nextSchedule[week-1] = nextWeek
 			week++
 

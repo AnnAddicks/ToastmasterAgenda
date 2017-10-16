@@ -28,6 +28,7 @@ func createDoc(t time.Time) {
 	docx1.Replace("secretary", roles.boardMembers.secretary, -1)
 	docx1.Replace("treasurer", roles.boardMembers.treasurer, -1)
 	docx1.Replace("saa", roles.boardMembers.saa, -1)
+	docx1.Replace("jokeMaster", roles.jokeMaster, -1)
 	docx1.Replace("toastmaster", roles.toastmaster, -1)
 	docx1.Replace("generalEval", roles.ge, -1)
 	docx1.Replace("timer", roles.timer, -1)
@@ -56,7 +57,7 @@ func createDoc(t time.Time) {
 	docx1.Replace("tTMaster", roles.tableTopicsMaster, -1)
 
 	//Replace speech & evaluator times
-	curTime := time.Date(2017, time.January, 1, 7, 13, 0, 0, time.UTC)
+	curTime := time.Date(2017, time.January, 1, 7, 14, 0, 0, time.UTC)
 	nextTime, printString := prettyPrintTime(curTime, roles.speech1.max+1)
 	docx1.Replace("e2t2", printString, 1)
 
@@ -82,7 +83,7 @@ func createDoc(t time.Time) {
 	for i := range roles.futureWeeks {
 		nextWeek := roles.futureWeeks[i]
 
-		for j := 0; j < 16; j++ {
+		for j := 0; j < 17; j++ {
 			docx1.Replace("w"+strconv.Itoa(i)+"_"+strconv.Itoa(j), nextWeek[j], 1)
 		}
 	}

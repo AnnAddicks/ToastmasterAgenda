@@ -163,6 +163,34 @@ func GetSpeech(manualName string, number int) Speech {
 			speech.min = 20
 			speech.max = 30
 		}
+	case "storytelling":
+		speech.manualName = "Storytelling"
+		switch number {
+		case 1:
+			speech.name = "The Folk Tale"
+			speech.min = 7
+			speech.max = 9
+
+		case 2:
+			speech.name = "Let's Get Personal"
+			speech.min = 6
+			speech.max = 8
+
+		case 3:
+			speech.name = "The Moral of the Story"
+			speech.min = 4
+			speech.max = 6
+
+		case 4:
+			speech.name = "The Touching Story"
+			speech.min = 6
+			speech.max = 8
+
+		case 5:
+			speech.name = "Bringing History to Life"
+			speech.min = 7
+			speech.max = 9
+		}
 	}
 
 	speech.name = "#" + strconv.Itoa(speech.number) + " " + speech.name +
