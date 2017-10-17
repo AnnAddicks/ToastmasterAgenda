@@ -12,25 +12,26 @@ This package uses oauth2 client for authentication. You need to get service acco
 |-|:---:|:---:|:---:|
 |1||Date|Date|
 |2|Toastmaster of the Day|FirstName LastName|FirstName LastName|
-|3|General Evaluator|FirstName LastName|FirstName LastName|
-|4|Timer|FirstName LastName|FirstName LastName|
-|5|Ah Counter|---|---|
-|6|Grammarian|Date|Date|
-|7||||
-|8|Speaker 1|Nathaniel LastName CC #3 |--N/A--|
-|9|Evaluator 1|Chris LastName|--N/A--|
-|10|Speaker 2|Betty LastName  CC #6|--N/A--|
-|11|Evaluator 2|Carolyn LastName	|--N/A--|
-|12|Speaker 3|Ann LastName|--N/A--|
-|13|Evaluator 3|FirstName LastName|--N/A--|
-|14|Speaker 4|--N/A--||
-|15|Evaluator 4|--N/A--||
-|16||||
-|17|Back Up Speaker(s)|||
-|18|||
-|19|Table Topics Master|Nick LastName|Chris LastName|
-|20|||
-|21|Notes||Transition Meeting?|
+|3|Joke Master|FirstName LastName|FirstName LastName|
+|4|General Evaluator|FirstName LastName|FirstName LastName|
+|5|Timer|FirstName LastName|FirstName LastName|
+|6|Ah Counter|---|---|
+|7|Grammarian|Date|Date|
+|8||||
+|9|Speaker 1|Nathaniel LastName CC #3 |--N/A--|
+|10|Evaluator 1|Chris LastName|--N/A--|
+|11|Speaker 2|Betty LastName  CC #6|--N/A--|
+|12|Evaluator 2|Carolyn LastName	|--N/A--|
+|13|Speaker 3|Ann LastName|--N/A--|
+|14|Evaluator 3|FirstName LastName|--N/A--|
+|15|Speaker 4|--N/A--||
+|16|Evaluator 4|--N/A--||
+|17||||
+|18|Back Up Speaker(s)|||
+|19|||
+|20|Table Topics Master|Nick LastName|Chris LastName|
+|21|||
+|22|Notes||Transition Meeting?|
 
 
 1. Column A contains the names of the required fields (i.e row 2 is "Toast Master of the Day", row 3 "General Evaluator"). 
