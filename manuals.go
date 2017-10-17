@@ -134,6 +134,34 @@ func GetSpeech(manualName string, number int) Speech {
 			speech.min = 8
 			speech.max = 10
 		}
+	case "mgt":
+		speech.manualName = "Speeches by Management "
+		switch number {
+		case 1:
+			speech.name = "The Briefing"
+			speech.min = 8
+			speech.max = 10
+
+		case 2:
+			speech.name = "The Technical Speech"
+			speech.min = 8
+			speech.max = 10
+
+		case 3:
+			speech.name = "Manage and Motivate"
+			speech.min = 10
+			speech.max = 12
+
+		case 4:
+			speech.name = "The Status Report"
+			speech.min = 10
+			speech.max = 12
+
+		case 5:
+			speech.name = "Confrontation"
+			speech.min = 5
+			speech.max = 15
+		}
 
 	case "technical":
 		speech.manualName = "Technical Presentations"
