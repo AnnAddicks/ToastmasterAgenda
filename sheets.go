@@ -69,7 +69,7 @@ func getBoard(sheet *spreadsheet.Sheet) Board {
 }
 
 func parseManualAndNumber(speaker string) (string, string, int) {
-	re := regexp.MustCompile(`([a-zA-Z]+ [a-zA-Z]+)\n(?P<manual>[a-zA-Z]+) #(?P<number>\d{1,2})`)
+	re := regexp.MustCompile(`([a-zA-Z]+ [a-zA-Z]+)\n([a-zA-Z]+) #(\d{1,2})`)
 	result := re.FindStringSubmatch(speaker)
 	name := speaker
 	manual := ""
