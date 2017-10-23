@@ -99,7 +99,6 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.ahCounter = sheet.Columns[i][5].Value
 			agendaRoles.grammarian = sheet.Columns[i][6].Value
 
-			//MAJOR CPD, pullout a method, possibly with a nested
 			name, manual, number := parseManualAndNumber(sheet.Columns[i][8].Value)
 			speech := GetSpeech(manual, number)
 			agendaRoles.speaker1 = name
