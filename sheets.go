@@ -14,6 +14,7 @@ import (
 type Board struct {
 	president, vpe, vpm, vppr, secretary, treasurer, saa string
 }
+
 type AgendaRoles struct {
 	toastmaster, ge, timer, ahCounter, grammarian, eval1, speaker1, speaker1FirstName string
 	eval2, speaker2, speaker2FirstName, eval3, speaker3, speaker3FirstName            string
