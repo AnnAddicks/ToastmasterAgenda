@@ -29,7 +29,7 @@ func createDoc(t time.Time) {
 	docx1.Replace("treasurer", roles.boardMembers.treasurer, -1)
 	docx1.Replace("saa", roles.boardMembers.saa, -1)
 	docx1.Replace("jokeMaster", roles.jokeMaster, -1)
-	docx1.Replace("toastmaster", roles.toastmaster, -1)
+	docx1.Replace("toastmasterOfDay", roles.toastmaster, -1)
 	docx1.Replace("generalEval", roles.ge, -1)
 	docx1.Replace("timer", roles.timer, -1)
 	docx1.Replace("ah-counter", roles.ahCounter, -1)
