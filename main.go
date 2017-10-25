@@ -39,27 +39,27 @@ func createDoc(t time.Time) {
 	var pastSpeechTime int
 	var printString string
 	for i := 0; i < 4; i++ {
-		speachOrder := i + 1
+		speechOrder := i + 1
 		speaker := roles.speakers[i]
 
-		docx1.Replace("evaluator"+strconv.Itoa(speachOrder), speaker.Evaluator, -1)
-		docx1.Replace("speaker"+strconv.Itoa(speachOrder)+"FirstLastName", speaker.Name, -1)
-		docx1.Replace("firstName"+strconv.Itoa(speachOrder), speaker.firstName(), -1)
-		docx1.Replace("speaker"+strconv.Itoa(speachOrder)+"Manual", speaker.Speech.manualName, -1)
-		docx1.Replace("speaker"+strconv.Itoa(speachOrder)+"Speech", speaker.Speech.name, -1)
+		docx1.Replace("evaluator"+strconv.Itoa(speechOrder), speaker.Evaluator, -1)
+		docx1.Replace("speaker"+strconv.Itoa(speechOrder)+"FirstLastName", speaker.Name, -1)
+		docx1.Replace("firstName"+strconv.Itoa(speechOrder), speaker.firstName(), -1)
+		docx1.Replace("speaker"+strconv.Itoa(speechOrder)+"Manual", speaker.Speech.manualName, -1)
+		docx1.Replace("speaker"+strconv.Itoa(speechOrder)+"Speech", speaker.Speech.name, -1)
 
 		//Replace speech times for the second - fourth speaker
-		if speachOrder == 1 {
+		if speechOrder == 1 {
 			curTime := time.Date(2017, time.January, 1, 7, 14, 0, 0, time.UTC)
 			nextTime, _ = prettyPrintTime(curTime, 0)
 			pastSpeechTime = speaker.Speech.max + 1
 
 		} else {
 			nextTime, printString = prettyPrintTime(nextTime, pastSpeechTime)
-			docx1.Replace("e"+strconv.Itoa(speachOrder)+"t"+strconv.Itoa(speachOrder), printString, 1)
+			docx1.Replace("e"+strconv.Itoa(speechOrder)+"t"+strconv.Itoa(speechOrder), printString, 1)
 
 			nextTime, printString = prettyPrintTime(nextTime, +1)
-			docx1.Replace("s"+strconv.Itoa(speachOrder)+"t"+strconv.Itoa(speachOrder), printString, 1)
+			docx1.Replace("s"+strconv.Itoa(speechOrder)+"t"+strconv.Itoa(speechOrder), printString, 1)
 			pastSpeechTime = speaker.Speech.max + 1
 		}
 	}
