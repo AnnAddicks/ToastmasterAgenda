@@ -21,26 +21,26 @@ func createDoc(t time.Time) {
 	fileName := "./" + dateWithPeriods + ".docx"
 
 	docx1.ReplaceHeader("Date", prettyPrintDate)
-	docx1.Replace("president", roles.boardMembers.president, -1)
-	docx1.Replace("vpe", roles.boardMembers.vpe, -1)
-	docx1.Replace("vpm", roles.boardMembers.vpm, -1)
-	docx1.Replace("vppr", roles.boardMembers.vppr, -1)
-	docx1.Replace("secretary", roles.boardMembers.secretary, -1)
-	docx1.Replace("treasurer", roles.boardMembers.treasurer, -1)
-	docx1.Replace("saa", roles.boardMembers.saa, -1)
-	docx1.Replace("jokeMaster", roles.jokeMaster, -1)
-	docx1.Replace("toastmasterOfDay", roles.toastmaster, -1)
-	docx1.Replace("generalEval", roles.ge, -1)
-	docx1.Replace("timer", roles.timer, -1)
-	docx1.Replace("ah-counter", roles.ahCounter, -1)
-	docx1.Replace("grammarian", roles.grammarian, -1)
+	docx1.Replace("president", roles.BoardMembers.President, -1)
+	docx1.Replace("vpe", roles.BoardMembers.Vpe, -1)
+	docx1.Replace("vpm", roles.BoardMembers.Vpm, -1)
+	docx1.Replace("vppr", roles.BoardMembers.Vppr, -1)
+	docx1.Replace("secretary", roles.BoardMembers.Secretary, -1)
+	docx1.Replace("treasurer", roles.BoardMembers.Treasurer, -1)
+	docx1.Replace("saa", roles.BoardMembers.Saa, -1)
+	docx1.Replace("jokeMaster", roles.JokeMaster, -1)
+	docx1.Replace("toastmasterOfDay", roles.Toastmaster, -1)
+	docx1.Replace("generalEval", roles.Ge, -1)
+	docx1.Replace("timer", roles.Timer, -1)
+	docx1.Replace("ah-counter", roles.AhCounter, -1)
+	docx1.Replace("grammarian", roles.Grammarian, -1)
 
 	var nextTime time.Time
 	var pastSpeechTime int
 	var printString string
 	for i := 0; i < 4; i++ {
 		speechOrder := i + 1
-		speaker := roles.speakers[i]
+		speaker := roles.Speakers[i]
 
 		docx1.Replace("evaluator"+strconv.Itoa(speechOrder), speaker.Evaluator, -1)
 		docx1.Replace("speaker"+strconv.Itoa(speechOrder)+"FirstLastName", speaker.Name, -1)
@@ -63,13 +63,13 @@ func createDoc(t time.Time) {
 			pastSpeechTime = speaker.Speech.max + 1
 		}
 	}
-	docx1.Replace("tTMaster", roles.tableTopicsMaster, -1)
+	docx1.Replace("tTMaster", roles.TableTopicsMaster, -1)
 	_, printString = prettyPrintTime(nextTime, pastSpeechTime)
 	docx1.Replace("ttmt", printString, 1)
 
 	//Replace the next 4 weeks
-	for i := range roles.futureWeeks {
-		nextWeek := roles.futureWeeks[i]
+	for i := range roles.FutureWeeks {
+		nextWeek := roles.FutureWeeks[i]
 
 		for j := 0; j < 17; j++ {
 			docx1.Replace("w"+strconv.Itoa(i)+"_"+strconv.Itoa(j), nextWeek[j], 1)
