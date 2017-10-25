@@ -136,14 +136,12 @@ func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [4][17]string {
 	week := 0
 	nextSchedule := [4][17]string{}
 
-	for i := range sheet.Columns {
+	for i := 0; i < len(sheet.Columns) && week < 5; i++ { //range sheet.Columns {
 		if week == 0 {
 			if sheet.Columns[i][0].Value == agendaDate {
 				week = 1
 			}
 
-		} else if week == 5 {
-			break
 		} else {
 			nextWeek := [17]string{}
 
