@@ -8,15 +8,15 @@ import (
 func TestGetBoard(t *testing.T) {
 	columns := make([][]spreadsheet.Cell, 2)
 	columns[1] = make([]spreadsheet.Cell, 7)
-	columns[1][0] = spreadsheet.Cell{Value:"president"}
-	columns[1][1] = spreadsheet.Cell{Value:"vpe"}
-	columns[1][2] = spreadsheet.Cell{Value:"vpm"}
-	columns[1][3] = spreadsheet.Cell{Value:"vppr"}
-	columns[1][4] = spreadsheet.Cell{Value:"secretary"}
-	columns[1][5] = spreadsheet.Cell{Value:"treasurer"}
-	columns[1][6] = spreadsheet.Cell{Value:"saa"}
+	columns[1][0] = spreadsheet.Cell{Value: "president"}
+	columns[1][1] = spreadsheet.Cell{Value: "vpe"}
+	columns[1][2] = spreadsheet.Cell{Value: "vpm"}
+	columns[1][3] = spreadsheet.Cell{Value: "vppr"}
+	columns[1][4] = spreadsheet.Cell{Value: "secretary"}
+	columns[1][5] = spreadsheet.Cell{Value: "treasurer"}
+	columns[1][6] = spreadsheet.Cell{Value: "saa"}
 
-	sheet := spreadsheet.Sheet {Columns:columns}
+	sheet := spreadsheet.Sheet{Columns: columns}
 	board := getBoard(&sheet)
 
 	if board.president != "president" {
