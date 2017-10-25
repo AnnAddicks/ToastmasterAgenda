@@ -35,7 +35,9 @@ func createDoc(t time.Time) {
 	docx1.Replace("ah-counter", roles.ahCounter, -1)
 	docx1.Replace("grammarian", roles.grammarian, -1)
 
-	curTime := time.Date(2017, time.January, 1, 7, 14, 0, 0, time.UTC)
+	var nextTime time.Time
+	var pastSpeechTime int
+	var printString string
 	for i := 0; i < 4; i++ {
 		speachOrder := i + 1
 		speaker := roles.speakers[i]
@@ -48,41 +50,22 @@ func createDoc(t time.Time) {
 
 		//Replace speech times for the second - fourth speaker
 		if speachOrder == 1 {
-			nextTime, _ := prettyPrintTime(curTime, speaker.Speech.max+1)
-			fmt.Println(nextTime)
+			curTime := time.Date(2017, time.January, 1, 7, 14, 0, 0, time.UTC)
+			nextTime, _ = prettyPrintTime(curTime, 0)
+			pastSpeechTime = speaker.Speech.max + 1
 
 		} else {
-			nextTime, printString := prettyPrintTime(curTime, speaker.Speech.max+1)
+			nextTime, printString = prettyPrintTime(nextTime, pastSpeechTime)
 			docx1.Replace("e"+strconv.Itoa(speachOrder)+"t"+strconv.Itoa(speachOrder), printString, 1)
 
 			nextTime, printString = prettyPrintTime(nextTime, +1)
 			docx1.Replace("s"+strconv.Itoa(speachOrder)+"t"+strconv.Itoa(speachOrder), printString, 1)
+			pastSpeechTime = speaker.Speech.max + 1
 		}
 	}
 	docx1.Replace("tTMaster", roles.tableTopicsMaster, -1)
-
-	//Replace speech & evaluator times
-	/*curTime := time.Date(2017, time.January, 1, 7, 14, 0, 0, time.UTC)
-	nextTime, printString := prettyPrintTime(curTime, roles.speech1.max+1)
-	docx1.Replace("e2t2", printString, 1)
-
-	nextTime, printString = prettyPrintTime(nextTime, +1)
-	docx1.Replace("s2t2", printString, 1)
-
-	nextTime, printString = prettyPrintTime(nextTime, roles.speech2.max+1)
-	docx1.Replace("e3t3", printString, 1)
-
-	nextTime, printString = prettyPrintTime(nextTime, 1)
-	docx1.Replace("s3t3", printString, 1)
-
-	nextTime, printString = prettyPrintTime(nextTime, roles.speech3.max+1)
-	docx1.Replace("e4t4", printString, 1)
-
-	nextTime, printString = prettyPrintTime(nextTime, 1)
-	docx1.Replace("s4t4", printString, 1)
-
-	_, printString = prettyPrintTime(nextTime, roles.speech4.max+1)
-	docx1.Replace("ttmt", printString, 1)*/
+	_, printString = prettyPrintTime(nextTime, pastSpeechTime)
+	docx1.Replace("ttmt", printString, 1)
 
 	//Replace the next 4 weeks
 	for i := range roles.futureWeeks {
