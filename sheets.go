@@ -120,11 +120,11 @@ func GetRoles(agendaDate string) AgendaRoles {
 			agendaRoles.ahCounter = sheet.Columns[i][5].Value
 			agendaRoles.grammarian = sheet.Columns[i][6].Value
 
-			for j := 8; j <= 14; j += 2 {
+			for j := 7; j <= 13; j += 2 {
 				agendaRoles.speakers = append(agendaRoles.speakers, populateSpeaker(sheet.Columns[i][j].Value, sheet.Columns[i][j+1].Value))
 			}
 
-			agendaRoles.tableTopicsMaster = sheet.Columns[i][19].Value
+			agendaRoles.tableTopicsMaster = sheet.Columns[i][16].Value
 			agendaRoles.futureWeeks = GetFutureWeeks(agendaDate, sheet)
 			break
 		}
@@ -147,26 +147,13 @@ func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [4][17]string {
 			break
 		} else {
 			nextWeek := [17]string{}
-			nextWeek[0] = sheet.Columns[i][0].Value
-			nextWeek[1] = sheet.Columns[i][1].Value
-			nextWeek[2] = sheet.Columns[i][2].Value
-			nextWeek[3] = sheet.Columns[i][3].Value
-			nextWeek[4] = sheet.Columns[i][4].Value
-			nextWeek[5] = sheet.Columns[i][5].Value
-			nextWeek[6] = sheet.Columns[i][7].Value
-			nextWeek[7] = sheet.Columns[i][8].Value
-			nextWeek[8] = sheet.Columns[i][9].Value
-			nextWeek[9] = sheet.Columns[i][10].Value
-			nextWeek[10] = sheet.Columns[i][11].Value
-			nextWeek[11] = sheet.Columns[i][12].Value
-			nextWeek[12] = sheet.Columns[i][13].Value
-			nextWeek[13] = sheet.Columns[i][14].Value
-			nextWeek[14] = sheet.Columns[i][16].Value
-			nextWeek[15] = sheet.Columns[i][18].Value
-			nextWeek[16] = sheet.Columns[i][19].Value
+
+			for j := 0; j < 17; j++ {
+				nextWeek[j] = sheet.Columns[i][j].Value
+			}
+
 			nextSchedule[week-1] = nextWeek
 			week++
-
 		}
 
 	}
