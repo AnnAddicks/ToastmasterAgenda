@@ -9,11 +9,11 @@ import (
 )
 
 func main() {
-	d := time.Now()
-	t := nextTuesday(d)
+	now := time.Now()
+	nt := nextTuesday(now)	
 
-	fmt.Println("Generating Agenda for", agendaMonthDayYear(t))
-	createDoc(t)
+	fmt.Println("Generating Agenda for", agendaMonthDayYear(nt))
+	createDoc(nt)
 }
 
 func createDoc(t time.Time) {
