@@ -5,12 +5,12 @@ import (
 	"time"
 )
 
-const FormatSlashes = "/"
-const FormatPeriods = "."
+const formatSlashes = "/"
+const formatPeriods = "."
 
 func nextTuesday(t time.Time) time.Time {
-	const TUESDAY = 2
-	t = t.AddDate(0, 0, (TUESDAY+(7-int(t.Weekday())))%7)
+	const tuesday = 2
+	t = t.AddDate(0, 0, (tuesday+(7-int(t.Weekday())))%7)
 
 	return t
 }
