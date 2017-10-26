@@ -32,7 +32,6 @@ func agendaMonthDayYear(t time.Time) string {
 }
 
 func prettyPrintTime(curTime time.Time, minToAdd int) (time.Time, string) {
-
 	nextTime := time.Minute * time.Duration(minToAdd)
 	curTime = curTime.Add(nextTime)
 	hour, min, _ := curTime.Clock()
