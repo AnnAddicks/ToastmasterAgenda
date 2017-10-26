@@ -8,6 +8,14 @@ import (
 	"github.com/annaddicks/docx"
 )
 
+func main() {
+	d := time.Now()
+	t := nextTuesday(d)
+
+	fmt.Println("Generating Agenda for", agendaMonthDayYear(t))
+	createDoc(t)
+}
+
 func createDoc(t time.Time) {
 	r, err := docx.ReadDocxFile("./Agenda.docx")
 	if err != nil {
@@ -79,12 +87,4 @@ func createDoc(t time.Time) {
 
 	docx1.WriteToFile(fileName)
 	r.Close()
-}
-
-func main() {
-	d := time.Now()
-	t := nextTuesday(d)
-
-	fmt.Println("Generating Agenda for", agendaMonthDayYear(t))
-	createDoc(t)
 }
