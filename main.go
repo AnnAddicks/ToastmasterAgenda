@@ -10,7 +10,7 @@ import (
 
 func main() {
 	now := time.Now()
-	nt := nextTuesday(now)	
+	nt := nextTuesday(now)
 
 	fmt.Println("Generating Agenda for", agendaMonthDayYear(nt))
 	createDoc(nt)
@@ -23,8 +23,8 @@ func createDoc(t time.Time) {
 	}
 
 	prettyPrintDate := agendaMonthDayYear(t)
-	dateWithPeriods := formatDate(t, FormatPeriods)
-	roles := GetRoles(formatDate(t, FormatSlashes))
+	dateWithPeriods := formatDate(t, formatPeriods)
+	roles := GetRoles(formatDate(t, formatSlashes))
 
 	docx1 := r.Editable()
 	fileName := "./" + dateWithPeriods + ".docx"
@@ -80,7 +80,7 @@ func createDoc(t time.Time) {
 	for i := range roles.FutureWeeks {
 		nextWeek := roles.FutureWeeks[i]
 
-		for j := 0; j < 17; j++ {
+		for j := range nextWeek {
 			docx1.Replace("w"+strconv.Itoa(i)+"_"+strconv.Itoa(j), nextWeek[j], 1)
 		}
 	}
