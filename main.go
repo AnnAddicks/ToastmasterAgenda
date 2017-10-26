@@ -47,7 +47,7 @@ func createDoc(t time.Time) {
 	var nextTime time.Time
 	var pastSpeechTime int
 	var printString string
-	for i := 0; i < 4; i++ {
+	for i := range roles.Speakers {
 		speechOrder := i + 1
 		speaker := roles.Speakers[i]
 
