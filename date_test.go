@@ -15,7 +15,7 @@ func testDate() time.Time {
 
 func TestGetNextTuesday(t *testing.T) {
 	d := testDate()
-	c := getNextTuesday(d)
+	c := nextTuesday(d)
 
 	tuesday := d.AddDate(0, 0, 1)
 	if c != tuesday {
@@ -25,7 +25,7 @@ func TestGetNextTuesday(t *testing.T) {
 
 func TestAgendaDate(t *testing.T) {
 	d := testDate()
-	c := AgendaDate(d)
+	c := agendaDate(d)
 
 	if c != "1.2.2017" {
 		t.Error("Expected '1.2.2017', got ", c)
@@ -34,7 +34,7 @@ func TestAgendaDate(t *testing.T) {
 
 func TestDateWithSlashes(t *testing.T) {
 	d := testDate()
-	c := DateWithSlashes(d)
+	c := dateWithSlashes(d)
 
 	if c != "1/2/2017" {
 		t.Error("Expected '1/2/2017', got ", c)
@@ -43,7 +43,7 @@ func TestDateWithSlashes(t *testing.T) {
 
 func TestAgendaMonthDayYear(t *testing.T) {
 	d := testDate()
-	c := AgendaMonthDayYear(d)
+	c := agendaMonthDayYear(d)
 
 	if c != "January 2, 2017" {
 		t.Error("Expected 'January 2, 2017', got ", c)

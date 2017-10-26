@@ -13,9 +13,9 @@ func createDoc(t time.Time) {
 		panic(err)
 	}
 
-	prettyPrintDate := AgendaMonthDayYear(t)
-	dateWithPeriods := AgendaDate(t)
-	roles := GetRoles(DateWithSlashes(t))
+	prettyPrintDate := agendaMonthDayYear(t)
+	dateWithPeriods := agendaDate(t)
+	roles := GetRoles(dateWithSlashes(t))
 
 	docx1 := r.Editable()
 	fileName := "./" + dateWithPeriods + ".docx"
@@ -82,8 +82,8 @@ func createDoc(t time.Time) {
 
 func main() {
 	d := time.Now()
-	t := getNextTuesday(d)
+	t := nextTuesday(d)
 
-	fmt.Println("Generating Agenda for", AgendaMonthDayYear(t))
+	fmt.Println("Generating Agenda for", agendaMonthDayYear(t))
 	createDoc(t)
 }

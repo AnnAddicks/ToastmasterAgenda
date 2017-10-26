@@ -5,14 +5,14 @@ import (
 	"time"
 )
 
-func getNextTuesday(t time.Time) time.Time {
+func nextTuesday(t time.Time) time.Time {
 	const TUESDAY = 2
 	t = t.AddDate(0, 0, (TUESDAY+(7-int(t.Weekday())))%7)
 
 	return t
 }
 
-func AgendaDate(t time.Time) string {
+func agendaDate(t time.Time) string {
 	month := strconv.Itoa(int(t.Month()))
 	day := strconv.Itoa(t.Day())
 	year := strconv.Itoa(t.Year())
@@ -20,7 +20,7 @@ func AgendaDate(t time.Time) string {
 	return month + "." + day + "." + year
 }
 
-func DateWithSlashes(t time.Time) string {
+func dateWithSlashes(t time.Time) string {
 	month := strconv.Itoa(int(t.Month()))
 	day := strconv.Itoa(t.Day())
 	year := strconv.Itoa(t.Year())
@@ -28,7 +28,7 @@ func DateWithSlashes(t time.Time) string {
 	return month + "/" + day + "/" + year
 }
 
-func AgendaMonthDayYear(t time.Time) string {
+func agendaMonthDayYear(t time.Time) string {
 	day := strconv.Itoa(t.Day())
 	month := t.Month().String()
 	year := strconv.Itoa(t.Year())
