@@ -5,8 +5,8 @@ import (
 	"time"
 )
 
-const FORMAT_SLASHES = "/"
-const FORMAT_PERIODS = "."
+const FormatSlashes = "/"
+const FormatPeriods = "."
 
 func nextTuesday(t time.Time) time.Time {
 	const TUESDAY = 2

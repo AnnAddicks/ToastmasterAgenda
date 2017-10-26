@@ -15,8 +15,8 @@ func createDoc(t time.Time) {
 	}
 
 	prettyPrintDate := agendaMonthDayYear(t)
-	dateWithPeriods := formatDate(t, FORMAT_PERIODS)
-	roles := GetRoles(formatDate(t, FORMAT_SLASHES))
+	dateWithPeriods := formatDate(t, FormatPeriods)
+	roles := GetRoles(formatDate(t, FormatSlashes))
 
 	docx1 := r.Editable()
 	fileName := "./" + dateWithPeriods + ".docx"
@@ -68,7 +68,7 @@ func createDoc(t time.Time) {
 	_, printString = prettyPrintTime(nextTime, pastSpeechTime)
 	docx1.Replace("ttmt", printString, 1)
 
-	//Replace the next 4 weeks
+	//Replace the next 4 weeks on the agenda.
 	for i := range roles.FutureWeeks {
 		nextWeek := roles.FutureWeeks[i]
 

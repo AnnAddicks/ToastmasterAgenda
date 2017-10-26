@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-//Create a static date that is a Monday
+//Create a static date that is a Monday.
 func testDate() time.Time {
 	d := "2017-01-02 7:11"
 	t, _ := time.Parse("2006-01-02 15:04", d)
@@ -25,7 +25,7 @@ func TestGetNextTuesday(t *testing.T) {
 
 func TestFormatDate(t *testing.T) {
 	d := testDate()
-	c := formatDate(d, FORMAT_PERIODS)
+	c := formatDate(d, FormatPeriods)
 
 	if c != "1.2.2017" {
 		t.Error("Expected '1.2.2017', got ", c)
@@ -34,7 +34,7 @@ func TestFormatDate(t *testing.T) {
 
 func TestDateWithSlashes(t *testing.T) {
 	d := testDate()
-	c := formatDate(d, FORMAT_SLASHES)
+	c := formatDate(d, FormatSlashes)
 
 	if c != "1/2/2017" {
 		t.Error("Expected '1/2/2017', got ", c)
