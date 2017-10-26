@@ -18,9 +18,9 @@ This package uses oauth2 client for authentication. You need to get service acco
 |6|Ah Counter|---|---|
 |7|Grammarian|Date|Date|
 |8||||
-|9|Speaker 1|Nathaniel LastName CC #3 |--N/A--|
+|9|Speaker 1|Nathaniel LastName\nCC #3 |--N/A--|
 |10|Evaluator 1|Chris LastName|--N/A--|
-|11|Speaker 2|Betty LastName  CC #6|--N/A--|
+|11|Speaker 2|Betty LastName\nCC #6|--N/A--|
 |12|Evaluator 2|Carolyn LastName	|--N/A--|
 |13|Speaker 3|Ann LastName|--N/A--|
 |14|Evaluator 3|FirstName LastName|--N/A--|
