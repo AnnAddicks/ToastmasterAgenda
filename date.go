@@ -5,6 +5,9 @@ import (
 	"time"
 )
 
+const FORMAT_SLASHES = "/"
+const FORMAT_PERIODS = "."
+
 func nextTuesday(t time.Time) time.Time {
 	const TUESDAY = 2
 	t = t.AddDate(0, 0, (TUESDAY+(7-int(t.Weekday())))%7)
@@ -12,20 +15,12 @@ func nextTuesday(t time.Time) time.Time {
 	return t
 }
 
-func agendaDate(t time.Time) string {
+func formatDate(t time.Time, format string) string {
 	month := strconv.Itoa(int(t.Month()))
 	day := strconv.Itoa(t.Day())
 	year := strconv.Itoa(t.Year())
 
-	return month + "." + day + "." + year
-}
-
-func dateWithSlashes(t time.Time) string {
-	month := strconv.Itoa(int(t.Month()))
-	day := strconv.Itoa(t.Day())
-	year := strconv.Itoa(t.Year())
-
-	return month + "/" + day + "/" + year
+	return month + format + day + format + year
 }
 
 func agendaMonthDayYear(t time.Time) string {

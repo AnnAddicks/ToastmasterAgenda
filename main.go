@@ -2,9 +2,10 @@ package main
 
 import (
 	"fmt"
-	"github.com/annaddicks/docx"
 	"strconv"
 	"time"
+
+	"github.com/annaddicks/docx"
 )
 
 func createDoc(t time.Time) {
@@ -14,8 +15,8 @@ func createDoc(t time.Time) {
 	}
 
 	prettyPrintDate := agendaMonthDayYear(t)
-	dateWithPeriods := agendaDate(t)
-	roles := GetRoles(dateWithSlashes(t))
+	dateWithPeriods := formatDate(t, FORMAT_PERIODS)
+	roles := GetRoles(formatDate(t, FORMAT_SLASHES))
 
 	docx1 := r.Editable()
 	fileName := "./" + dateWithPeriods + ".docx"

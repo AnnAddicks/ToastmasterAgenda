@@ -23,9 +23,9 @@ func TestGetNextTuesday(t *testing.T) {
 	}
 }
 
-func TestAgendaDate(t *testing.T) {
+func TestFormatDate(t *testing.T) {
 	d := testDate()
-	c := agendaDate(d)
+	c := formatDate(d, FORMAT_PERIODS)
 
 	if c != "1.2.2017" {
 		t.Error("Expected '1.2.2017', got ", c)
@@ -34,7 +34,7 @@ func TestAgendaDate(t *testing.T) {
 
 func TestDateWithSlashes(t *testing.T) {
 	d := testDate()
-	c := dateWithSlashes(d)
+	c := formatDate(d, FORMAT_SLASHES)
 
 	if c != "1/2/2017" {
 		t.Error("Expected '1/2/2017', got ", c)
