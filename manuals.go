@@ -15,12 +15,9 @@ type Speech struct {
 }
 
 func GetSpeech(manualName string, number int) Speech {
-	speech := Speech{}
-	speech.number = number
-	speech.manualCode = manualName
+	speech := Speech{number: number, manualCode: manualName}
 
-	manualName = strings.ToLower(manualName)
-	switch manualName {
+	switch strings.ToLower(manualName) {
 	case "cc":
 		speech.manualName = "Competent Communicator"
 
