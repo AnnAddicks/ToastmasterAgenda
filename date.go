@@ -6,9 +6,8 @@ import (
 )
 
 func getNextTuesday(t time.Time) time.Time {
-	for int(t.Weekday()) != 2 { //todo figure out how to use the constant instead of special number 2! t.Weekday.Tuesday {
-		t = t.AddDate(0, 0, 1)
-	}
+	const TUESDAY = 2
+	t = t.AddDate(0, 0, (TUESDAY+(7-int(t.Weekday())))%7)
 
 	return t
 }
