@@ -60,20 +60,20 @@ func createDoc(t time.Time) {
 		//Replace speech times for the second through fourth speaker based on last max speech time plus one.
 		if speechOrder == 1 {
 			curTime := time.Date(2017, time.January, 1, 7, 14, 0, 0, time.UTC)
-			nextTime, _ = prettyPrintTime(curTime, 0)
+			nextTime, _ = addMinutes(curTime, 0)
 			pastSpeechTime = speaker.Speech.max + 1
 
 		} else {
-			nextTime, printString = prettyPrintTime(nextTime, pastSpeechTime)
+			nextTime, printString = addMinutes(nextTime, pastSpeechTime)
 			docx1.Replace("e"+strconv.Itoa(speechOrder)+"t"+strconv.Itoa(speechOrder), printString, 1)
 
-			nextTime, printString = prettyPrintTime(nextTime, +1)
+			nextTime, printString = addMinutes(nextTime, +1)
 			docx1.Replace("s"+strconv.Itoa(speechOrder)+"t"+strconv.Itoa(speechOrder), printString, 1)
 			pastSpeechTime = speaker.Speech.max + 1
 		}
 	}
 	docx1.Replace("tTMaster", roles.TableTopicsMaster, -1)
-	_, printString = prettyPrintTime(nextTime, pastSpeechTime)
+	_, printString = addMinutes(nextTime, pastSpeechTime)
 	docx1.Replace("ttmt", printString, 1)
 
 	//Replace the next 4 weeks on the agenda.

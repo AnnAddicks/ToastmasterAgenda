@@ -55,7 +55,7 @@ func TestPrettyPrintTime(t *testing.T) {
 	n := testDate()
 	m := 1
 
-	_, test := prettyPrintTime(n, m)
+	_, test := addMinutes(n, m)
 	if test != "7:12" {
 		t.Error("Expected an empty string, got: ", test)
 	}
@@ -66,7 +66,7 @@ func TestPrettyPrintTimeIncrementHour(t *testing.T) {
 	n := testDate()
 	m := 60
 
-	_, test := prettyPrintTime(n, m)
+	_, test := addMinutes(n, m)
 	if test != "8:11" {
 		t.Error("Expected an empty string, got: ", test)
 	}
@@ -77,7 +77,7 @@ func TestPrettyPrintTimeNextTime(t *testing.T) {
 	n := testDate()
 	m := 60
 
-	newTime, _ := prettyPrintTime(n, m)
+	newTime, _ := addMinutes(n, m)
 	if newTime.Equal(n) {
 		t.Error("Expected the dates to be equal, but got: ", newTime)
 	}
