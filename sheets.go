@@ -25,7 +25,7 @@ type AgendaRoles struct {
 
 type Speaker struct {
 	Name      string
-	Speech    Speech
+	Speech    speech
 	Evaluator string
 }
 
@@ -95,7 +95,7 @@ func parseManualAndNumber(speaker string) (string, string, int) {
 
 func populateSpeaker(s string, eval string) Speaker {
 	name, manual, number := parseManualAndNumber(s)
-	info := GetSpeech(manual, number)
+	info := speech.new(manual, number)
 
 	speaker := Speaker{}
 	speaker.Name = name
