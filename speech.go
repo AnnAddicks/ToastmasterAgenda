@@ -11,7 +11,6 @@ type speech struct {
 	manualCode  string
 	manualName  string
 	details     speechDetails
-	displayName string
 }
 
 // Factory function to create a speech using a manual and the speech number in that manual.
@@ -28,9 +27,13 @@ func (s speech) new(manualCode string, number int) (speech, error) {
 	sp.name = manual.speeches[number-1].name
 	sp.min = manual.speeches[number-1].min
 	sp.max = manual.speeches[number-1].min
-	sp.displayName = "#" + strconv.Itoa(speech.number) + " " + speech.name +
-		" " + "(" + strconv.Itoa(speech.min) + "-" + strconv.Itoa(speech.max) + " mins)"
+
 	return sp, nil
+}
+
+func (s speech) display() string {
+	return "#" + strconv.Itoa(s.number) + " " + s.name +
+		" " + "(" + strconv.Itoa(s.min) + "-" + strconv.Itoa(s.max) + " mins)"
 }
 
 // Each Toastmaster manual contains 5-10 ordered and named speeches.

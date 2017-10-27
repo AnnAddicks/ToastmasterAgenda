@@ -93,9 +93,13 @@ func parseManualAndNumber(speaker string) (string, string, int) {
 	return name, manual, speechNum
 }
 
-func populateSpeaker(s string, eval string) Speaker {
+func populateSpeaker(s string, eval string) (Speaker, error) {
 	name, manual, number := parseManualAndNumber(s)
-	info := speech.new(manual, number)
+	info, err := speech.new(manual, number)
+
+	if(err != nil) {
+		return Speaker{}, err
+	}
 
 	speaker := Speaker{}
 	speaker.Name = name
