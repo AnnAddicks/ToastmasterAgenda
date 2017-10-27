@@ -12,7 +12,7 @@ func main() {
 	now := time.Now()
 	nt := nextTuesday(now)
 
-	fmt.Println("Generating Agenda for", agendaMonthDayYear(nt))
+	fmt.Println("Generating Agenda for", monthDayCommaYear(nt))
 	createDoc(nt)
 }
 
@@ -22,9 +22,9 @@ func createDoc(t time.Time) {
 		panic(err)
 	}
 
-	prettyPrintDate := agendaMonthDayYear(t)
-	dateWithPeriods := formatDate(t, formatPeriods)
-	roles := GetRoles(formatDate(t, formatSlashes))
+	prettyPrintDate := monthDayCommaYear(t)
+	dateWithPeriods := formatDate(t, delimiterPeriods)
+	roles := GetRoles(formatDate(t, delimiterSlashes))
 
 	docx1 := r.Editable()
 	fileName := "./" + dateWithPeriods + ".docx"

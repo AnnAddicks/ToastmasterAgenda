@@ -25,7 +25,7 @@ func TestGetNextTuesday(t *testing.T) {
 
 func TestFormatDate(t *testing.T) {
 	d := testDate()
-	c := formatDate(d, formatPeriods)
+	c := formatDate(d, delimiterPeriods)
 
 	if c != "1.2.2017" {
 		t.Error("Expected '1.2.2017', got ", c)
@@ -34,16 +34,16 @@ func TestFormatDate(t *testing.T) {
 
 func TestDateWithSlashes(t *testing.T) {
 	d := testDate()
-	c := formatDate(d, formatSlashes)
+	c := formatDate(d, delimiterSlashes)
 
 	if c != "1/2/2017" {
 		t.Error("Expected '1/2/2017', got ", c)
 	}
 }
 
-func TestAgendaMonthDayYear(t *testing.T) {
+func TestMonthDayCommaYear(t *testing.T) {
 	d := testDate()
-	c := agendaMonthDayYear(d)
+	c := monthDayCommaYear(d)
 
 	if c != "January 2, 2017" {
 		t.Error("Expected 'January 2, 2017', got ", c)
