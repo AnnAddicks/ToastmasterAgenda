@@ -8,6 +8,7 @@ import (
 const delimiterSlashes = "/"
 const delimiterPeriods = "."
 
+// NextTuesday takes in a date and returns that date if it is Tuesday or the following Tuesday.
 func nextTuesday(t time.Time) time.Time {
 	const tuesday = 2
 	t = t.AddDate(0, 0, (tuesday+(7-int(t.Weekday())))%7)
@@ -24,7 +25,7 @@ func formatDate(t time.Time, delimiter string) string {
 	return month + delimiter + day + delimiter + year
 }
 
-// Formatdate takes in a time and returns a full string month day year with a comma after day.  Ex:  January 1, 2010
+// Formatdate takes in a time and returns a full string month day year with a comma after day (ex:  January 1, 2010).
 func monthDayCommaYear(t time.Time) string {
 	day := strconv.Itoa(t.Day())
 	month := t.Month().String()
@@ -33,7 +34,7 @@ func monthDayCommaYear(t time.Time) string {
 	return month + " " + day + ", " + year
 }
 
-// addMinutes takes in a time and minutes to add to that time and returns the new time and a string representation (ex:  10:44).
+// AddMinutes takes in a time and minutes to add to that time and returns the new time and a string representation (ex:  10:44).
 func addMinutes(curTime time.Time, minToAdd int) (time.Time, string) {
 	nextTime := time.Minute * time.Duration(minToAdd)
 	curTime = curTime.Add(nextTime)
