@@ -125,18 +125,22 @@ func GetRoles(agendaDate string) AgendaRoles {
 			}
 
 			agendaRoles.TableTopicsMaster = sheet.Columns[i][16].Value
-			agendaRoles.FutureWeeks = GetFutureWeeks(agendaDate, sheet)
+			agendaRoles.FutureWeeks = getFutureWeeks(agendaDate, sheet)
 			break
 		}
 	}
 	return agendaRoles
 }
 
-func GetFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [][]string {
-	week := 0
-	var nextSchedule = make([][]string, 0, 4)
+// The number of weeks to capture.
+const futureWeeks = 4
 
-	for i := 0; i < len(sheet.Columns) && week < 5; i++ {
+// GetFutureWeeks finds the next four weeks after the current week and their agenda roles.
+func getFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [][]string {
+	week := 0
+	var nextSchedule = make([][]string, 0, futureWeeks)
+
+	for i := 0; i < len(sheet.Columns) && week <= futureWeeks; i++ {
 		if week == 0 {
 			if sheet.Columns[i][0].Value == agendaDate {
 				week = 1
