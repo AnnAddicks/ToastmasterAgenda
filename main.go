@@ -55,7 +55,7 @@ func createDoc(t time.Time) {
 		docx1.Replace("speaker"+strconv.Itoa(speechOrder)+"FirstLastName", speaker.Name, -1)
 		docx1.Replace("firstName"+strconv.Itoa(speechOrder), speaker.firstName(), -1)
 		docx1.Replace("speaker"+strconv.Itoa(speechOrder)+"Manual", speaker.Speech.manualName, -1)
-		docx1.Replace("speaker"+strconv.Itoa(speechOrder)+"Speech", speaker.Speech.name, -1)
+		docx1.Replace("speaker"+strconv.Itoa(speechOrder)+"Speech", speaker.Speech.info(), -1)
 
 		//Replace speech times for the second through fourth speaker based on last max speech time plus one.
 		if speechOrder == 1 {

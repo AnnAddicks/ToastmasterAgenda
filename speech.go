@@ -1,26 +1,26 @@
 package main
 
 import (
-	"errors"
+	"log"
 	"strconv"
-	"strings"
 )
 
 // Speech represents the speech that will be performed for the agenda.
 type speech struct {
-	manualCode  string
-	manualName  string
-	details     speechDetails
+	manualCode string
+	manualName string
+	details    speechDetails
 }
 
 // Factory function to create a speech using a manual and the speech number in that manual.
-func (s speech) new(manualCode string, number int) (speech, error) {
+func (speech) new(manualCode string, number int) speech {
 	sp := speech{manualCode: manualCode, number: number}
 
 	manual := manualMap[manualCode]
 
 	if number < 1 || number > len(manual.speeches) {
-		return speech{}, errors.New("The speech number is not valid for this manual.")
+		log.Print("Speech number is invalid for the manual.  Manual code: %s, speech number: %s", manualCode, number)
+		return sp
 	}
 
 	sp.manualName = manual.manualName
@@ -28,10 +28,11 @@ func (s speech) new(manualCode string, number int) (speech, error) {
 	sp.min = manual.speeches[number-1].min
 	sp.max = manual.speeches[number-1].min
 
-	return sp, nil
+	return sp
 }
 
-func (s speech) display() string {
+// Info create a string that looks like "#1 Ice Breaker (4-6 mins)"
+func (s speech) info() string {
 	return "#" + strconv.Itoa(s.number) + " " + s.name +
 		" " + "(" + strconv.Itoa(s.min) + "-" + strconv.Itoa(s.max) + " mins)"
 }
@@ -51,6 +52,7 @@ type manual struct {
 	speeches   []speechDetails
 }
 
+// Representation of the Toasmaters speeches with their code as the key.
 var manualMap = map[string]manual{
 	"cc": manual{
 		manualName: "Competent Communicator",
