@@ -50,7 +50,7 @@ type agendaRoles struct {
 	futureWeeks       [][]string
 }
 
-// Factory method to create agenda roles based on the date of the meeting.
+// Factory method to create agenda roles from a google doc based on the date of the meeting.
 func (agendaRoles) new(agendaDate string) agendaRoles {
 	spreadsheets := getSheet()
 	boardMembers := board{}.new(spreadsheets.boardSheet)
