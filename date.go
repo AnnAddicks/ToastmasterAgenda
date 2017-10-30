@@ -24,7 +24,7 @@ func formatDate(t time.Time, delimiter string) string {
 	day := strconv.Itoa(t.Day())
 	year := strconv.Itoa(t.Year())
 
-	d := "/"
+	d := delimiterSlashes
 	if availableDelimiters[delimiter] {
 		d = delimiter
 	}
