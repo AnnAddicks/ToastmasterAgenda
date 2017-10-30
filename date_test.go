@@ -32,6 +32,15 @@ func TestFormatDate(t *testing.T) {
 	}
 }
 
+func TestFormatDateInvalidDelimiter(t *testing.T) {
+	d := testDate()
+	c := formatDate(d, "f'); DROP TABLE user, settings, images")
+
+	if c != "1/2/2017" {
+		t.Error("Expected '1/2/2017', got ", c)
+	}
+}
+
 func TestDateWithSlashes(t *testing.T) {
 	d := testDate()
 	c := formatDate(d, delimiterSlashes)
