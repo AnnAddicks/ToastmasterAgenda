@@ -16,6 +16,20 @@ type board struct {
 	president, vpe, vpm, vppr, secretary, treasurer, saa string
 }
 
+// Factory method using a spreadsheet to fill in board members.
+func (board) new(sheet *spreadsheet.Sheet) board {
+	board := board{}
+	board.president = sheet.Columns[1][0].Value
+	board.vpe = sheet.Columns[1][1].Value
+	board.vpm = sheet.Columns[1][2].Value
+	board.vppr = sheet.Columns[1][3].Value
+	board.secretary = sheet.Columns[1][4].Value
+	board.treasurer = sheet.Columns[1][5].Value
+	board.saa = sheet.Columns[1][6].Value
+
+	return board
+}
+
 // Represents the editable fields on a Toastmasters agenda.
 type agendaRoles struct {
 	toastmaster, ge, timer, ahCounter, grammarian string
@@ -37,8 +51,14 @@ func (s speaker) firstName() string {
 	return strings.Split(s.name, " ")[0]
 }
 
+// Represents the spreadsheet tabs.
+type googleDocsSheet struct {
+	boardSheet  *spreadsheet.Sheet
+	meetingRoles  *spreadsheet.Sheet
+}
+
 //  GetSheet reads a Google Docs spreadsheet and returns a sheet with roles and another sheet with the board members.
-func getSheet() (*spreadsheet.Sheet, *spreadsheet.Sheet) {
+func getSheet() googleDocsSheet {
 	data, err := ioutil.ReadFile("client_secret.json")
 	if err != nil {
 		panic("cannot read client_secret.json")
@@ -67,20 +87,7 @@ func getSheet() (*spreadsheet.Sheet, *spreadsheet.Sheet) {
 		panic("Cannot read spreadsheet by index 1")
 	}
 
-	return roles, board
-}
-
-func getBoard(sheet *spreadsheet.Sheet) board {
-	board := board{}
-	board.president = sheet.Columns[1][0].Value
-	board.vpe = sheet.Columns[1][1].Value
-	board.vpm = sheet.Columns[1][2].Value
-	board.vppr = sheet.Columns[1][3].Value
-	board.secretary = sheet.Columns[1][4].Value
-	board.treasurer = sheet.Columns[1][5].Value
-	board.saa = sheet.Columns[1][6].Value
-
-	return board
+	return googleDocsSheet{boardSheet:board, meetingRoles:roles}
 }
 
 func parseManualAndNumber(speaker string) (string, string, int) {
@@ -111,27 +118,28 @@ func populateSpeaker(s string, eval string) speaker {
 }
 
 func getRoles(agendaDate string) agendaRoles {
-	sheet, roles := getSheet()
-	boardMembers := getBoard(roles)
+	spreadsheets := getSheet()
+	boardMembers := board{}.new(spreadsheets.boardSheet)
 
 	agendaRoles := agendaRoles{}
 	agendaRoles.boardMembers = boardMembers
 
-	for i := range sheet.Columns {
-		if sheet.Columns[i][0].Value == agendaDate {
-			agendaRoles.toastmaster = sheet.Columns[i][1].Value
-			agendaRoles.jokeMaster = sheet.Columns[i][2].Value
-			agendaRoles.ge = sheet.Columns[i][3].Value
-			agendaRoles.timer = sheet.Columns[i][4].Value
-			agendaRoles.ahCounter = sheet.Columns[i][5].Value
-			agendaRoles.grammarian = sheet.Columns[i][6].Value
+	rolesSheet := spreadsheets.meetingRoles
+	for i := range rolesSheet.Columns {
+		if rolesSheet.Columns[i][0].Value == agendaDate {
+			agendaRoles.toastmaster = rolesSheet.Columns[i][1].Value
+			agendaRoles.jokeMaster = rolesSheet.Columns[i][2].Value
+			agendaRoles.ge = rolesSheet.Columns[i][3].Value
+			agendaRoles.timer = rolesSheet.Columns[i][4].Value
+			agendaRoles.ahCounter = rolesSheet.Columns[i][5].Value
+			agendaRoles.grammarian = rolesSheet.Columns[i][6].Value
 
 			for j := 7; j <= 13; j += 2 {
-				agendaRoles.speakers = append(agendaRoles.speakers, populateSpeaker(sheet.Columns[i][j].Value, sheet.Columns[i][j+1].Value))
+				agendaRoles.speakers = append(agendaRoles.speakers, populateSpeaker(rolesSheet.Columns[i][j].Value, rolesSheet.Columns[i][j+1].Value))
 			}
 
-			agendaRoles.tableTopicsMaster = sheet.Columns[i][16].Value
-			agendaRoles.futureWeeks = getFutureWeeks(agendaDate, sheet)
+			agendaRoles.tableTopicsMaster = rolesSheet.Columns[i][16].Value
+			agendaRoles.futureWeeks = getFutureWeeks(agendaDate, rolesSheet)
 			break
 		}
 	}
