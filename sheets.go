@@ -73,7 +73,7 @@ func (agendaRoles) new(agendaDate string) agendaRoles {
 			}
 
 			agendaRoles.tableTopicsMaster = rolesSheet.Columns[i][16].Value
-			agendaRoles.futureWeeks = getFutureWeeks(agendaDate, rolesSheet)
+			agendaRoles.futureWeeks = getFutureWeeks(agendaDate, rolesSheet, i)
 			break
 		}
 	}
@@ -164,24 +164,19 @@ func parseManualAndNumber(speaker string) (string, string, int) {
 const futureWeeks = 4
 
 // GetFutureWeeks finds the next several weeks after the current week based on the constant futureWeeks.
-func getFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [][]string {
+func getFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet, thisWeek int) [][]string {
 	week := 0
 	var nextSchedule = make([][]string, 0, futureWeeks)
 
-	for i := 0; i < len(sheet.Columns) && week <= futureWeeks; i++ {
-		if week == 0 {
-			if sheet.Columns[i][0].Value == agendaDate {
-				week = 1
-			}
-		} else {
-			nextWeek := make([]string, 17)
+	for i := thisWeek + 1; i < len(sheet.Columns) && week <= futureWeeks; i++ {
+		nextWeek := make([]string, 17)
 
-			for j := 0; j < 17; j++ {
-				nextWeek[j] = sheet.Columns[i][j].Value
-			}
-			nextSchedule = append(nextSchedule, nextWeek)
-			week++
+		for j := 0; j < 17; j++ {
+			nextWeek[j] = sheet.Columns[i][j].Value
 		}
+		nextSchedule = append(nextSchedule, nextWeek)
+		week++
+
 	}
 	return nextSchedule
 }
