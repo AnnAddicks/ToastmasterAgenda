@@ -32,6 +32,34 @@ func TestSpeechNew(t *testing.T) {
 	}
 }
 
+func TestSpeechNewWithInvalidNumber(t *testing.T) {
+	s := speech{}.new("CC", 11)
+
+	if s.number != 11 {
+		t.Error("Expected '11', got ", s.number)
+	}
+
+	if s.manualCode != "cc" {
+		t.Error("Expected 'cc', got", s.manualCode)
+	}
+
+	if s.manualName != "Competent Communicator" {
+		t.Error("Expected 'Competent Communicator', got", s.manualName)
+	}
+
+	if s.name != "" {
+		t.Error("Expected '', got", s.name)
+	}
+
+	if s.min != 0 {
+		t.Error("Expected '0', got", s.min)
+	}
+
+	if s.max != 0 {
+		t.Error("Expected '0', got", s.max)
+	}
+}
+
 func TestSpeechInfo(t *testing.T) {
 	s := speech{}.new("CC", 1)
 

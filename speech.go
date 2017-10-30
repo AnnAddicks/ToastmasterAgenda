@@ -19,6 +19,8 @@ func (speech) new(manualCode string, number int) speech {
 	sp := speech{manualCode: manualCode}
 
 	manual := manualMap[manualCode]
+	sp.manualName = manual.manualName
+	sp.number = number
 
 	// Do not fail with invalid input, return with the default values set.
 	if number < 1 || number > len(manual.speeches) {
@@ -26,8 +28,6 @@ func (speech) new(manualCode string, number int) speech {
 		return sp
 	}
 
-	sp.manualName = manual.manualName
-	sp.number = number
 	sp.name = manual.speeches[number-1].name
 	sp.min = manual.speeches[number-1].min
 	sp.max = manual.speeches[number-1].max
