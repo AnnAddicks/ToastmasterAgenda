@@ -39,11 +39,54 @@ type agendaRoles struct {
 	futureWeeks                                   [][]string
 }
 
+// Factory method to create agenda roles based on the date of the meeting.
+func (agendaRoles) new(agendaDate string) agendaRoles {
+	spreadsheets := getSheet()
+	boardMembers := board{}.new(spreadsheets.boardSheet)
+
+	agendaRoles := agendaRoles{}
+	agendaRoles.boardMembers = boardMembers
+
+	rolesSheet := spreadsheets.meetingRoles
+	for i := range rolesSheet.Columns {
+		if rolesSheet.Columns[i][0].Value == agendaDate {
+			agendaRoles.toastmaster = rolesSheet.Columns[i][1].Value
+			agendaRoles.jokeMaster = rolesSheet.Columns[i][2].Value
+			agendaRoles.ge = rolesSheet.Columns[i][3].Value
+			agendaRoles.timer = rolesSheet.Columns[i][4].Value
+			agendaRoles.ahCounter = rolesSheet.Columns[i][5].Value
+			agendaRoles.grammarian = rolesSheet.Columns[i][6].Value
+
+			for j := 7; j <= 13; j += 2 {
+				agendaRoles.speakers = append(agendaRoles.speakers, speaker{}.new(rolesSheet.Columns[i][j].Value, rolesSheet.Columns[i][j+1].Value))
+			}
+
+			agendaRoles.tableTopicsMaster = rolesSheet.Columns[i][16].Value
+			agendaRoles.futureWeeks = getFutureWeeks(agendaDate, rolesSheet)
+			break
+		}
+	}
+	return agendaRoles
+}
+
 //  Represents a speaker in a Toastmasters meeting.
 type speaker struct {
-	name      string
+	name string
 	speech
 	evaluator string
+}
+
+// Factory method to create a speaker based on the spreadsheet speaker and evaluator.
+func (speaker) new(s string, eval string) speaker {
+	name, manual, number := parseManualAndNumber(s)
+	info := speech{}.new(manual, number)
+
+	speaker := speaker{}
+	speaker.name = name
+	speaker.evaluator = eval
+	speaker.speech = info
+
+	return speaker
 }
 
 // Helper method that returns the first name of a speaker.
@@ -53,8 +96,8 @@ func (s speaker) firstName() string {
 
 // Represents the spreadsheet tabs.
 type googleDocsSheet struct {
-	boardSheet  *spreadsheet.Sheet
-	meetingRoles  *spreadsheet.Sheet
+	boardSheet   *spreadsheet.Sheet
+	meetingRoles *spreadsheet.Sheet
 }
 
 //  GetSheet reads a Google Docs spreadsheet and returns a sheet with roles and another sheet with the board members.
@@ -87,9 +130,10 @@ func getSheet() googleDocsSheet {
 		panic("Cannot read spreadsheet by index 1")
 	}
 
-	return googleDocsSheet{boardSheet:board, meetingRoles:roles}
+	return googleDocsSheet{boardSheet: board, meetingRoles: roles}
 }
 
+// Find the speaker name, manual and number from a string that looks like "Ann Addicks\nCC #9".
 func parseManualAndNumber(speaker string) (string, string, int) {
 	re := regexp.MustCompile(`([a-zA-Z]+ [a-zA-Z]+)\n([a-zA-Z]+) #(\d{1,2})`)
 	result := re.FindStringSubmatch(speaker)
@@ -103,47 +147,6 @@ func parseManualAndNumber(speaker string) (string, string, int) {
 		speechNum, _ = strconv.Atoi(result[3])
 	}
 	return name, manual, speechNum
-}
-
-func populateSpeaker(s string, eval string) speaker {
-	name, manual, number := parseManualAndNumber(s)
-	info := speech{}.new(manual, number)
-
-	speaker := speaker{}
-	speaker.name = name
-	speaker.evaluator = eval
-	speaker.speech = info
-
-	return speaker
-}
-
-func getRoles(agendaDate string) agendaRoles {
-	spreadsheets := getSheet()
-	boardMembers := board{}.new(spreadsheets.boardSheet)
-
-	agendaRoles := agendaRoles{}
-	agendaRoles.boardMembers = boardMembers
-
-	rolesSheet := spreadsheets.meetingRoles
-	for i := range rolesSheet.Columns {
-		if rolesSheet.Columns[i][0].Value == agendaDate {
-			agendaRoles.toastmaster = rolesSheet.Columns[i][1].Value
-			agendaRoles.jokeMaster = rolesSheet.Columns[i][2].Value
-			agendaRoles.ge = rolesSheet.Columns[i][3].Value
-			agendaRoles.timer = rolesSheet.Columns[i][4].Value
-			agendaRoles.ahCounter = rolesSheet.Columns[i][5].Value
-			agendaRoles.grammarian = rolesSheet.Columns[i][6].Value
-
-			for j := 7; j <= 13; j += 2 {
-				agendaRoles.speakers = append(agendaRoles.speakers, populateSpeaker(rolesSheet.Columns[i][j].Value, rolesSheet.Columns[i][j+1].Value))
-			}
-
-			agendaRoles.tableTopicsMaster = rolesSheet.Columns[i][16].Value
-			agendaRoles.futureWeeks = getFutureWeeks(agendaDate, rolesSheet)
-			break
-		}
-	}
-	return agendaRoles
 }
 
 // The number of weeks in the future to capture.

@@ -24,7 +24,7 @@ func createDoc(t time.Time) {
 
 	prettyPrintDate := monthDayCommaYear(t)
 	dateWithPeriods := formatDate(t, delimiterPeriods)
-	roles := getRoles(formatDate(t, delimiterSlashes))
+	roles := agendaRoles{}.new(formatDate(t, delimiterSlashes))
 
 	docx1 := r.Editable()
 	fileName := "./" + dateWithPeriods + ".docx"
