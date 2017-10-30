@@ -13,7 +13,13 @@ import (
 
 // Represents the board members of a Toastmasters meeting.
 type board struct {
-	president, vpe, vpm, vppr, secretary, treasurer, saa string
+	president string
+	vpe       string
+	vpm       string
+	vppr      string
+	secretary string
+	treasurer string
+	saa       string
 }
 
 // Factory method using a spreadsheet to fill in board members.
@@ -32,11 +38,16 @@ func (board) new(sheet *spreadsheet.Sheet) board {
 
 // Represents the editable fields on a Toastmasters agenda.
 type agendaRoles struct {
-	toastmaster, ge, timer, ahCounter, grammarian string
-	tableTopicsMaster, jokeMaster                 string
-	speakers                                      []speaker
-	boardMembers                                  board
-	futureWeeks                                   [][]string
+	toastmaster       string
+	ge                string
+	timer             string
+	ahCounter         string
+	grammarian        string
+	tableTopicsMaster string
+	jokeMaster        string
+	speakers          []speaker
+	boardMembers      board
+	futureWeeks       [][]string
 }
 
 // Factory method to create agenda roles based on the date of the meeting.
