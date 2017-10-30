@@ -39,6 +39,4 @@ func TestSpeechInfo(t *testing.T) {
 		t.Error("Expected '#1 Ice Breaker (4-6 mins)', got", s.info())
 	}
 
-
-
 }
