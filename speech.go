@@ -30,7 +30,7 @@ func (speech) new(manualCode string, number int) speech {
 	sp.number = number
 	sp.name = manual.speeches[number-1].name
 	sp.min = manual.speeches[number-1].min
-	sp.max = manual.speeches[number-1].min
+	sp.max = manual.speeches[number-1].max
 
 	return sp
 }
