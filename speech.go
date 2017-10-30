@@ -3,27 +3,31 @@ package main
 import (
 	"log"
 	"strconv"
+	"strings"
 )
 
 // Speech represents the speech that will be performed for the agenda.
 type speech struct {
 	manualCode string
 	manualName string
-	details    speechDetails
+	speechDetails
 }
 
-// Factory function to create a speech using a manual and the speech number in that manual.
+// Factory method to create a speech using a manual and the speech number in that manual.
 func (speech) new(manualCode string, number int) speech {
-	sp := speech{manualCode: manualCode, number: number}
+	manualCode = strings.ToLower(manualCode)
+	sp := speech{manualCode: manualCode}
 
 	manual := manualMap[manualCode]
 
+	// Do not fail with invalid input, return with the default values set.
 	if number < 1 || number > len(manual.speeches) {
-		log.Print("Speech number is invalid for the manual.  Manual code: %s, speech number: %s", manualCode, number)
+		log.Print("Speech number is invalid for the manual.  Manual code: "+manualCode+" speech number:", number)
 		return sp
 	}
 
 	sp.manualName = manual.manualName
+	sp.number = number
 	sp.name = manual.speeches[number-1].name
 	sp.min = manual.speeches[number-1].min
 	sp.max = manual.speeches[number-1].min
@@ -31,7 +35,7 @@ func (speech) new(manualCode string, number int) speech {
 	return sp
 }
 
-// Info create a string that looks like "#1 Ice Breaker (4-6 mins)"
+// Info create a string that represents a speech ex: "#1 Ice Breaker (4-6 mins)."
 func (s speech) info() string {
 	return "#" + strconv.Itoa(s.number) + " " + s.name +
 		" " + "(" + strconv.Itoa(s.min) + "-" + strconv.Itoa(s.max) + " mins)"

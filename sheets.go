@@ -101,6 +101,7 @@ func populateSpeaker(s string, eval string) Speaker {
 	speaker.Name = name
 	speaker.Evaluator = eval
 	speaker.Speech = info
+
 	return speaker
 }
 
@@ -132,10 +133,10 @@ func GetRoles(agendaDate string) AgendaRoles {
 	return agendaRoles
 }
 
-// The number of weeks to capture.
+// The number of weeks in the future to capture.
 const futureWeeks = 4
 
-// GetFutureWeeks finds the next four weeks after the current week and their agenda roles.
+// GetFutureWeeks finds the next several weeks after the current week based on the constant futureWeeks.
 func getFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet) [][]string {
 	week := 0
 	var nextSchedule = make([][]string, 0, futureWeeks)

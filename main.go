@@ -5,7 +5,7 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/annaddicks/docx"
+	"github.com/nguyenthenguyen/docx"
 )
 
 func main() {
@@ -57,7 +57,7 @@ func createDoc(t time.Time) {
 		docx1.Replace("speaker"+strconv.Itoa(speechOrder)+"Manual", speaker.Speech.manualName, -1)
 		docx1.Replace("speaker"+strconv.Itoa(speechOrder)+"Speech", speaker.Speech.info(), -1)
 
-		//Replace speech times for the second through fourth speaker based on last max speech time plus one.
+		// Replace speech times for the second through fourth speaker based on last max speech time plus one.
 		if speechOrder == 1 {
 			curTime := time.Date(2017, time.January, 1, 7, 14, 0, 0, time.UTC)
 			nextTime, _ = addMinutes(curTime, 0)
@@ -76,7 +76,7 @@ func createDoc(t time.Time) {
 	_, printString = addMinutes(nextTime, pastSpeechTime)
 	docx1.Replace("ttmt", printString, 1)
 
-	//Replace the next 4 weeks on the agenda.
+	// Replace the next several weeks on the agenda.
 	for i := range roles.FutureWeeks {
 		nextWeek := roles.FutureWeeks[i]
 
