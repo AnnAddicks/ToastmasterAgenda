@@ -162,6 +162,7 @@ func parseManualAndNumber(speaker string) (string, string, int) {
 
 // The number of weeks in the future to capture.
 const futureWeeks = 4
+const numberOfRoles = 17
 
 // GetFutureWeeks finds the next several weeks after the current week based on the constant futureWeeks.
 func getFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet, thisWeek int) [][]string {
@@ -169,9 +170,9 @@ func getFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet, thisWeek int) [
 	var nextSchedule = make([][]string, 0, futureWeeks)
 
 	for i := thisWeek + 1; i < len(sheet.Columns) && week <= futureWeeks; i++ {
-		nextWeek := make([]string, 17)
+		nextWeek := make([]string, numberOfRoles)
 
-		for j := 0; j < 17; j++ {
+		for j := 0; j < numberOfRoles; j++ {
 			nextWeek[j] = sheet.Columns[i][j].Value
 		}
 		nextSchedule = append(nextSchedule, nextWeek)
