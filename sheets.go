@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"io/ioutil"
 	"regexp"
 	"strconv"
@@ -51,13 +52,18 @@ type agendaRoles struct {
 }
 
 // Factory method to create agenda roles from a google doc based on the date of the meeting.
-func (agendaRoles) new(agendaDate string) agendaRoles {
-	spreadsheets := getSheet()
+func (agendaRoles) new(agendaDate string) (agendaRoles, error) {
+	spreadsheets, err := getSheet()
+	if err != nil {
+		return agendaRoles{}, err
+	}
 	boardMembers := board{}.new(spreadsheets.boardSheet)
 
 	agendaRoles := agendaRoles{}
 	agendaRoles.boardMembers = boardMembers
 
+	const speakerCellStart = 7
+	const speakerCellEnd = 13
 	rolesSheet := spreadsheets.meetingRoles
 	for i := range rolesSheet.Columns {
 		if rolesSheet.Columns[i][0].Value == agendaDate {
@@ -68,7 +74,7 @@ func (agendaRoles) new(agendaDate string) agendaRoles {
 			agendaRoles.ahCounter = rolesSheet.Columns[i][5].Value
 			agendaRoles.grammarian = rolesSheet.Columns[i][6].Value
 
-			for j := 7; j <= 13; j += 2 {
+			for j := speakerCellStart; j <= speakerCellEnd; j += 2 {
 				agendaRoles.speakers = append(agendaRoles.speakers, speaker{}.new(rolesSheet.Columns[i][j].Value, rolesSheet.Columns[i][j+1].Value))
 			}
 
@@ -77,7 +83,7 @@ func (agendaRoles) new(agendaDate string) agendaRoles {
 			break
 		}
 	}
-	return agendaRoles
+	return agendaRoles, nil
 }
 
 //  Represents a speaker in a Toastmasters meeting.
@@ -112,15 +118,15 @@ type googleDocsSheet struct {
 }
 
 //  GetSheet reads a Google Docs spreadsheet and returns a sheet with roles and another sheet with the board members.
-func getSheet() googleDocsSheet {
+func getSheet() (googleDocsSheet, error) {
 	data, err := ioutil.ReadFile("client_secret.json")
 	if err != nil {
-		panic("cannot read client_secret.json")
+		return googleDocsSheet{}, errors.New("cannot read client_secret.json")
 	}
 
 	conf, err := google.JWTConfigFromJSON(data, spreadsheet.Scope)
 	if err != nil {
-		panic("problem with google.JWTConfigFromJSON(data, spreadsheet.Scope)")
+		return googleDocsSheet{}, errors.New("problem with google.JWTConfigFromJSON(data, spreadsheet.Scope)")
 	}
 
 	client := conf.Client(context.TODO())
@@ -128,20 +134,20 @@ func getSheet() googleDocsSheet {
 	service := spreadsheet.NewServiceWithClient(client)
 	spreadsheet, err := service.FetchSpreadsheet("1CBlORqCzL6YvyAUZTk8jezvhyuDzjjumghwGKk5VIK8")
 	if err != nil {
-		panic("cannot fetch spread sheet: ")
+		return googleDocsSheet{}, errors.New("cannot fetch spread sheet: ")
 	}
 
 	roles, err := spreadsheet.SheetByIndex(0)
 	if err != nil {
-		panic("Cannot read spreadsheet by index 0")
+		return googleDocsSheet{}, errors.New("Cannot read spreadsheet by index 0")
 	}
 
 	board, err := spreadsheet.SheetByIndex(1)
 	if err != nil {
-		panic("Cannot read spreadsheet by index 1")
+		return googleDocsSheet{}, errors.New("Cannot read spreadsheet by index 1")
 	}
 
-	return googleDocsSheet{boardSheet: board, meetingRoles: roles}
+	return googleDocsSheet{boardSheet: board, meetingRoles: roles}, nil
 }
 
 // Find the speaker name, manual and number from a string that looks like "Ann Addicks\nCC #9".
