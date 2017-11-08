@@ -13,13 +13,17 @@ func main() {
 	nt := nextTuesday(now)
 
 	fmt.Println("Generating Agenda for", monthDayCommaYear(nt))
-	createDoc(nt)
-}
+	err := createDoc(nt)
 
-func createDoc(t time.Time) {
-	r, err := docx.ReadDocxFile("./Agenda.docx")
 	if err != nil {
 		panic(err)
+	}
+}
+
+func createDoc(t time.Time) error{
+	r, err := docx.ReadDocxFile("./Agenda.docx")
+	if err != nil {
+		return err
 	}
 
 	prettyPrintDate := monthDayCommaYear(t)
@@ -27,7 +31,7 @@ func createDoc(t time.Time) {
 	roles, err := agendaRoles{}.new(formatDate(t, delimiterSlashes))
 
 	if err != nil {
-		panic(err)
+		return err
 	}
 
 	docx1 := r.Editable()
@@ -89,4 +93,6 @@ func createDoc(t time.Time) {
 
 	docx1.WriteToFile(fileName)
 	r.Close()
+
+	return nil
 }
