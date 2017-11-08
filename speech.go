@@ -123,4 +123,22 @@ var manualMap = map[string]manual{
 			{number: 5, name: "Bringing History to Life", min: 7, max: 9},
 		},
 	},
+	"specialty": {
+		manualName: "Specialty Speeches",
+		speeches: []speechDetails{
+			{number: 1, name: "Impromptu Speaking", min: 5, max: 7},
+			{number: 2, name: "Uplift the Spirit", min: 8, max: 10},
+			{number: 3, name: "Sell a product", min: 10, max: 12},
+			{number: 4, name: "Read Out Loud", min: 12, max: 15},
+			{number: 5, name: "Introduce the speaker", min: 0, max: 0},
+		},
+	},
+	"hpl": {
+		manualName: "High Performance Leadership",
+		speeches: []speechDetails{
+			{number: 1, name: "Share Your Vision", min: 5, max: 6},
+			{number: 2, name: "Presenting The Results", min: 5, max: 7},
+		},
+	},
+
 }
