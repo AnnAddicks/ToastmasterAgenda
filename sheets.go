@@ -75,11 +75,12 @@ func (agendaRoles) new(agendaDate string) (agendaRoles, error) {
 			agendaRoles.grammarian = rolesSheet.Columns[i][6].Value
 
 			for j := speakerCellStart; j <= speakerCellEnd; j += 2 {
-				agendaRoles.speakers = append(agendaRoles.speakers, speaker{}.new(rolesSheet.Columns[i][j].Value, rolesSheet.Columns[i][j+1].Value))
+				agendaRoles.speakers = append(agendaRoles.speakers, speaker{}.new(rolesSheet.Columns[i][j].Value,
+					rolesSheet.Columns[i][j+1].Value))
 			}
 
 			agendaRoles.tableTopicsMaster = rolesSheet.Columns[i][16].Value
-			agendaRoles.futureWeeks = getFutureWeeks(agendaDate, rolesSheet, i)
+			agendaRoles.futureWeeks = getFutureWeeks(rolesSheet, i)
 			break
 		}
 	}
@@ -126,25 +127,25 @@ func getSheet() (googleDocsSheet, error) {
 
 	conf, err := google.JWTConfigFromJSON(data, spreadsheet.Scope)
 	if err != nil {
-		return googleDocsSheet{}, errors.New("problem with google.JWTConfigFromJSON(data, spreadsheet.Scope)")
+		return googleDocsSheet{}, errors.New("problem with google.JWTConfigFromJSON(data, s.Scope)")
 	}
 
 	client := conf.Client(context.TODO())
 
 	service := spreadsheet.NewServiceWithClient(client)
-	spreadsheet, err := service.FetchSpreadsheet("1CBlORqCzL6YvyAUZTk8jezvhyuDzjjumghwGKk5VIK8")
+	s, err := service.FetchSpreadsheet("1CBlORqCzL6YvyAUZTk8jezvhyuDzjjumghwGKk5VIK8")
 	if err != nil {
 		return googleDocsSheet{}, errors.New("cannot fetch spread sheet: ")
 	}
 
-	roles, err := spreadsheet.SheetByIndex(0)
+	roles, err := s.SheetByIndex(0)
 	if err != nil {
-		return googleDocsSheet{}, errors.New("Cannot read spreadsheet by index 0")
+		return googleDocsSheet{}, errors.New("cannot read s by index 0")
 	}
 
-	board, err := spreadsheet.SheetByIndex(1)
+	board, err := s.SheetByIndex(1)
 	if err != nil {
-		return googleDocsSheet{}, errors.New("Cannot read spreadsheet by index 1")
+		return googleDocsSheet{}, errors.New("cannot read s by index 1")
 	}
 
 	return googleDocsSheet{boardSheet: board, meetingRoles: roles}, nil
@@ -171,7 +172,7 @@ const futureWeeks = 4
 const numberOfRoles = 17
 
 // GetFutureWeeks finds the next several weeks after the current week based on the constant futureWeeks.
-func getFutureWeeks(agendaDate string, sheet *spreadsheet.Sheet, thisWeek int) [][]string {
+func getFutureWeeks(sheet *spreadsheet.Sheet, thisWeek int) [][]string {
 	week := 0
 	var nextSchedule = make([][]string, 0, futureWeeks)
 
