@@ -140,5 +140,4 @@ var manualMap = map[string]manual{
 			{number: 2, name: "Presenting The Results", min: 5, max: 7},
 		},
 	},
-
 }
