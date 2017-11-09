@@ -9,18 +9,15 @@ import (
 )
 
 func main() {
-	now := time.Now()
-	nt := nextTuesday(now)
-
+	nt := nextTuesday(time.Now())
 	fmt.Println("Generating Agenda for", monthDayCommaYear(nt))
-	err := createDoc(nt)
 
-	if err != nil {
+	if err := createDoc(nt); err != nil {
 		panic(err)
 	}
 }
 
-func createDoc(t time.Time) error{
+func createDoc(t time.Time) error {
 	r, err := docx.ReadDocxFile("./Agenda.docx")
 	if err != nil {
 		return err
@@ -51,7 +48,6 @@ func createDoc(t time.Time) error{
 	docx1.Replace("timer", roles.timer, -1)
 	docx1.Replace("ah-counter", roles.ahCounter, -1)
 	docx1.Replace("grammarian", roles.grammarian, -1)
-
 
 	// Time for speech evaluation goals starts at 7:13 pm.
 	curTime := time.Date(2017, time.January, 1, 7, 13, 0, 0, time.UTC)
