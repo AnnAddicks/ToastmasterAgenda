@@ -7,16 +7,7 @@ import (
 
 const delimiterSlashes = "/"
 const delimiterPeriods = "."
-
 var availableDelimiters = map[string]bool{delimiterSlashes: true, delimiterPeriods: true}
-
-// NextTuesday takes in a date and returns that date if it is Tuesday or the following Tuesday.
-func nextTuesday(t time.Time) time.Time {
-	const tuesday = 2
-	t = t.AddDate(0, 0, (tuesday+(7-int(t.Weekday())))%7)
-
-	return t
-}
 
 // Formatdate takes in a time and returns a numeric month day year with a delimiter in between each.
 func formatDate(t time.Time, delimiter string) string {
@@ -29,6 +20,15 @@ func formatDate(t time.Time, delimiter string) string {
 		d = delimiter
 	}
 	return month + d + day + d + year
+}
+
+// NextTuesday takes in a date and returns that date if it is Tuesday or the following Tuesday.
+func nextTuesday(t time.Time) time.Time {
+	const tuesday = 2
+	const daysOfWeek = 7
+	t = t.AddDate(0, 0, (tuesday+(daysOfWeek-int(t.Weekday())))%daysOfWeek)
+
+	return t
 }
 
 // MonthDayCommaYear takes in a time and returns a full string month day year with a comma after day
