@@ -17,6 +17,7 @@ func main() {
 	}
 }
 
+// Creates a word document with the name DD.MM.YYYY.docx based on Agenda.docx.
 func createDoc(t time.Time) error {
 	r, err := docx.ReadDocxFile("./Agenda.docx")
 	if err != nil {

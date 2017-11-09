@@ -6,6 +6,15 @@ import (
 	"strings"
 )
 
+// Each Toastmaster manual contains 5-10 ordered and named speeches.
+// The fields min and max are the minimum and maximum speaking times for a speech.
+type speechDetails struct {
+	number int
+	name   string
+	min    int
+	max    int
+}
+
 // Speech represents the speech that will be performed for the agenda.
 type speech struct {
 	manualCode string
@@ -14,23 +23,27 @@ type speech struct {
 }
 
 // Factory method to create a speech using a manual and the speech number in that manual.
-func (speech) new(manualCode string, number int) speech {
+func (speech) new(manualCode string, num int) speech {
 	manualCode = strings.ToLower(manualCode)
-	sp := speech{manualCode: manualCode}
-
 	manual := manualMap[manualCode]
-	sp.manualName = manual.manualName
-	sp.number = number
+
+	sp := speech{
+		manualCode: manualCode,
+		manualName: manual.manualName,
+		speechDetails: speechDetails{
+			number: num,
+		},
+	}
 
 	// Do not fail with invalid input, return with the default values set.
-	if number < 1 || number > len(manual.speeches) {
-		log.Print("Speech number is invalid for the manual.  Manual code: "+manualCode+" speech number:", number)
+	if num < 1 || num > len(manual.speeches) {
+		log.Print("Speech num is invalid for the manual.  Manual code: "+manualCode+" speech num:", num)
 		return sp
 	}
 
-	sp.name = manual.speeches[number-1].name
-	sp.min = manual.speeches[number-1].min
-	sp.max = manual.speeches[number-1].max
+	sp.name = manual.speeches[num-1].name
+	sp.min = manual.speeches[num-1].min
+	sp.max = manual.speeches[num-1].max
 
 	return sp
 }
@@ -39,15 +52,6 @@ func (speech) new(manualCode string, number int) speech {
 func (s speech) info() string {
 	return "#" + strconv.Itoa(s.number) + " " + s.name +
 		" " + "(" + strconv.Itoa(s.min) + "-" + strconv.Itoa(s.max) + " mins)"
-}
-
-// Each Toastmaster manual contains 5-10 ordered and named speeches.
-// The fields min and max are the minimum and maximum speaking times for a speech.
-type speechDetails struct {
-	number int
-	name   string
-	min    int
-	max    int
 }
 
 // There are 16 Toastmaster manuals a speaker can use at a meeting.
