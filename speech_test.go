@@ -5,7 +5,7 @@ import (
 )
 
 func TestSpeechNew(t *testing.T) {
-	s := speech{}.new("CC", 10)
+	s := NewSpeech("CC", 10)
 
 	if s.number != 10 {
 		t.Error("Expected '10', got ", s.number)
@@ -33,7 +33,7 @@ func TestSpeechNew(t *testing.T) {
 }
 
 func TestSpeechNewWithInvalidNumber(t *testing.T) {
-	s := speech{}.new("CC", 11)
+	s := NewSpeech("CC", 11)
 
 	if s.number != 11 {
 		t.Error("Expected '11', got ", s.number)
@@ -61,7 +61,7 @@ func TestSpeechNewWithInvalidNumber(t *testing.T) {
 }
 
 func TestSpeechInfo(t *testing.T) {
-	s := speech{}.new("CC", 1)
+	s := NewSpeech("CC", 1)
 
 	if s.info() != "#1 Ice Breaker (4-6 mins)" {
 		t.Error("Expected '#1 Ice Breaker (4-6 mins)', got", s.info())

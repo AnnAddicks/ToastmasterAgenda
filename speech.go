@@ -22,8 +22,8 @@ type speech struct {
 	speechDetails
 }
 
-// Factory method to create a speech using a manual and the speech number in that manual.
-func (speech) new(manualCode string, num int) speech {
+// Factory function to create a speech using a manual and the speech number in that manual.
+func NewSpeech(manualCode string, num int) speech {
 	manualCode = strings.ToLower(manualCode)
 	manual := manualMap[manualCode]
 
