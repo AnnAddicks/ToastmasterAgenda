@@ -26,7 +26,7 @@ func createDoc(t time.Time) error {
 
 	prettyPrintDate := monthDayCommaYear(t)
 	dateWithPeriods := formatDate(t, delimiterPeriods)
-	roles, err := agendaRoles{}.new(formatDate(t, delimiterSlashes))
+	roles, err := NewAgendaRoles(formatDate(t, delimiterSlashes))
 
 	if err != nil {
 		return err

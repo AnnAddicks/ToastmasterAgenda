@@ -51,8 +51,8 @@ type agendaRoles struct {
 	futureWeeks       [][]string
 }
 
-// Factory method to create agenda roles from a google doc based on the date of the meeting.
-func (agendaRoles) new(agendaDate string) (agendaRoles, error) {
+// Factory function to create agenda roles from a google doc based on the date of the meeting.
+func NewAgendaRoles(agendaDate string) (agendaRoles, error) {
 	spreadsheets, err := getSheet()
 	if err != nil {
 		return agendaRoles{}, err
@@ -154,8 +154,8 @@ func parseManualAndNumber(speaker string) (string, string, int) {
 	re := regexp.MustCompile(`([a-zA-Z]+ [a-zA-Z]+)\n([a-zA-Z]+) #(\d{1,2})`)
 	result := re.FindStringSubmatch(speaker)
 	name := speaker
-	manual := ""
-	speechNum := 0
+	var manual string
+	var speechNum int
 
 	if len(result) > 0 {
 		name = result[1]
