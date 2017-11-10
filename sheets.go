@@ -94,7 +94,12 @@ type speaker struct {
 	evaluator string
 }
 
-// Factory method to create a speaker based on the spreadsheet speaker and evaluator.
+// Helper method that returns the first name of a speaker.
+func (s speaker) firstName() string {
+	return strings.Split(s.name, " ")[0]
+}
+
+// Factory function to create a speaker based on the spreadsheet speaker and evaluator.
 func NewSpeaker(s string, eval string) speaker {
 	name, manual, number := parseManualAndNumber(s)
 
@@ -103,11 +108,6 @@ func NewSpeaker(s string, eval string) speaker {
 		evaluator: eval,
 		Speech:    NewSpeech(manual, number),
 	}
-}
-
-// Helper method that returns the first name of a speaker.
-func (s speaker) firstName() string {
-	return strings.Split(s.name, " ")[0]
 }
 
 // Represents the spreadsheet tabs.

@@ -47,7 +47,7 @@ func monthDayCommaYear(t time.Time) string {
 func addMinutes(curTime time.Time, minToAdd int) (time.Time, string) {
 	nextTime := time.Minute * time.Duration(minToAdd)
 	curTime = curTime.Add(nextTime)
-	hour, min, _ := curTime.Clock()
+	hour, min, _ := curTime.Clock() //Ignore seconds
 
 	return curTime, strconv.Itoa(hour) + ":" + strconv.Itoa(min)
 }
