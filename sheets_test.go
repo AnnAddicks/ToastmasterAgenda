@@ -17,7 +17,7 @@ func TestGetBoard(t *testing.T) {
 	columns[1][6] = spreadsheet.Cell{Value: "saa"}
 
 	sheet := spreadsheet.Sheet{Columns: columns}
-	board := Board{}.new(&sheet)
+	board := NewBoard(&sheet)
 
 	if board.president != "president" {
 		t.Error("Expected 'president', got ", board.president)

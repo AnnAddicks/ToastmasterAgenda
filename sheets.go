@@ -23,8 +23,8 @@ type Board struct {
 	saa       string
 }
 
-// Factory method using a spreadsheet to fill in Board members.
-func (Board) new(sheet *spreadsheet.Sheet) Board {
+// Factory function using a spreadsheet to fill in Board members.
+func NewBoard(sheet *spreadsheet.Sheet) Board {
 	board := Board{}
 	board.president = sheet.Columns[1][0].Value
 	board.vpe = sheet.Columns[1][1].Value
@@ -57,7 +57,7 @@ func NewAgendaRoles(agendaDate string) (agendaRoles, error) {
 	if err != nil {
 		return agendaRoles{}, err
 	}
-	boardMembers := Board{}.new(spreadsheets.boardSheet)
+	boardMembers := NewBoard(spreadsheets.boardSheet)
 
 	agendaRoles := agendaRoles{}
 	agendaRoles.boardMembers = boardMembers
