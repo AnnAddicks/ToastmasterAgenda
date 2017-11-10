@@ -99,6 +99,22 @@ func (s speaker) firstName() string {
 	return strings.Split(s.name, " ")[0]
 }
 
+// Find the speaker name, manual and number from a string that looks like "Ann Addicks\nCC #9".
+func parseManualAndNumber(speaker string) (string, string, int) {
+	re := regexp.MustCompile(`([a-zA-Z]+ [a-zA-Z]+)\n([a-zA-Z]+) #(\d{1,2})`)
+	result := re.FindStringSubmatch(speaker)
+	name := speaker
+	var manual string
+	var speechNum int
+
+	if len(result) > 0 {
+		name = result[1]
+		manual = result[2]
+		speechNum, _ = strconv.Atoi(result[3])
+	}
+	return name, manual, speechNum
+}
+
 // Factory function to create a speaker based on the spreadsheet speaker and evaluator.
 func NewSpeaker(s string, eval string) speaker {
 	name, manual, number := parseManualAndNumber(s)
@@ -147,22 +163,6 @@ func getSheet() (googleDocsSheet, error) {
 	}
 
 	return googleDocsSheet{boardSheet: board, meetingRoles: roles}, nil
-}
-
-// Find the speaker name, manual and number from a string that looks like "Ann Addicks\nCC #9".
-func parseManualAndNumber(speaker string) (string, string, int) {
-	re := regexp.MustCompile(`([a-zA-Z]+ [a-zA-Z]+)\n([a-zA-Z]+) #(\d{1,2})`)
-	result := re.FindStringSubmatch(speaker)
-	name := speaker
-	var manual string
-	var speechNum int
-
-	if len(result) > 0 {
-		name = result[1]
-		manual = result[2]
-		speechNum, _ = strconv.Atoi(result[3])
-	}
-	return name, manual, speechNum
 }
 
 // The number of weeks in the future to capture.

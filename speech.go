@@ -22,6 +22,12 @@ type Speech struct {
 	SpeechDetails
 }
 
+// Info creates a string that represents a Speech ex: "#1 Ice Breaker (4-6 mins)."
+func (s Speech) info() string {
+	return "#" + strconv.Itoa(s.number) + " " + s.name +
+		" " + "(" + strconv.Itoa(s.min) + "-" + strconv.Itoa(s.max) + " mins)"
+}
+
 // Factory function to create a Speech using a manual code and the Speech number in that manual.
 func NewSpeech(manCode string, num int) Speech {
 	manCode = strings.ToLower(manCode)
@@ -46,12 +52,6 @@ func NewSpeech(manCode string, num int) Speech {
 	sp.max = man.speeches[num-1].max
 
 	return sp
-}
-
-// Info create a string that represents a Speech ex: "#1 Ice Breaker (4-6 mins)."
-func (s Speech) info() string {
-	return "#" + strconv.Itoa(s.number) + " " + s.name +
-		" " + "(" + strconv.Itoa(s.min) + "-" + strconv.Itoa(s.max) + " mins)"
 }
 
 // There are 16 Toastmaster manuals a speaker can use at a meeting.
