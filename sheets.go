@@ -75,7 +75,7 @@ func (agendaRoles) new(agendaDate string) (agendaRoles, error) {
 			agendaRoles.grammarian = rolesSheet.Columns[i][6].Value
 
 			for j := speakerCellStart; j <= speakerCellEnd; j += 2 {
-				agendaRoles.speakers = append(agendaRoles.speakers, speaker{}.new(rolesSheet.Columns[i][j].Value,
+				agendaRoles.speakers = append(agendaRoles.speakers, NewSpeaker(rolesSheet.Columns[i][j].Value,
 					rolesSheet.Columns[i][j+1].Value))
 			}
 
@@ -95,7 +95,7 @@ type speaker struct {
 }
 
 // Factory method to create a speaker based on the spreadsheet speaker and evaluator.
-func (speaker) new(s string, eval string) speaker {
+func NewSpeaker(s string, eval string) speaker {
 	name, manual, number := parseManualAndNumber(s)
 	info := NewSpeech(manual, number)
 
