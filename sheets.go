@@ -89,7 +89,7 @@ func NewAgendaRoles(agendaDate string) (AgendaRoles, error) {
 //  Represents a Speaker in a Toastmasters meeting.
 type Speaker struct {
 	name string
-	Speech
+	*Speech
 	evaluator string
 }
 
