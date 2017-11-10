@@ -12,7 +12,7 @@ import (
 	"gopkg.in/Iwark/spreadsheet.v2"
 )
 
-// Represents the Board members of a Toastmasters meeting.
+// Board members of a Toastmasters meeting.
 type Board struct {
 	president string
 	vpe       string
