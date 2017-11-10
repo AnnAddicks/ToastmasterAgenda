@@ -172,8 +172,9 @@ const numberOfRoles = 17
 func getFutureWeeks(sheet *spreadsheet.Sheet, thisWeek int) [][]string {
 	week := 0
 	var nextSchedule = make([][]string, 0, futureWeeks)
+	colLen := len(sheet.Columns)
 
-	for i := thisWeek + 1; i < len(sheet.Columns) && week <= futureWeeks; i++ {
+	for i := thisWeek + 1; i < colLen && week <= futureWeeks; i++ {
 		nextWeek := make([]string, numberOfRoles)
 
 		for j := 0; j < numberOfRoles; j++ {
