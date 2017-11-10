@@ -37,7 +37,7 @@ func createDoc(t time.Time) error {
 }
 
 // ReplaceSpeakers replaces the speech time, speaker, speech, evaluator time, and evaluator.
-func replaceSpeakers(d *docx.Docx, s []*Speaker) string {
+func replaceSpeakers(d *docx.Docx, s []*Speaker) {
 	// Time for Speech evaluation goals starts at 7:13 pm.
 	curTime := time.Date(2017, time.January, 1, 7, 13, 0, 0, time.UTC)
 	nextTime, _ := addMinutes(curTime, 0)
@@ -63,8 +63,8 @@ func replaceSpeakers(d *docx.Docx, s []*Speaker) string {
 		pastSpeechTime = speaker.Speech.max + 1
 	}
 
-	_, lastSpeechTime := addMinutes(nextTime, pastSpeechTime)
-	return lastSpeechTime
+	_, ttTime := addMinutes(nextTime, pastSpeechTime)
+	d.Replace("ttmt", ttTime, 1)
 }
 
 // ReplaceFutureWeeks replaces the future schedule on the agenda.
@@ -102,8 +102,7 @@ func replaceFields(d *docx.Docx, t time.Time) error {
 	d.Replace("grammarian", roles.grammarian, -1)
 	d.Replace("tTMaster", roles.tableTopicsMaster, -1)
 
-	ttTime := replaceSpeakers(d, roles.speakers)
-	d.Replace("ttmt", ttTime, 1)
+	replaceSpeakers(d, roles.speakers)
 	replaceFutureWeeks(d, roles.futureWeeks)
 	return nil
 }
