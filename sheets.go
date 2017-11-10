@@ -90,7 +90,7 @@ func (agendaRoles) new(agendaDate string) (agendaRoles, error) {
 //  Represents a speaker in a Toastmasters meeting.
 type speaker struct {
 	name string
-	speech
+	Speech
 	evaluator string
 }
 
@@ -102,7 +102,7 @@ func (speaker) new(s string, eval string) speaker {
 	speaker := speaker{}
 	speaker.name = name
 	speaker.evaluator = eval
-	speaker.speech = info
+	speaker.Speech = info
 
 	return speaker
 }

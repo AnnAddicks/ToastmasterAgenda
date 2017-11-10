@@ -7,7 +7,7 @@ import (
 )
 
 // Each Toastmaster manual contains 5-10 ordered and named speeches.
-// The fields min and max are the minimum and maximum speaking times for a speech.
+// The fields min and max are the minimum and maximum speaking times for a Speech.
 type speechDetails struct {
 	number int
 	name   string
@@ -15,19 +15,19 @@ type speechDetails struct {
 	max    int
 }
 
-// Speech represents the speech that will be performed for the agenda.
-type speech struct {
+// Speech represents the Speech that will be performed for the agenda.
+type Speech struct {
 	manualCode string
 	manualName string
 	speechDetails
 }
 
-// Factory function to create a speech using a manual and the speech number in that manual.
-func NewSpeech(manualCode string, num int) speech {
+// Factory function to create a Speech using a manual and the Speech number in that manual.
+func NewSpeech(manualCode string, num int) Speech {
 	manualCode = strings.ToLower(manualCode)
 	manual := manualMap[manualCode]
 
-	sp := speech{
+	sp := Speech{
 		manualCode: manualCode,
 		manualName: manual.manualName,
 		speechDetails: speechDetails{
@@ -37,7 +37,7 @@ func NewSpeech(manualCode string, num int) speech {
 
 	// Do not fail with invalid input, return with the default values set.
 	if num < 1 || num > len(manual.speeches) {
-		log.Print("Speech num is invalid for the manual.  Manual code: "+manualCode+" speech num:", num)
+		log.Print("Speech num is invalid for the manual.  Manual code: "+manualCode+" Speech num:", num)
 		return sp
 	}
 
@@ -48,8 +48,8 @@ func NewSpeech(manualCode string, num int) speech {
 	return sp
 }
 
-// Info create a string that represents a speech ex: "#1 Ice Breaker (4-6 mins)."
-func (s speech) info() string {
+// Info create a string that represents a Speech ex: "#1 Ice Breaker (4-6 mins)."
+func (s Speech) info() string {
 	return "#" + strconv.Itoa(s.number) + " " + s.name +
 		" " + "(" + strconv.Itoa(s.min) + "-" + strconv.Itoa(s.max) + " mins)"
 }

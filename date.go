@@ -7,6 +7,7 @@ import (
 
 const delimiterSlashes = "/"
 const delimiterPeriods = "."
+
 var availableDelimiters = map[string]bool{delimiterSlashes: true, delimiterPeriods: true}
 
 // Formatdate takes in a time and returns a numeric month day year with a delimiter in between each.

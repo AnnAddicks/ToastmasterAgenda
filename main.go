@@ -50,7 +50,7 @@ func createDoc(t time.Time) error {
 	docx1.Replace("ah-counter", roles.ahCounter, -1)
 	docx1.Replace("grammarian", roles.grammarian, -1)
 
-	// Time for speech evaluation goals starts at 7:13 pm.
+	// Time for Speech evaluation goals starts at 7:13 pm.
 	curTime := time.Date(2017, time.January, 1, 7, 13, 0, 0, time.UTC)
 	nextTime, _ := addMinutes(curTime, 0)
 	var pastSpeechTime int
@@ -63,16 +63,16 @@ func createDoc(t time.Time) error {
 		docx1.Replace("evaluator"+soString, speaker.evaluator, -1)
 		docx1.Replace("speaker"+soString+"FirstLastName", speaker.name, -1)
 		docx1.Replace("firstName"+soString, speaker.firstName(), -1)
-		docx1.Replace("speaker"+soString+"Manual", speaker.speech.manualName, -1)
-		docx1.Replace("speaker"+soString+"Speech", speaker.speech.info(), -1)
+		docx1.Replace("speaker"+soString+"Manual", speaker.Speech.manualName, -1)
+		docx1.Replace("speaker"+soString+"Speech", speaker.Speech.info(), -1)
 
-		// Replace speech times for speaker and evaluator based on last max speech time plus one.
+		// Replace Speech times for speaker and evaluator based on last max Speech time plus one.
 		nextTime, printString = addMinutes(nextTime, pastSpeechTime)
 		docx1.Replace("e"+soString+"t"+soString, printString, 1)
 
 		nextTime, printString = addMinutes(nextTime, +1)
 		docx1.Replace("s"+soString+"t"+soString, printString, 1)
-		pastSpeechTime = speaker.speech.max + 1
+		pastSpeechTime = speaker.Speech.max + 1
 	}
 
 	docx1.Replace("tTMaster", roles.tableTopicsMaster, -1)
