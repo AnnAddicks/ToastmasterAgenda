@@ -79,7 +79,7 @@ func NewAgendaRoles(agendaDate string) (*AgendaRoles, error) {
 			}
 
 			agendaRoles.tableTopicsMaster = rolesSheet.Columns[i][16].Value
-			agendaRoles.futureWeeks = getFutureWeeks(rolesSheet, i)
+			agendaRoles.futureWeeks = futureWeeks(rolesSheet, i)
 			break
 		}
 	}
@@ -165,16 +165,16 @@ func fetchSheet() (googleDocsSheet, error) {
 }
 
 // The number of weeks in the future to capture.
-const futureWeeks = 4
+const numOfWeeks = 4
 const numberOfRoles = 17
 
-// GetFutureWeeks finds the next several weeks after the current week based on the constant futureWeeks.
-func getFutureWeeks(sheet *spreadsheet.Sheet, thisWeek int) [][]string {
+// FutureWeeks finds the next several weeks after the current week based on the constant futureWeeks.
+func futureWeeks(sheet *spreadsheet.Sheet, thisWeek int) [][]string {
 	week := 0
-	var nextSchedule = make([][]string, 0, futureWeeks)
+	var nextSchedule = make([][]string, 0, numOfWeeks)
 	colLen := len(sheet.Columns)
 
-	for i := thisWeek + 1; i < colLen && week <= futureWeeks; i++ {
+	for i := thisWeek + 1; i < colLen && week <= numOfWeeks; i++ {
 		nextWeek := make([]string, numberOfRoles)
 
 		for j := 0; j < numberOfRoles; j++ {
