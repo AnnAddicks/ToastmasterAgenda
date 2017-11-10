@@ -27,12 +27,12 @@ type Board struct {
 func NewBoard(sheet *spreadsheet.Sheet) Board {
 	return Board{
 		president: sheet.Columns[1][0].Value,
-		vpe: sheet.Columns[1][1].Value,
-		vpm: sheet.Columns[1][2].Value,
-		vppr: sheet.Columns[1][3].Value,
+		vpe:       sheet.Columns[1][1].Value,
+		vpm:       sheet.Columns[1][2].Value,
+		vppr:      sheet.Columns[1][3].Value,
 		secretary: sheet.Columns[1][4].Value,
 		treasurer: sheet.Columns[1][5].Value,
-		saa: sheet.Columns[1][6].Value,
+		saa:       sheet.Columns[1][6].Value,
 	}
 }
 
@@ -56,10 +56,10 @@ func NewAgendaRoles(agendaDate string) (agendaRoles, error) {
 	if err != nil {
 		return agendaRoles{}, err
 	}
-	boardMembers := NewBoard(spreadsheets.boardSheet)
 
-	agendaRoles := agendaRoles{}
-	agendaRoles.boardMembers = boardMembers
+	agendaRoles := agendaRoles{
+		boardMembers: NewBoard(spreadsheets.boardSheet),
+	}
 
 	const speakerCellStart = 7
 	const speakerCellEnd = 13
