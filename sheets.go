@@ -25,16 +25,15 @@ type Board struct {
 
 // Factory function using a spreadsheet to fill in Board members.
 func NewBoard(sheet *spreadsheet.Sheet) Board {
-	board := Board{}
-	board.president = sheet.Columns[1][0].Value
-	board.vpe = sheet.Columns[1][1].Value
-	board.vpm = sheet.Columns[1][2].Value
-	board.vppr = sheet.Columns[1][3].Value
-	board.secretary = sheet.Columns[1][4].Value
-	board.treasurer = sheet.Columns[1][5].Value
-	board.saa = sheet.Columns[1][6].Value
-
-	return board
+	return Board{
+		president: sheet.Columns[1][0].Value,
+		vpe: sheet.Columns[1][1].Value,
+		vpm: sheet.Columns[1][2].Value,
+		vppr: sheet.Columns[1][3].Value,
+		secretary: sheet.Columns[1][4].Value,
+		treasurer: sheet.Columns[1][5].Value,
+		saa: sheet.Columns[1][6].Value,
+	}
 }
 
 // Represents the editable fields on a Toastmasters agenda.
