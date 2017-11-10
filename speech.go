@@ -6,7 +6,7 @@ import (
 	"strings"
 )
 
-// Each Toastmaster manual contains 5-10 ordered and named speeches.
+// SpeechDetails contains the information of a speech.
 // The fields min and max are the minimum and maximum speaking times for a Speech.
 type SpeechDetails struct {
 	number int
@@ -28,7 +28,7 @@ func (s *Speech) info() string {
 		" " + "(" + strconv.Itoa(s.min) + "-" + strconv.Itoa(s.max) + " mins)"
 }
 
-// Factory function to create a Speech using a manual code and the Speech number in that manual.
+// NewSpeech is a factory function to create a Speech using a manual code and the Speech number in that manual.
 func NewSpeech(manCode string, num int) *Speech {
 	manCode = strings.ToLower(manCode)
 	man := manualMap[manCode]

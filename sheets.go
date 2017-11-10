@@ -23,7 +23,7 @@ type Board struct {
 	saa       string
 }
 
-// Factory function using a spreadsheet to fill in Board members.
+// NewBoard is a factory function using a spreadsheet to fill in Board members.
 func NewBoard(sheet *spreadsheet.Sheet) *Board {
 	return &Board{
 		president: sheet.Columns[1][0].Value,
@@ -36,7 +36,7 @@ func NewBoard(sheet *spreadsheet.Sheet) *Board {
 	}
 }
 
-// Represents the editable fields on a Toastmasters agenda.
+// AgendaRoles contains the editable fields on a Toastmasters agenda.
 type AgendaRoles struct {
 	toastmaster       string
 	ge                string
@@ -50,7 +50,7 @@ type AgendaRoles struct {
 	futureWeeks       [][]string
 }
 
-// Factory function to create agenda roles from a google doc based on the date of the meeting.
+// NewAgendaRoles is a factory function to create agenda roles from a google doc based on the date of the meeting.
 func NewAgendaRoles(agendaDate string) (*AgendaRoles, error) {
 	spreadsheets, err := fetchSheet()
 	if err != nil {
@@ -86,7 +86,7 @@ func NewAgendaRoles(agendaDate string) (*AgendaRoles, error) {
 	return agendaRoles, nil
 }
 
-//  Represents a Speaker in a Toastmasters meeting.
+// A Speaker in a Toastmasters meeting.
 type Speaker struct {
 	name string
 	*Speech
@@ -114,7 +114,7 @@ func parseManualAndNumber(speaker string) (string, string, int) {
 	return name, manual, speechNum
 }
 
-// Factory function to create a Speaker based on the spreadsheet Speaker and evaluator.
+// NewSpeaker is a factory function to create a Speaker based on the spreadsheet Speaker and evaluator.
 func NewSpeaker(s string, eval string) *Speaker {
 	name, manual, number := parseManualAndNumber(s)
 
