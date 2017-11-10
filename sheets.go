@@ -97,14 +97,12 @@ type speaker struct {
 // Factory method to create a speaker based on the spreadsheet speaker and evaluator.
 func NewSpeaker(s string, eval string) speaker {
 	name, manual, number := parseManualAndNumber(s)
-	info := NewSpeech(manual, number)
 
-	speaker := speaker{}
-	speaker.name = name
-	speaker.evaluator = eval
-	speaker.Speech = info
-
-	return speaker
+	return speaker{
+		name:      name,
+		evaluator: eval,
+		Speech:    NewSpeech(manual, number),
+	}
 }
 
 // Helper method that returns the first name of a speaker.
