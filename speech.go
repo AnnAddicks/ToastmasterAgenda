@@ -54,7 +54,7 @@ func NewSpeech(manCode string, num int) Speech {
 	return sp
 }
 
-// There are 16 Toastmaster manuals a speaker can use at a meeting.
+// There are 16 Toastmaster manuals a Speaker can use at a meeting.
 type manual struct {
 	manualName string
 	speeches   []SpeechDetails
@@ -134,7 +134,7 @@ var manualMap = map[string]manual{
 			{number: 2, name: "Uplift the Spirit", min: 8, max: 10},
 			{number: 3, name: "Sell a product", min: 10, max: 12},
 			{number: 4, name: "Read Out Loud", min: 12, max: 15},
-			{number: 5, name: "Introduce the speaker", min: 0, max: 0},
+			{number: 5, name: "Introduce the Speaker", min: 0, max: 0},
 		},
 	},
 	"hpl": {

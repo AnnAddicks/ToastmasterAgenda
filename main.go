@@ -66,7 +66,7 @@ func createDoc(t time.Time) error {
 		docx1.Replace("speaker"+soString+"Manual", speaker.Speech.manualName, -1)
 		docx1.Replace("speaker"+soString+"Speech", speaker.Speech.info(), -1)
 
-		// Replace Speech times for speaker and evaluator based on last max Speech time plus one.
+		// Replace Speech times for Speaker and evaluator based on last max Speech time plus one.
 		nextTime, printString = addMinutes(nextTime, pastSpeechTime)
 		docx1.Replace("e"+soString+"t"+soString, printString, 1)
 

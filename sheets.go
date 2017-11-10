@@ -37,7 +37,7 @@ func NewBoard(sheet *spreadsheet.Sheet) Board {
 }
 
 // Represents the editable fields on a Toastmasters agenda.
-type agendaRoles struct {
+type AgendaRoles struct {
 	toastmaster       string
 	ge                string
 	timer             string
@@ -45,19 +45,19 @@ type agendaRoles struct {
 	grammarian        string
 	tableTopicsMaster string
 	jokeMaster        string
-	speakers          []speaker
+	speakers          []Speaker
 	boardMembers      Board
 	futureWeeks       [][]string
 }
 
 // Factory function to create agenda roles from a google doc based on the date of the meeting.
-func NewAgendaRoles(agendaDate string) (agendaRoles, error) {
-	spreadsheets, err := getSheet()
+func NewAgendaRoles(agendaDate string) (AgendaRoles, error) {
+	spreadsheets, err := fetchSheet()
 	if err != nil {
-		return agendaRoles{}, err
+		return AgendaRoles{}, err
 	}
 
-	agendaRoles := agendaRoles{
+	agendaRoles := AgendaRoles{
 		boardMembers: NewBoard(spreadsheets.boardSheet),
 	}
 
@@ -86,19 +86,19 @@ func NewAgendaRoles(agendaDate string) (agendaRoles, error) {
 	return agendaRoles, nil
 }
 
-//  Represents a speaker in a Toastmasters meeting.
-type speaker struct {
+//  Represents a Speaker in a Toastmasters meeting.
+type Speaker struct {
 	name string
 	Speech
 	evaluator string
 }
 
-// Helper method that returns the first name of a speaker.
-func (s speaker) firstName() string {
+// Helper method that returns the first name of a Speaker.
+func (s Speaker) firstName() string {
 	return strings.Split(s.name, " ")[0]
 }
 
-// Find the speaker name, manual and number from a string that looks like "Ann Addicks\nCC #9".
+// Find the Speaker name, manual and number from a string that looks like "Ann Addicks\nCC #9".
 func parseManualAndNumber(speaker string) (string, string, int) {
 	re := regexp.MustCompile(`([a-zA-Z]+ [a-zA-Z]+)\n([a-zA-Z]+) #(\d{1,2})`)
 	result := re.FindStringSubmatch(speaker)
@@ -114,11 +114,11 @@ func parseManualAndNumber(speaker string) (string, string, int) {
 	return name, manual, speechNum
 }
 
-// Factory function to create a speaker based on the spreadsheet speaker and evaluator.
-func NewSpeaker(s string, eval string) speaker {
+// Factory function to create a Speaker based on the spreadsheet Speaker and evaluator.
+func NewSpeaker(s string, eval string) Speaker {
 	name, manual, number := parseManualAndNumber(s)
 
-	return speaker{
+	return Speaker{
 		name:      name,
 		evaluator: eval,
 		Speech:    NewSpeech(manual, number),
@@ -132,7 +132,7 @@ type googleDocsSheet struct {
 }
 
 //  GetSheet reads a Google Docs spreadsheet and returns a sheet with roles and another sheet with the Board members.
-func getSheet() (googleDocsSheet, error) {
+func fetchSheet() (googleDocsSheet, error) {
 	data, err := ioutil.ReadFile("client_secret.json")
 	if err != nil {
 		return googleDocsSheet{}, errors.New("cannot read client_secret.json")
