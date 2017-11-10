@@ -24,8 +24,8 @@ type Board struct {
 }
 
 // Factory function using a spreadsheet to fill in Board members.
-func NewBoard(sheet *spreadsheet.Sheet) Board {
-	return Board{
+func NewBoard(sheet *spreadsheet.Sheet) *Board {
+	return &Board{
 		president: sheet.Columns[1][0].Value,
 		vpe:       sheet.Columns[1][1].Value,
 		vpm:       sheet.Columns[1][2].Value,
@@ -46,7 +46,7 @@ type AgendaRoles struct {
 	tableTopicsMaster string
 	jokeMaster        string
 	speakers          []Speaker
-	boardMembers      Board
+	boardMembers      *Board
 	futureWeeks       [][]string
 }
 
