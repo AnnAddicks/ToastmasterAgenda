@@ -12,8 +12,8 @@ import (
 	"gopkg.in/Iwark/spreadsheet.v2"
 )
 
-// Represents the board members of a Toastmasters meeting.
-type board struct {
+// Represents the Board members of a Toastmasters meeting.
+type Board struct {
 	president string
 	vpe       string
 	vpm       string
@@ -23,9 +23,9 @@ type board struct {
 	saa       string
 }
 
-// Factory method using a spreadsheet to fill in board members.
-func (board) new(sheet *spreadsheet.Sheet) board {
-	board := board{}
+// Factory method using a spreadsheet to fill in Board members.
+func (Board) new(sheet *spreadsheet.Sheet) Board {
+	board := Board{}
 	board.president = sheet.Columns[1][0].Value
 	board.vpe = sheet.Columns[1][1].Value
 	board.vpm = sheet.Columns[1][2].Value
@@ -47,7 +47,7 @@ type agendaRoles struct {
 	tableTopicsMaster string
 	jokeMaster        string
 	speakers          []speaker
-	boardMembers      board
+	boardMembers      Board
 	futureWeeks       [][]string
 }
 
@@ -57,7 +57,7 @@ func NewAgendaRoles(agendaDate string) (agendaRoles, error) {
 	if err != nil {
 		return agendaRoles{}, err
 	}
-	boardMembers := board{}.new(spreadsheets.boardSheet)
+	boardMembers := Board{}.new(spreadsheets.boardSheet)
 
 	agendaRoles := agendaRoles{}
 	agendaRoles.boardMembers = boardMembers
@@ -132,7 +132,7 @@ type googleDocsSheet struct {
 	meetingRoles *spreadsheet.Sheet
 }
 
-//  GetSheet reads a Google Docs spreadsheet and returns a sheet with roles and another sheet with the board members.
+//  GetSheet reads a Google Docs spreadsheet and returns a sheet with roles and another sheet with the Board members.
 func getSheet() (googleDocsSheet, error) {
 	data, err := ioutil.ReadFile("client_secret.json")
 	if err != nil {
