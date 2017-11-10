@@ -8,7 +8,7 @@ import (
 
 // Each Toastmaster manual contains 5-10 ordered and named speeches.
 // The fields min and max are the minimum and maximum speaking times for a Speech.
-type speechDetails struct {
+type SpeechDetails struct {
 	number int
 	name   string
 	min    int
@@ -19,31 +19,31 @@ type speechDetails struct {
 type Speech struct {
 	manualCode string
 	manualName string
-	speechDetails
+	SpeechDetails
 }
 
-// Factory function to create a Speech using a manual and the Speech number in that manual.
-func NewSpeech(manualCode string, num int) Speech {
-	manualCode = strings.ToLower(manualCode)
-	manual := manualMap[manualCode]
+// Factory function to create a Speech using a manual code and the Speech number in that manual.
+func NewSpeech(manCode string, num int) Speech {
+	manCode = strings.ToLower(manCode)
+	man := manualMap[manCode]
 
 	sp := Speech{
-		manualCode: manualCode,
-		manualName: manual.manualName,
-		speechDetails: speechDetails{
+		manualCode: manCode,
+		manualName: man.manualName,
+		SpeechDetails: SpeechDetails{
 			number: num,
 		},
 	}
 
 	// Do not fail with invalid input, return with the default values set.
-	if num < 1 || num > len(manual.speeches) {
-		log.Print("Speech num is invalid for the manual.  Manual code: "+manualCode+" Speech num:", num)
+	if num < 1 || num > len(man.speeches) {
+		log.Print("Speech num is invalid for the man.  Manual code: "+manCode+" Speech num:", num)
 		return sp
 	}
 
-	sp.name = manual.speeches[num-1].name
-	sp.min = manual.speeches[num-1].min
-	sp.max = manual.speeches[num-1].max
+	sp.name = man.speeches[num-1].name
+	sp.min = man.speeches[num-1].min
+	sp.max = man.speeches[num-1].max
 
 	return sp
 }
@@ -57,14 +57,14 @@ func (s Speech) info() string {
 // There are 16 Toastmaster manuals a speaker can use at a meeting.
 type manual struct {
 	manualName string
-	speeches   []speechDetails
+	speeches   []SpeechDetails
 }
 
 // Representation of the Toasmaters speeches with their code as the key.
 var manualMap = map[string]manual{
 	"cc": {
 		manualName: "Competent Communicator",
-		speeches: []speechDetails{
+		speeches: []SpeechDetails{
 			{number: 1, name: "Ice Breaker", min: 4, max: 6},
 			{number: 2, name: "Organize Your Speech", min: 5, max: 7},
 			{number: 3, name: "Get to the Point", min: 5, max: 7},
@@ -79,7 +79,7 @@ var manualMap = map[string]manual{
 	},
 	"inform": {
 		manualName: "Speaking to Inform",
-		speeches: []speechDetails{
+		speeches: []SpeechDetails{
 			{number: 1, name: "The Speech to Inform", min: 5, max: 7},
 			{number: 2, name: "Resources for Informing", min: 5, max: 7},
 			{number: 3, name: "The Demonstration Talk", min: 5, max: 7},
@@ -89,7 +89,7 @@ var manualMap = map[string]manual{
 	},
 	"interpretive": {
 		manualName: "Interpretive Reading",
-		speeches: []speechDetails{
+		speeches: []SpeechDetails{
 			{number: 1, name: "Read a Story", min: 8, max: 10},
 			{number: 2, name: "Interpretive Poetry", min: 6, max: 8},
 			{number: 3, name: "The Monodrama", min: 5, max: 7},
@@ -99,7 +99,7 @@ var manualMap = map[string]manual{
 	},
 	"mgt": {
 		manualName: "Speeches By Management",
-		speeches: []speechDetails{
+		speeches: []SpeechDetails{
 			{number: 1, name: "The Briefing", min: 8, max: 10},
 			{number: 2, name: "The Technical Speech", min: 8, max: 10},
 			{number: 3, name: "Manage and Motivate", min: 10, max: 12},
@@ -109,7 +109,7 @@ var manualMap = map[string]manual{
 	},
 	"technical": {
 		manualName: "Technical Presentations",
-		speeches: []speechDetails{
+		speeches: []SpeechDetails{
 			{number: 1, name: "Technical Briefing", min: 8, max: 10},
 			{number: 2, name: "The Proposal", min: 8, max: 10},
 			{number: 3, name: "The Nontechnical Audience", min: 10, max: 12},
@@ -119,7 +119,7 @@ var manualMap = map[string]manual{
 	},
 	"storytelling": {
 		manualName: "Storytelling",
-		speeches: []speechDetails{
+		speeches: []SpeechDetails{
 			{number: 1, name: "The Folk Tale", min: 7, max: 9},
 			{number: 2, name: "Let's Get Personal", min: 6, max: 8},
 			{number: 3, name: "The Moral of the Story", min: 4, max: 6},
@@ -129,7 +129,7 @@ var manualMap = map[string]manual{
 	},
 	"specialty": {
 		manualName: "Specialty Speeches",
-		speeches: []speechDetails{
+		speeches: []SpeechDetails{
 			{number: 1, name: "Impromptu Speaking", min: 5, max: 7},
 			{number: 2, name: "Uplift the Spirit", min: 8, max: 10},
 			{number: 3, name: "Sell a product", min: 10, max: 12},
@@ -139,7 +139,7 @@ var manualMap = map[string]manual{
 	},
 	"hpl": {
 		manualName: "High Performance Leadership",
-		speeches: []speechDetails{
+		speeches: []SpeechDetails{
 			{number: 1, name: "Share Your Vision", min: 5, max: 6},
 			{number: 2, name: "Presenting The Results", min: 5, max: 7},
 		},
