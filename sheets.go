@@ -164,14 +164,14 @@ func fetchSheet() (googleDocsSheet, error) {
 	return googleDocsSheet{boardSheet: board, meetingRoles: roles}, nil
 }
 
-// The number of weeks in the future to capture.
-const numOfWeeks = 4
-const numberOfRoles = 17
-
 // FutureWeeks finds the next several weeks after the current week based on the constant futureWeeks.
 func futureWeeks(sheet *spreadsheet.Sheet, thisWeek int) [][]string {
-	week := 0
-	var nextSchedule = make([][]string, 0, numOfWeeks)
+	// The number of weeks in the future to capture.
+	const numOfWeeks = 4
+	const numberOfRoles = 17
+	
+	var week int
+	nextSchedule := make([][]string, 0, numOfWeeks)
 	colLen := len(sheet.Columns)
 
 	for i := thisWeek + 1; i < colLen && week <= numOfWeeks; i++ {
