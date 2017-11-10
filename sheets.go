@@ -45,19 +45,19 @@ type AgendaRoles struct {
 	grammarian        string
 	tableTopicsMaster string
 	jokeMaster        string
-	speakers          []Speaker
+	speakers          []*Speaker
 	boardMembers      *Board
 	futureWeeks       [][]string
 }
 
 // Factory function to create agenda roles from a google doc based on the date of the meeting.
-func NewAgendaRoles(agendaDate string) (AgendaRoles, error) {
+func NewAgendaRoles(agendaDate string) (*AgendaRoles, error) {
 	spreadsheets, err := fetchSheet()
 	if err != nil {
-		return AgendaRoles{}, err
+		return &AgendaRoles{}, err
 	}
 
-	agendaRoles := AgendaRoles{
+	agendaRoles := &AgendaRoles{
 		boardMembers: NewBoard(spreadsheets.boardSheet),
 	}
 
@@ -94,7 +94,7 @@ type Speaker struct {
 }
 
 // Helper method that returns the first name of a Speaker.
-func (s Speaker) firstName() string {
+func (s *Speaker) firstName() string {
 	return strings.Split(s.name, " ")[0]
 }
 
@@ -115,10 +115,10 @@ func parseManualAndNumber(speaker string) (string, string, int) {
 }
 
 // Factory function to create a Speaker based on the spreadsheet Speaker and evaluator.
-func NewSpeaker(s string, eval string) Speaker {
+func NewSpeaker(s string, eval string) *Speaker {
 	name, manual, number := parseManualAndNumber(s)
 
-	return Speaker{
+	return &Speaker{
 		name:      name,
 		evaluator: eval,
 		Speech:    NewSpeech(manual, number),
