@@ -14,25 +14,25 @@ import (
 
 // Board members of a Toastmasters meeting.
 type Board struct {
-	president string
-	vpe       string
-	vpm       string
-	vppr      string
-	secretary string
-	treasurer string
-	saa       string
+	President string
+	VPE       string
+	VPM       string
+	VPPR      string
+	Secretary string
+	Treasurer string
+	SAA       string
 }
 
 // NewBoard is a factory function using a spreadsheet to fill in Board members.
 func NewBoard(sheet *spreadsheet.Sheet) *Board {
 	return &Board{
-		president: sheet.Columns[1][0].Value,
-		vpe:       sheet.Columns[1][1].Value,
-		vpm:       sheet.Columns[1][2].Value,
-		vppr:      sheet.Columns[1][3].Value,
-		secretary: sheet.Columns[1][4].Value,
-		treasurer: sheet.Columns[1][5].Value,
-		saa:       sheet.Columns[1][6].Value,
+		President: sheet.Columns[1][0].Value,
+		VPE:       sheet.Columns[1][1].Value,
+		VPM:       sheet.Columns[1][2].Value,
+		VPPR:      sheet.Columns[1][3].Value,
+		Secretary: sheet.Columns[1][4].Value,
+		Treasurer: sheet.Columns[1][5].Value,
+		SAA:       sheet.Columns[1][6].Value,
 	}
 }
 
@@ -169,7 +169,7 @@ func futureWeeks(sheet *spreadsheet.Sheet, thisWeek int) [][]string {
 	// The number of weeks in the future to capture.
 	const numOfWeeks = 4
 	const numberOfRoles = 17
-	
+
 	var week int
 	nextSchedule := make([][]string, 0, numOfWeeks)
 	colLen := len(sheet.Columns)

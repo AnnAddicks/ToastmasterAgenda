@@ -19,26 +19,26 @@ func TestGetBoard(t *testing.T) {
 	sheet := spreadsheet.Sheet{Columns: columns}
 	board := NewBoard(&sheet)
 
-	if board.president != "president" {
-		t.Error("Expected 'president', got ", board.president)
+	if board.President != "president" {
+		t.Error("Expected 'president', got ", board.President)
 	}
-	if board.vpe != "vpe" {
-		t.Error("Expected 'vpe', got ", board.vpe)
+	if board.VPE != "vpe" {
+		t.Error("Expected 'vpe', got ", board.VPE)
 	}
-	if board.vpm != "vpm" {
-		t.Error("Expected 'vpm', got ", board.vpm)
+	if board.VPM != "vpm" {
+		t.Error("Expected 'vpm', got ", board.VPM)
 	}
-	if board.vppr != "vppr" {
-		t.Error("Expected 'vppr', got ", board.vppr)
+	if board.VPPR != "vppr" {
+		t.Error("Expected 'vppr', got ", board.VPPR)
 	}
-	if board.secretary != "secretary" {
-		t.Error("Expected 'secretary', got ", board.secretary)
+	if board.Secretary != "secretary" {
+		t.Error("Expected 'secretary', got ", board.Secretary)
 	}
-	if board.treasurer != "treasurer" {
-		t.Error("Expected 'treasurer', got ", board.treasurer)
+	if board.Treasurer != "treasurer" {
+		t.Error("Expected 'treasurer', got ", board.Treasurer)
 	}
-	if board.saa != "saa" {
-		t.Error("Expected 'saa', got ", board.saa)
+	if board.SAA != "saa" {
+		t.Error("Expected 'saa', got ", board.SAA)
 	}
 
 }
