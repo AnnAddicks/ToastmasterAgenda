@@ -38,16 +38,16 @@ func NewBoard(sheet *spreadsheet.Sheet) *Board {
 
 // AgendaRoles contains the editable fields on a Toastmasters agenda.
 type AgendaRoles struct {
-	toastmaster       string
-	ge                string
-	timer             string
-	ahCounter         string
-	grammarian        string
-	tableTopicsMaster string
-	jokeMaster        string
-	speakers          []*Speaker
-	boardMembers      *Board
-	futureWeeks       [][]string
+	Toastmaster       string
+	GE                string
+	Timer             string
+	AhCounter         string
+	Grammarian        string
+	TableTopicsMaster string
+	JokeMaster        string
+	Speakers          []*Speaker
+	BoardMembers      *Board
+	FutureWeeks       [][]string
 }
 
 // NewAgendaRoles is a factory function to create agenda roles from a google doc based on the date of the meeting.
@@ -58,7 +58,7 @@ func NewAgendaRoles(agendaDate string) (*AgendaRoles, error) {
 	}
 
 	agendaRoles := &AgendaRoles{
-		boardMembers: NewBoard(spreadsheets.boardSheet),
+		BoardMembers: NewBoard(spreadsheets.boardSheet),
 	}
 
 	const speakerCellStart = 7
@@ -66,20 +66,20 @@ func NewAgendaRoles(agendaDate string) (*AgendaRoles, error) {
 	rolesSheet := spreadsheets.meetingRoles
 	for i := range rolesSheet.Columns {
 		if rolesSheet.Columns[i][0].Value == agendaDate {
-			agendaRoles.toastmaster = rolesSheet.Columns[i][1].Value
-			agendaRoles.jokeMaster = rolesSheet.Columns[i][2].Value
-			agendaRoles.ge = rolesSheet.Columns[i][3].Value
-			agendaRoles.timer = rolesSheet.Columns[i][4].Value
-			agendaRoles.ahCounter = rolesSheet.Columns[i][5].Value
-			agendaRoles.grammarian = rolesSheet.Columns[i][6].Value
+			agendaRoles.Toastmaster = rolesSheet.Columns[i][1].Value
+			agendaRoles.JokeMaster = rolesSheet.Columns[i][2].Value
+			agendaRoles.GE = rolesSheet.Columns[i][3].Value
+			agendaRoles.Timer = rolesSheet.Columns[i][4].Value
+			agendaRoles.AhCounter = rolesSheet.Columns[i][5].Value
+			agendaRoles.Grammarian = rolesSheet.Columns[i][6].Value
 
 			for j := speakerCellStart; j <= speakerCellEnd; j += 2 {
-				agendaRoles.speakers = append(agendaRoles.speakers, NewSpeaker(rolesSheet.Columns[i][j].Value,
+				agendaRoles.Speakers = append(agendaRoles.Speakers, NewSpeaker(rolesSheet.Columns[i][j].Value,
 					rolesSheet.Columns[i][j+1].Value))
 			}
 
-			agendaRoles.tableTopicsMaster = rolesSheet.Columns[i][16].Value
-			agendaRoles.futureWeeks = futureWeeks(rolesSheet, i)
+			agendaRoles.TableTopicsMaster = rolesSheet.Columns[i][16].Value
+			agendaRoles.FutureWeeks = futureWeeks(rolesSheet, i)
 			break
 		}
 	}
