@@ -88,17 +88,17 @@ func NewAgendaRoles(agendaDate string) (*AgendaRoles, error) {
 
 // A Speaker in a Toastmasters meeting.
 type Speaker struct {
-	name string
+	Name      string
 	*Speech
-	evaluator string
+	Evaluator string
 }
 
-// Helper method that returns the first name of a Speaker.
+// Helper method that returns the first Name of a Speaker.
 func (s *Speaker) firstName() string {
-	return strings.Split(s.name, " ")[0]
+	return strings.Split(s.Name, " ")[0]
 }
 
-// Find the Speaker name, manual and number from a string that looks like "Ann Addicks\nCC #9".
+// Find the Speaker Name, manual and number from a string that looks like "Ann Addicks\nCC #9".
 func parseManualAndNumber(speaker string) (string, string, int) {
 	re := regexp.MustCompile(`([a-zA-Z]+ [a-zA-Z]+)\n([a-zA-Z]+) #(\d{1,2})`)
 	result := re.FindStringSubmatch(speaker)
@@ -114,18 +114,18 @@ func parseManualAndNumber(speaker string) (string, string, int) {
 	return name, manual, speechNum
 }
 
-// NewSpeaker is a factory function to create a Speaker based on the spreadsheet Speaker and evaluator.
+// NewSpeaker is a factory function to create a Speaker based on the spreadsheet Speaker and Evaluator.
 func NewSpeaker(s string, eval string) *Speaker {
 	name, manual, number := parseManualAndNumber(s)
 
 	return &Speaker{
-		name:      name,
-		evaluator: eval,
+		Name:      name,
+		Evaluator: eval,
 		Speech:    NewSpeech(manual, number),
 	}
 }
 
-// Represents the spreadsheet tabs.
+// Represents the spreadsheet tabs.  This is to stay unexported.
 type googleDocsSheet struct {
 	boardSheet   *spreadsheet.Sheet
 	meetingRoles *spreadsheet.Sheet

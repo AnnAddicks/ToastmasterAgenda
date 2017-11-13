@@ -7,56 +7,56 @@ import (
 func TestSpeechNew(t *testing.T) {
 	s := NewSpeech("CC", 10)
 
-	if s.number != 10 {
-		t.Error("Expected '10', got ", s.number)
+	if s.Number != 10 {
+		t.Error("Expected '10', got ", s.Number)
 	}
 
-	if s.manualCode != "cc" {
-		t.Error("Expected 'cc', got", s.manualCode)
+	if s.ManualCode != "cc" {
+		t.Error("Expected 'cc', got", s.ManualCode)
 	}
 
-	if s.manualName != "Competent Communicator" {
-		t.Error("Expected 'Competent Communicator', got", s.manualName)
+	if s.ManualName != "Competent Communicator" {
+		t.Error("Expected 'Competent Communicator', got", s.ManualName)
 	}
 
-	if s.name != "Inspire Your Audience" {
-		t.Error("Expected 'Inspire Your Audience', got", s.name)
+	if s.Name != "Inspire Your Audience" {
+		t.Error("Expected 'Inspire Your Audience', got", s.Name)
 	}
 
-	if s.min != 8 {
-		t.Error("Expected '8', got", s.min)
+	if s.Min != 8 {
+		t.Error("Expected '8', got", s.Min)
 	}
 
-	if s.max != 10 {
-		t.Error("Expected '10', got", s.max)
+	if s.Max != 10 {
+		t.Error("Expected '10', got", s.Max)
 	}
 }
 
 func TestSpeechNewWithInvalidNumber(t *testing.T) {
 	s := NewSpeech("CC", 11)
 
-	if s.number != 11 {
-		t.Error("Expected '11', got ", s.number)
+	if s.Number != 11 {
+		t.Error("Expected '11', got ", s.Number)
 	}
 
-	if s.manualCode != "cc" {
-		t.Error("Expected 'cc', got", s.manualCode)
+	if s.ManualCode != "cc" {
+		t.Error("Expected 'cc', got", s.ManualCode)
 	}
 
-	if s.manualName != "Competent Communicator" {
-		t.Error("Expected 'Competent Communicator', got", s.manualName)
+	if s.ManualName != "Competent Communicator" {
+		t.Error("Expected 'Competent Communicator', got", s.ManualName)
 	}
 
-	if s.name != "" {
-		t.Error("Expected '', got", s.name)
+	if s.Name != "" {
+		t.Error("Expected '', got", s.Name)
 	}
 
-	if s.min != 0 {
-		t.Error("Expected '0', got", s.min)
+	if s.Min != 0 {
+		t.Error("Expected '0', got", s.Min)
 	}
 
-	if s.max != 0 {
-		t.Error("Expected '0', got", s.max)
+	if s.Max != 0 {
+		t.Error("Expected '0', got", s.Max)
 	}
 }
 
