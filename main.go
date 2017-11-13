@@ -43,10 +43,9 @@ func replaceSpeakers(d *docx.Docx, s []*Speaker) {
 	nextTime, _ := addMinutes(curTime, 0)
 	var pastSpeechTime int
 	var printString string
-	for i := range s {
+	for i, speaker := range s {
 		speechOrder := i + 1
 		soString := strconv.Itoa(speechOrder)
-		speaker := s[i]
 
 		d.Replace("evaluator"+soString, speaker.Evaluator, -1)
 		d.Replace("speaker"+soString+"FirstLastName", speaker.Name, -1)
@@ -69,9 +68,7 @@ func replaceSpeakers(d *docx.Docx, s []*Speaker) {
 
 // ReplaceFutureWeeks replaces the future schedule on the agenda.
 func replaceFutureWeeks(d *docx.Docx, fw [][]string) {
-	for i := range fw {
-		nextWeek := fw[i]
-
+	for i, nextWeek := range fw {
 		for j := range nextWeek {
 			d.Replace("w"+strconv.Itoa(i)+"_"+strconv.Itoa(j), nextWeek[j], 1)
 		}
