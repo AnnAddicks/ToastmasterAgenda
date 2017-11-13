@@ -18,9 +18,11 @@ func main() {
 	}
 }
 
-// Creates a word document with the name DD.MM.YYYY.docx based on Agenda.docx.
+// Creates a word document with the Name DD.MM.YYYY.docx based on Agenda.docx.
 func createDoc(t time.Time) error {
 	r, err := docx.ReadDocxFile("./Agenda.docx")
+	defer r.Close()
+
 	if err != nil {
 		return err
 	}
@@ -31,12 +33,10 @@ func createDoc(t time.Time) error {
 	}
 
 	d.WriteToFile("./" + formatDate(t, delimiterPeriods) + ".docx")
-	r.Close()
-
 	return nil
 }
 
-// ReplaceSpeakers replaces the speech time, speaker, speech, evaluator time, and evaluator.
+// ReplaceSpeakers replaces the speech time, speaker, speech, Evaluator time, and Evaluator.
 func replaceSpeakers(d *docx.Docx, s []*Speaker) {
 	// Time for Speech evaluation goals starts at 7:13 pm.
 	curTime := time.Date(2017, time.January, 1, 7, 13, 0, 0, time.UTC)
@@ -48,19 +48,19 @@ func replaceSpeakers(d *docx.Docx, s []*Speaker) {
 		soString := strconv.Itoa(speechOrder)
 		speaker := s[i]
 
-		d.Replace("evaluator"+soString, speaker.evaluator, -1)
-		d.Replace("speaker"+soString+"FirstLastName", speaker.name, -1)
+		d.Replace("Evaluator"+soString, speaker.Evaluator, -1)
+		d.Replace("speaker"+soString+"FirstLastName", speaker.Name, -1)
 		d.Replace("firstName"+soString, speaker.firstName(), -1)
-		d.Replace("speaker"+soString+"Manual", speaker.Speech.manualName, -1)
+		d.Replace("speaker"+soString+"Manual", speaker.Speech.ManualName, -1)
 		d.Replace("speaker"+soString+"Speech", speaker.Speech.info(), -1)
 
-		// Replace Speech times for Speaker and evaluator based on last max Speech time plus one.
+		// Replace Speech times for Speaker and Evaluator based on last Max Speech time plus one.
 		nextTime, printString = addMinutes(nextTime, pastSpeechTime)
 		d.Replace("e"+soString+"t"+soString, printString, 1)
 
 		nextTime, printString = addMinutes(nextTime, +1)
 		d.Replace("s"+soString+"t"+soString, printString, 1)
-		pastSpeechTime = speaker.Speech.max + 1
+		pastSpeechTime = speaker.Speech.Max + 1
 	}
 
 	_, ttTime := addMinutes(nextTime, pastSpeechTime)
