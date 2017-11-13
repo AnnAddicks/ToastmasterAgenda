@@ -48,7 +48,7 @@ func replaceSpeakers(d *docx.Docx, s []*Speaker) {
 		soString := strconv.Itoa(speechOrder)
 		speaker := s[i]
 
-		d.Replace("Evaluator"+soString, speaker.Evaluator, -1)
+		d.Replace("evaluator"+soString, speaker.Evaluator, -1)
 		d.Replace("speaker"+soString+"FirstLastName", speaker.Name, -1)
 		d.Replace("firstName"+soString, speaker.firstName(), -1)
 		d.Replace("speaker"+soString+"Manual", speaker.Speech.ManualName, -1)
