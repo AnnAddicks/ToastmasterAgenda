@@ -28,6 +28,7 @@ func NewBoard(sheet *spreadsheet.Sheet) *Board {
 	if len(sheet.Columns) < 2 || len(sheet.Columns[1]) < 7 {
 		return &Board{}
 	}
+
 	return &Board{
 		President: sheet.Columns[1][0].Value,
 		VPE:       sheet.Columns[1][1].Value,
